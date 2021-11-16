@@ -1,0 +1,142 @@
+
+<html>
+<html lang="en">
+<head>
+<meta name="description" content="The Black Team's NARC Drone Telemetry and Video feed display interface" charset="UTF-8">
+<title>NARC DRONE</title>
+</head>
+<body>
+    <div class="container-app">
+        <div class="video-feed">
+            <!-- Decide on resolution for camera feed and expect h264-->
+            <div id="camera-feed">
+		<video id="video" autoplay="autoplay" width="480" height="360" controls> 
+			<canvas id="canvas"></canvas>
+		</video>	
+	    </div>
+        </div>
+        <div class="battery-status">
+            <!-- Make some visual graphic for battery level with percentage-->
+            <div id="battery-percentage"></div>
+            <div id="battery-meter"></div>
+        </div>
+        <div class="distance-traveled">
+            <!-- Record distance traveled-->
+            <div id="distance"></div>
+        </div>
+        <div class="safe-abort">
+            <!-- Add a button and also initiate a post request via click with jQuery  try to avoid jQuqery-->
+        </div>
+        <div class="gps">
+            <div id="lat"></div> 
+            <div id="long"></div>  
+        </div>
+        <div class="position">
+            <div id="x"></div>
+            <div id="y"></div>
+            <div id="z"></div>
+        </div>
+        <div class="height">
+            <div id="altitude"></div>
+        </div>
+        <div class="orientation">
+            <div id="heading"></div>
+            <div id="pitch"></div>
+        </div>
+        <div class="drone-speed">
+            <div id="speed"></div>
+        </div>
+        <div class="vehicle-signals-intel">
+            <div id="uplink"></div>
+            <div id="downlink"></div>
+            <div id="signal-strength"></div>
+            <div id="packet-loss"></div>
+            <div id="latency"></div>
+        </div>
+        <div class="vehicle-status">
+            <div id="vehicle-initialization"></div>
+            <div id="flight-mode"></div>
+            <div id="lever-deploy"></div>
+        </div>
+        <div class="vehicle-thrust">
+            <div id="motor-1"></div>
+            <div id="motor-2"></div>
+            <div id="motor-3"></div>
+        </div>
+        <div class="time">
+            <div id="operation-time"></div>
+            <div id="elasped-time"></div>
+        </div>
+        <div class="test">
+            <h1 id="lol">'<%- messages %>'</h1>
+            <h1 id="elasped_seconds"></h1>
+            <p>
+                <table>
+                    <tr id="hours"></tr>
+                    <tr id="minutes"></tr>
+                    <tr id="seconds"></tr>
+                </table>
+            </p>
+        </div>
+    </div>
+      
+      <script>
+          // operation start time in seconds
+          // May have to reduce operations of time and also is this appropriate to be here?
+           let operation_time = Math.round(Date.now()/1000);
+           let current_year = Math.round(+new Date().getFullYear());
+           let current_day = Math.round(+new Date().getUTCDate());
+           let current_month = Math.round(+new Date().getMonth()) + 1;
+           let minutes = 0;
+           let hours = 0;
+           let seconds = 0;
+           let time_elasped = 0;
+           console.log("Operation Start Timestamp:[ 0:0:0 %s/%s/%s ]", current_month, current_day, current_year);
+    
+        updateContent = setInterval(async function(){ 
+              current_year = await Math.round(+new Date().getFullYear());
+              current_day = await Math.round(+new Date().getUTCDate());
+              current_month = await Math.round(+new Date().getMonth()) + 1;
+              time_elasped = await Math.round((Date.now()/1000)- operation_time);
+                  
+                  seconds = await time_elasped;
+                  seconds %= await 60;
+                  minutes = await Math.floor(time_elasped / 60);
+                  minutes %= await 60;
+                  hours = await Math.floor((time_elasped/60/60));
+                  hours %= await 24;
+
+              await fetch("http://10.0.2.100:8001/api/events/?", 
+                { headers: {
+                    'Cache-Control': 'no-cache',
+		    'Access-Control-Allow-Origin': '*'
+                }
+                    }).then(response => {
+                  const json = response.json();
+                  console.log("Timestamp:[ %s:%s:%s %s/%s/%s ]", hours,minutes,seconds, current_month, current_day, current_year);
+                  console.log(json);
+                  return json;
+               }).then( data => {
+                      console.log(data);
+                      document.getElementById("lol").innerHTML = data.data_packet;
+                      document.getElementById("elasped_seconds").innerHTML = "Time Elasped: " + time_elasped + "s";
+                      document.getElementById("hours").innerHTML = hours + "hr";
+                      document.getElementById("seconds").innerHTML = seconds + "s";
+                      document.getElementById("minutes").innerHTML = minutes + "min";
+      
+                  }).catch(error => {
+                      console.log(error);
+                  });
+        
+             }, 500);
+
+      </script> 
+      <script src="../../js/deploy/index.js"></script>
+      <script src="https://raw.githubusercontent.com/phoboslabs/jsmpeg/master/jsmpeg.min.js"></script>
+      <script>
+             player = new JSMpeg.Player('ws://10.0.2.100:8555', {
+		canvas: document.getElementById('canvas');
+             });
+      </script>
+</body>
+</html>
