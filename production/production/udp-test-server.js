@@ -1,12 +1,13 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 const client = dgram.createSocket('udp4');
-const HOST = "127.0.0.1";
+const HOST = "10.0.2.100";
 server.bind(3003);
 
 const mavlink = require("mavlink");
-const serialport = require("serialport");
+const SerialPort = require("serialport");
 const myMav =  new mavlink(1,1);  // setting 0, 0 makes it no possible to encode->send mavlink messages: for now i want to see the messages arrive successfully
+const serialport = new SerialPort('/dev/serial0');
 
 myMav.on("ready", function(){
 	console.log("ready");
