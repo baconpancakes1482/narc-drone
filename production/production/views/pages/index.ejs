@@ -4,15 +4,19 @@
 <head>
 <meta name="description" content="The Black Team's NARC Drone Telemetry and Video feed display interface" charset="UTF-8">
 <title>NARC DRONE</title>
+<style>
+#video-canvas {
+	z-index: 100
+	position: absolute
+	}
+</style>
 </head>
 <body>
     <div class="container-app">
         <div class="video-feed">
             <!-- Decide on resolution for camera feed and expect h264-->
-            <div id="camera-feed">
-		<video id="video" autoplay="autoplay" width="480" height="360" controls> 
-			<canvas id="canvas"></canvas>
-		</video>	
+            <div id="camera-feed"> 
+		<canvas id="video-canvas">I should have stream</canvas>
 	    </div>
         </div>
         <div class="battery-status">
@@ -130,13 +134,13 @@
         
              }, 500);
 
-      </script> 
-      <script src="../../js/deploy/index.js"></script>
-      <script src="https://raw.githubusercontent.com/phoboslabs/jsmpeg/master/jsmpeg.min.js"></script>
+      </script>
+      <script src="jsmpeg.min.js"></script>	
       <script>
-             player = new JSMpeg.Player('ws://10.0.2.100:8555', {
-		canvas: document.getElementById('canvas');
-             });
+            var canvas = document.getElementById('video-canvas');
+                var url = 'ws://10.0.2.100:8082/';
+                var player = new JSMpeg.Player(url, {canvas: canvas});
+		player.play();
       </script>
 </body>
 </html>

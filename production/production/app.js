@@ -6,6 +6,7 @@ const port = process.env.PORT || 8001;
 const path = require('path');
 const socket = dgram.createSocket('udp4');
 const Stream = require('node-rtsp-stream');
+
 // bind socket to port 3001
 socket.bind(3001);
 
@@ -23,7 +24,7 @@ function getter_data (){
  function setter_data(x){
      data.data_packet = x;
  }
-
+/*
 stream = new Stream({
 	name: 'name',
 	streamUrl: 'rtsp://10.0.2.100:8554/video',
@@ -34,7 +35,7 @@ stream = new Stream({
 	}
 
 });
-
+*/
 
 // ?
 app.use(express.static('public'));
