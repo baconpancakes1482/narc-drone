@@ -6,17 +6,17 @@ server.bind(3003);
 
 const mavlink = require("mavlink");
 const SerialPort = require("serialport");
-const myMav =  new mavlink(1,1);  // setting 0, 0 makes it no possible to encode->send mavlink messages: for now i want to see the messages arrive successfully
+const myMav =  new mavlink(1,1);  // setting 0, 0 makes it not possible to encode->send mavlink messages: for now i want to see the messages arrive successfully
 const serialport = new SerialPort('/dev/serial0');
 
 myMav.on("ready", function(){
 	console.log("ready");
-
+	// if we are listening to serial port data 
 	serialport.on("data", function(data){
 		myMav.parse(data);
 		console.log("serial: " + data);
 	});
-
+	// if we are listening for rpanion routed data
 	server.on("message", (message) => {
 	const  char_start = message[0];
 	console.log("char_start: " + char_start);
@@ -34,22 +34,24 @@ myMav.on("ready", function(){
 
 	const id = message[5];
 	console.log("id: " + id);
+	
 	// now we have buffer size for payload 
-	const payload = new Buffer(6 + payload_length);
+	const payload = new Buffer.alloc(6 + payload_length);
+
 	// then copy message payload buffer to our payload buffer
-
 	message.copy(payload,0,6,6+payload_length);
-	console.log("payload: " + payload); //maybe garbage
-	// message payload buffer
-//	const payload = new Buffer(payload_length);
-	//message.copy(payload, 0, 6, 6+payload_length);
-//	console.log("Buffer: " + payload);		
-	if (Buffer.isBuffer(payload)){
-		var char_stream = new Object();
-		char_stream = myMav.parse(message);
-		console.log("char_stream: " + char_stream);
-	}
+	console.log("payload");
+	//console.log(payload.toJSON());
+	console.log(payload);
+	const checksum = message.readUInt16LE(payload_length + 6);
+	console.log("checksum: " + checksum);
 
+	const whole_buffer = new Buffer.alloc(payload_length + 8);
+	message.copy(whole_buffer, 0, 0, 8 + payload_length);
+	console.log("Complete buffer:");
+	//console.log(whole_buffer.toJSON());
+	console.log(whole_buffer);
+	console.log("\n");
 
 	//console.log("hit message" + message);
 	//const json =myMav.parse(message);
