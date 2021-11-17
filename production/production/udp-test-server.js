@@ -17,55 +17,64 @@ myMav.on("ready", function(){
 		//console.log(data);
 		//console.log(data.toJSON());
 		const char_async  = async (data) => {
-      	        const c = data[0];
+      	        	const c = data[0];
+			console.log(c);
 			return c;
                 }
 
 		const payload_async = async (data) => {
-		const p =  data[1];
-		return p;
+			const p =  data[1];
+			console.log(p);
+			return p;
 		}
 
 		const seq_async = async (data) => {
-		const seq = data[2];
-		return seq;
+			const seq = data[2];
+			console.log(seq);
+			return seq;
 		}
 	
 		const sys_async = async (data) => {
-		const sys = data[3];
-		return sys;
+			const sys = data[3];
+			console.log(sys);
+			return sys;
 		}
 	
 		const comp_async = async (data) => {
-		const comp = data[4];
-		return comp;
+			const comp = data[4];
+			console.log(comp);
+			return comp;
 		}
 	
 		const id_async = async (data) => {
-		const id = data[5];
-		return id;
+			const id = data[5];
+			console.log(id);
+			return id;
 		}
 	
-		const buf_async = async (data, payload_length) => {
-		const paylo = new Buffer.alloc(6+payload_length);
-		data.copy(paylo, 0, 6, 6+payload_length);
-		return paylo;
+		const buf_async = async (data) => {
+			const paylo = new Buffer.alloc(6+payload_async(data));
+			data.copy(paylo, 0, 6, 6+payload_async(data));
+			console.log(paylo);
+			return paylo;
 		}
 	
-		const check_async = async (data, payload_length) => {
-		const check = data.readUInt16LE(payload_length + 6);
-		return check;
+		const check_async = async (data) => {
+			const check = data.readUInt16LE(payload_async(data) + 6);
+			console.log(check);
+			return check;
 		}
 	
-		const who_async = async (data, payload_length) => {
-		const who =  new Buffer.alloc(payload_length + 8);
-		data.copy(who, 0, 0, 8+payload_length);
-		return who;
+		const who_async = async (data) => {
+			const who =  new Buffer.alloc(payload_async(data) + 8);
+			data.copy(who, 0, 0, 8+payload_async(data));
+			console.log(who);
+			return who;
 		}
 	/*	const delay = (t, v) =>{
 			return new Promise (
 		}*/
-		const decode = async function(){		
+		const decode = async function(){			
 			try {
 		
 		// 10.46 micro seconds ~ 0.011 ms 
@@ -77,20 +86,20 @@ myMav.on("ready", function(){
 			const id = await id_async(data);
 		
 		// we need asynchronous function here 'await'
-			const payload = await buf_async(data, payload_length);
+			const payload = await buf_async(data);
 		
-			const checksum = await check_async(data, payload_length);
+			const checksum = await check_async(data);
 		
-			const whole_buffer = await who_async(data, payload_length);
+			const whole_buffer = await who_async(data);
 		
-			console.log(whole_buffer);
+			//console.log(whole_buffer);
 			} catch ( err) {
 				console.log(err);
 			}
 		}();
 		
 	});
-/*	
+	
 	server.on("message", (message) => {
 	const  char_start = message[0];
 	console.log("char_start: " + char_start);
@@ -138,7 +147,7 @@ myMav.on("ready", function(){
 	//	});
 
 	});
-*/
+
 });
 
 server.on("listening", (req, res) =>{
