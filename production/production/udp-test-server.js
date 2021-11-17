@@ -9,9 +9,10 @@ const SerialPort = require("serialport");
 const myMav =  new mavlink(1,1);  // setting 0, 0 makes it no possible to encode->send mavlink messages: for now i want to see the messages arrive successfully
 const serialport = new SerialPort('/dev/serial0', {baudRate: 500000});
 
+
 myMav.on("ready", function(){
 	console.log("ready");
-
+	// if we are listening to serial port data 
 	serialport.on("data", function(data){
 		//myMav.parse(data);
 		//console.log(data);
@@ -90,7 +91,9 @@ myMav.on("ready", function(){
 		}();
 		
 	});
+
 /*	
+
 	server.on("message", (message) => {
 	const  char_start = message[0];
 	console.log("char_start: " + char_start);
