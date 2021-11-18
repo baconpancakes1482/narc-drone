@@ -62,9 +62,28 @@ height:240px;
 width: 100%;
 height: 100%;
 position: absolute;
+z-index: 4;
 }
-#battery-percentage {}
-#battery-meter {}
+#battery-percentage {
+position: absolute;
+background-color: yellow;
+z-index: 99;
+width: 1%;
+bottom: 12.5%;
+height: 40px;
+right: 36%;
+}
+#battery-meter {
+position: absolute;
+z-index: 99;
+width: 6%;
+height:35px;
+bottom:12%;
+right: 36%;
+border-width: thick;
+border-style: solid;
+border-color: black;
+}
 
 .distance-traveled {
 width: 100%;
