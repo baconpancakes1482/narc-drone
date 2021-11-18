@@ -74,9 +74,15 @@ position: absolute;
 #distance {}
 
 .safe-abort{
-width: 100%;
-height: 100%;
+width: 5%;
+height: 25px;
+z-index: 99;
+background-color: red;
 position: absolute;
+color: white;
+right: 48%;
+top:85%;
+font-size:20px;
 }
 
 .gps {
