@@ -22,7 +22,7 @@
 	    </div>
         </div>
         <div class="safe-abort">
-            <!-- Add a button and also initiate a post request via click with jQuery  try to avoid jQuqery-->
+            <div id="abort-div">ABORT</div>
         </div>
         <div class="battery-status">
             <!-- Make some visual graphic for battery level with percentage-->
@@ -32,48 +32,101 @@
 	<div class="t-container">
             <div class="distance-traveled">
                  <!-- Record distance traveled-->
-                 <div id="distance"></div>
+		 <div id="distance-prompt">distance traveled:</div>
+		 <div id="distance-container">
+                       <div id="distance"></div>
+		</div>
             </div>
             <div class="gps">
-                <div id="lat"></div> 
-                <div id="long"></div>  
+		  <div id="lat-prompt">lat:</div>
+		  <div id="lat-container">
+                        <div id="lat"></div> 
+                  </div>
+                 <div id="long-prompt">long:</div>
+                 <div id="long-container">
+		        <div id="long"></div>  
+                 </div>
             </div>
             <div class="position">
-	        <div id="x"></div>
-                <div id="y"></div>
-                <div id="z"></div>
+		<div id="x-prompt">x:</div>
+		<div id="x-container">
+	                <div id="x"></div>
+		</div>               
+		<div id="y-prompt">y:</div>
+		<div id="y-container">
+			<div id="y"></div>
+		</div>
+
+		<div id="z-prompt">z:</div>                
+		<div id="z-container"
+			<div id="z"></div>
+		</div>
             </div>
             <div class="height">
-                <div id="altitude"></div>
+		<div id="altitude-prompt">altitude:</div>
+		<div id="altitude-container">
+			<div id="altitude"></div>
+		</div>
             </div>
             <div class="orientation">
-                <div id="heading"></div>
-                <div id="pitch"></div>
+
+		<div id="heading-prompt">heading:</div>
+		<div id="heading-container">
+			<div id="heading"></div>
+		</div>
+		<div id="pitch-prompt">pitch:</div>
+		<div id="pitch-container">
+			<div id="pitch"></div>
+		</div>
             </div>
             <div class="drone-speed">
-                <div id="speed"></div>
+		<div id="speed-prompt">speed:</div>
+		<div id="speed-container">
+	                <div id="speed"></div>
+		</div>
            </div>
-	</div>
+	
 	<div class="vehicle-health"> 
                <div class="vehicle-signals-intel">
+			<div id="uplink-prompt">uplink:</div>
+			<div id="uplink-container">
                         <div id="uplink"></div>
+			</div>
+			<div id="downlink-prompt">downlink:</div>
+			<div id="downlink-container">
                         <div id="downlink"></div>
+			</div>
+			<div id="signal-strength-prompt">signal strength:</div>
+			<div id="signal-strength-container">
                         <div id="signal-strength"></div>
+			</div>
+			<div id="packet-loss-prompt">packet loss:</div>
+			<div id="packet-loss-container">
                         <div id="packet-loss"></div>
+			</div>
+			<div id="latency-prompt">latency:</div>
+			<div id="latency-container">
                         <div id="latency"></div>
+			</div>
                 </div>
                 <div class="vehicle-status">
                         <div id="vehicle-initialization">
 				<div id="message">'<%-messages %>'</div>
 			</div>
+			<div id="flight-mode-prompt">flight mode:</div>
                         <div id="flight-mode"></div>
+			<div id="lever-deploy-prompt">lever deployed:</div>
                         <div id="lever-deploy"></div>
                 </div>
                 <div class="vehicle-thrust">
+			<div id="motor-1-prompt">motor-1:</div>
                         <div id="motor-1"></div>
+			<div id="motor-2-prompt">motor-2:</div>
                         <div id="motor-2"></div>
+			<div id="motor-3-prompt">motor-3:</div>
                         <div id="motor-3"></div>
                 </div>
+	   </div>
 	</div>
     </div>
       

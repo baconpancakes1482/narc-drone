@@ -62,21 +62,60 @@ height:240px;
 width: 100%;
 height: 100%;
 position: absolute;
+z-index: 4;
 }
-#battery-percentage {}
-#battery-meter {}
+#battery-percentage {
+position: absolute;
+background-color: yellow;
+z-index: 99;
+width:1%;
+bottom: 12.5%;
+height: 40px;
+right: 36%;
+}
+#battery-meter {
+position: absolute;
+z-index: 99;
+width: 6%;
+height:35px;
+bottom:12%;
+right: 36%;
+border-width: thick;
+border-style: solid;
+border-color: black;
+}
 
 .distance-traveled {
 width: 100%;
 height: 100%;
 position: absolute;
 }
-#distance {}
+#distance-prompt{
+position: absolute;
+}
+#distance-container{
+position: absolute;
+}
+#distance {
+position: absolute;
+}
 
 .safe-abort{
 width: 100%;
 height: 100%;
+z-index: 4;
 position: absolute;
+}
+#abort-div {
+width: 4.5%;
+z-index: 99;
+height: 25px;
+background-color: red;
+position: absolute;
+color: white;
+font-size: 20px;
+bottom:15%;
+right: 47.5%;
 }
 
 .gps {
@@ -84,40 +123,111 @@ width: 100%;
 height: 100%;
 position: absolute;
 }
-#lat {}
-#long {}
+#lat-prompt {
+position: absolute;
+}
+#lat-container {
+position: absolute;
+}
+#lat {
+position: absolute;
+}
+#long-prompt {
+position: absolute;
+}
+#long-container{
+position: absolute;
+}
+#long {
+position: absolute;
+}
 
 .position {
 width: 100%;
 height: 100%;
 position: absolute;
 }
-#x {}
-#y {}
-#z {}
+#x-prompt{
+position: absolute;
+}
+#x-container {
+position: absolute;
+}
+#x {
+position: absolute;
+}
+#y-prompt {
+position: absolute;
+}
+#y-container{
+position: absolute;
+}
+#y {
+position: absolute;
+}
+#z-prompt {
+position: absolute;
+}
+#z-container {
+position: absolute;
+}
+#z {
+position: absolute;
+}
 
 .height {
 width: 100%;
 height: 100%;
 position: absolute;
 }
-#altitude {}
+
+#altitude-prompt{
+position: absolute;
+}
+#altitude-container{
+position: absolute;
+}
+#altitude {
+position: absolute;
+}
 
 .orientation {
 width: 100%;
 height: 100%;
 position: absolute;
 }
-#heading {}
-#pitch {}
-
+#heading-prompt{
+position: absolute;
+}
+#heading-container{
+position: absolute;
+}
+#heading {
+position: absolute;
+}
+#pitch-prompt{
+position: absolute;
+}
+#pitch-container{
+position: absolute;
+}
+#pitch {
+position: absolute;
+}
 .drone-speed {
 width: 100%;
 height: 100%;
 position: absolute;
 }
-#speed {}
-
+#speed-prompt{
+position: absolute;
+}
+#speed-container{
+position: absolute;
+}
+#speed {
+position: absolute;
+}
 .vehicle-health {
 width: 100%;
 height: 100%;
@@ -133,12 +243,51 @@ left: 0%;
 margin-left: 7%;
 bottom: 10%;
 }
-#uplink {}
-#downlink {}
-#signal-strength {}
-#packet-loss {}
-#latency {}
-
+#uplink-prompt{
+position: absolute;
+}
+#uplink-container{
+position: absolute;
+}
+#uplink {
+position: absolute;
+}
+#downlink-prompt{
+position: absolute;
+}
+#downlink-container{
+position: absolute;
+}
+#downlink {
+position: absolute;
+}
+#signal-strength-prompt{
+position: absolute;
+}
+#signal-strength-container{
+position: absolute;
+}
+#signal-strength {
+position: absolute;
+}
+#packet-loss-prompt{
+position: absolute;
+}
+#packet-loss-container{
+position: absolute;
+}
+#packet-loss {
+position: absolute;
+}
+#latency-prompt{
+position: absolute;
+}
+#latency-container{
+position: absolute;
+}
+#latency {
+position: absolute;
+}
 .vehicle-status {
 width: 320px;
 height: 240px;
@@ -149,9 +298,21 @@ margin-right: 7%;
 right: 0%;
 bottom: 10%;
 }
-#vehicle-initialization {}
-#flight-mode {}
-#lever-deploy {}
+#vehicle-initialization {
+position: absolute;
+}
+#flight-mode-prompt{
+position: absolute;
+}
+#flight-mode {
+position: absolute;
+}
+#lever-deploy-prompt{
+position: absolute;
+}
+#lever-deploy {
+position: absolute;
+}
 
 .vehicle-thrust {
 width: 320px;
@@ -163,9 +324,24 @@ margin-top: 7%;
 margin-left: 7%;
 left: 0%;
 }
-#motor-1 {}
-#motor-2 {}
-#motor-3 {}
+#motor-1-prompt{
+position: absolute;
+}
+#motor-1 {
+position: absolute;
+}
+#motor-2-prompt{
+position: absolute;
+}
+#motor-2 {
+position: absolute;
+}
+#motor-3-prompt{
+position: absolute;
+}
+#motor-3 {
+position: absolute;
+}
 
 #operation-time {
 	z-index: 99;
