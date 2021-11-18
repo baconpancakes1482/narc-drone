@@ -4,84 +4,77 @@
 <head>
 <meta name="description" content="The Black Team's NARC Drone Telemetry and Video feed display interface" charset="UTF-8">
 <title>NARC DRONE</title>
-<style>
-#video-canvas {
-	z-index: 100
-	position: absolute
-	}
-</style>
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
     <div class="container-app">
         <div class="video-feed">
             <!-- Decide on resolution for camera feed and expect h264-->
             <div id="camera-feed"> 
-		<canvas id="video-canvas">I should have stream</canvas>
+		<canvas id="video-canvas"></canvas>
+		 <div id="timer">
+                        <div id="time-prompt">Operation Time:</div>
+                        <div id="hours"></div>
+                        <div id="minutes"></div>
+                        <div id="seconds"></div>
+                </div>
+                <div id="elasped_seconds"></div>
 	    </div>
+        </div>
+        <div class="safe-abort">
+            <!-- Add a button and also initiate a post request via click with jQuery  try to avoid jQuqery-->
         </div>
         <div class="battery-status">
             <!-- Make some visual graphic for battery level with percentage-->
             <div id="battery-percentage"></div>
             <div id="battery-meter"></div>
         </div>
-        <div class="distance-traveled">
-            <!-- Record distance traveled-->
-            <div id="distance"></div>
-        </div>
-        <div class="safe-abort">
-            <!-- Add a button and also initiate a post request via click with jQuery  try to avoid jQuqery-->
-        </div>
-        <div class="gps">
-            <div id="lat"></div> 
-            <div id="long"></div>  
-        </div>
-        <div class="position">
-            <div id="x"></div>
-            <div id="y"></div>
-            <div id="z"></div>
-        </div>
-        <div class="height">
-            <div id="altitude"></div>
-        </div>
-        <div class="orientation">
-            <div id="heading"></div>
-            <div id="pitch"></div>
-        </div>
-        <div class="drone-speed">
-            <div id="speed"></div>
-        </div>
-        <div class="vehicle-signals-intel">
-            <div id="uplink"></div>
-            <div id="downlink"></div>
-            <div id="signal-strength"></div>
-            <div id="packet-loss"></div>
-            <div id="latency"></div>
-        </div>
-        <div class="vehicle-status">
-            <div id="vehicle-initialization"></div>
-            <div id="flight-mode"></div>
-            <div id="lever-deploy"></div>
-        </div>
-        <div class="vehicle-thrust">
-            <div id="motor-1"></div>
-            <div id="motor-2"></div>
-            <div id="motor-3"></div>
-        </div>
-        <div class="time">
-            <div id="operation-time"></div>
-            <div id="elasped-time"></div>
-        </div>
-        <div class="test">
-            <h1 id="lol">'<%- messages %>'</h1>
-            <h1 id="elasped_seconds"></h1>
-            <p>
-                <table>
-                    <tr id="hours"></tr>
-                    <tr id="minutes"></tr>
-                    <tr id="seconds"></tr>
-                </table>
-            </p>
-        </div>
+	<div class="t-container">
+            <div class="distance-traveled">
+                 <!-- Record distance traveled-->
+                 <div id="distance"></div>
+            </div>
+            <div class="gps">
+                <div id="lat"></div> 
+                <div id="long"></div>  
+            </div>
+            <div class="position">
+	        <div id="x"></div>
+                <div id="y"></div>
+                <div id="z"></div>
+            </div>
+            <div class="height">
+                <div id="altitude"></div>
+            </div>
+            <div class="orientation">
+                <div id="heading"></div>
+                <div id="pitch"></div>
+            </div>
+            <div class="drone-speed">
+                <div id="speed"></div>
+           </div>
+	</div>
+	<div class="vehicle-health"> 
+               <div class="vehicle-signals-intel">
+                        <div id="uplink"></div>
+                        <div id="downlink"></div>
+                        <div id="signal-strength"></div>
+                        <div id="packet-loss"></div>
+                        <div id="latency"></div>
+                </div>
+                <div class="vehicle-status">
+                        <div id="vehicle-initialization">
+				<div id="message">'<%-messages %>'</div>
+			</div>
+                        <div id="flight-mode"></div>
+                        <div id="lever-deploy"></div>
+                </div>
+                <div class="vehicle-thrust">
+                        <div id="motor-1"></div>
+                        <div id="motor-2"></div>
+                        <div id="motor-3"></div>
+                </div>
+	</div>
     </div>
       
       <script>
@@ -122,7 +115,7 @@
                   return json;
                }).then( data => {
                       console.log(data);
-                      document.getElementById("lol").innerHTML = data.data_packet;
+                      document.getElementById("message").innerHTML = data.data_packet;
                       document.getElementById("elasped_seconds").innerHTML = "Time Elasped: " + time_elasped + "s";
                       document.getElementById("hours").innerHTML = hours + "hr";
                       document.getElementById("seconds").innerHTML = seconds + "s";

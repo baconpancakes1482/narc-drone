@@ -1,0 +1,237 @@
+html, body {
+background-color: white;
+z-index: 0;
+position: relative;
+width: 100%;
+height: 100%;
+margin-right: 0px;
+margin-left: 0px;
+margin-top: 0px;
+margin-bottom: 0px;
+}
+
+h1 {
+position: absolute;
+}
+.container-app {
+width: 100%;
+height: 100%;
+z-index: 0;
+position: relative;
+background-color: gold;
+}
+.t-container {
+margin-top:7%;
+width: 30%;
+height: 75%;
+right: 35%;
+position: absolute;
+background-color: teal;
+}
+.video-feed {
+z-index: 4;
+width: 320px;
+height: 240px;
+margin-right: 7%;
+margin-top: 7%;
+right: 0%;
+position: absolute;
+}
+#camera-feed {
+position: absolute;
+z-index: 3;
+width:320px;
+height:240px;
+/*	
+	border-top-width: 5px;
+	border-top-style: solid;
+	border-right-width: 5px;
+        border-right-style: solid;
+ 	border-left-width: 5px;
+        border-left-style: solid;
+	border-bottom-width: 5px;
+        border-bottom-style: solid;
+*/
+}
+#video-canvas {
+	z-index: 100;
+	position: absolute;
+}
+
+.battery-status {
+width: 100%;
+height: 100%;
+position: absolute;
+}
+#battery-percentage {}
+#battery-meter {}
+
+.distance-traveled {
+width: 100%;
+height: 100%;
+position: absolute;
+}
+#distance {}
+
+.safe-abort{
+width: 100%;
+height: 100%;
+position: absolute;
+}
+
+.gps {
+width: 100%;
+height: 100%;
+position: absolute;
+}
+#lat {}
+#long {}
+
+.position {
+width: 100%;
+height: 100%;
+position: absolute;
+}
+#x {}
+#y {}
+#z {}
+
+.height {
+width: 100%;
+height: 100%;
+position: absolute;
+}
+#altitude {}
+
+.orientation {
+width: 100%;
+height: 100%;
+position: absolute;
+}
+#heading {}
+#pitch {}
+
+.drone-speed {
+width: 100%;
+height: 100%;
+position: absolute;
+}
+#speed {}
+
+.vehicle-health {
+width: 100%;
+height: 100%;
+position: absolute;
+}
+.vehicle-signals-intel {
+width: 320px;
+height: 240px;
+background-color: blue;
+position: absolute;
+z-index: 4;
+left: 0%;
+margin-left: 7%;
+bottom: 10%;
+}
+#uplink {}
+#downlink {}
+#signal-strength {}
+#packet-loss {}
+#latency {}
+
+.vehicle-status {
+width: 320px;
+height: 240px;
+z-index: 4;
+background-color: black;
+position: absolute;
+margin-right: 7%;
+right: 0%;
+bottom: 10%;
+}
+#vehicle-initialization {}
+#flight-mode {}
+#lever-deploy {}
+
+.vehicle-thrust {
+width: 320px;
+height: 240px;
+background-color: green;
+position: absolute;
+z-index: 4;
+margin-top: 7%;
+margin-left: 7%;
+left: 0%;
+}
+#motor-1 {}
+#motor-2 {}
+#motor-3 {}
+
+#operation-time {
+	z-index: 99;
+	position: absolute;
+	background-color: black;
+	width: 320px;
+	height: 240px;
+	right: 0%;
+	margin-right: 7%;
+	margin-top:7%;
+	bottom: 10%;
+}
+
+#message {
+	z-index:100;
+	position: absolute;
+	font-size: 15px;
+	height: 15px;
+	color: blue;
+			
+}
+#time-prompt {
+	position: absolute;
+	z-index: 101;
+	font-size: 15px;
+	height: 15px;
+	bottom: 0%;
+	right: 27%;
+	color: white;
+}
+#timer {
+	position:absolute;
+	z-index: 101;
+	width: 320px;
+	height: 15px;
+	bottom: 0%;
+}
+#elasped_seconds {
+	z-index: 101;	
+	position: absolute;
+	color: white;
+	bottom: 0%;
+	height: 15px;
+	font-size: 15px;	
+}
+#hours {
+	color: red;
+	z-index: 101;
+	position: absolute;
+	right: 19%;
+	font-size: 15px;
+	height: 15px;
+}
+#minutes {
+	color: green;
+	z-index: 101;
+	position: absolute;
+	right:7%;
+	font-size: 15px;
+	height: 15px;
+}
+#seconds {
+	color: blue;
+	z-index: 101;
+	position: absolute;
+	right:0%;
+	font-size:15px;
+	height: 15px;	
+}
