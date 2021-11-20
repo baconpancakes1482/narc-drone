@@ -67,8 +67,12 @@ myMav.on("ready", function(){
 			payl_size = data[1];
 			
 			console.log("buf_async i[" + instance + "]");
-			var paylo = Buffer.alloc(payl_size + 6);
-			data.copy(paylo, 0, 6, 6+payl_size);
+			//  we dont want this because it allocates additional 6 bytes when we just want the payload
+			// var paylo = Buffer.alloc(payl_size + 6);
+			var paylo = Buffer.alloc(payl_size);
+			// we dont want this because it's source start stops at 6 additional bytes after payload length
+			//data.copy(paylo, 0, 6, 6+payl_size);
+			data.copy(paylo,0,6,payl_size);
 			console.log(paylo);
 			return paylo;
 		}
@@ -77,9 +81,10 @@ myMav.on("ready", function(){
 			var payl_size2 = 0;
 			payl_size2 = data[1];
 			console.log("check_async i[" + instance + "]");
-			var format = payl_size2 + 6;
+			var format = payl_size2 + 6; 
 			console.log("check_async format = " +format);
 			try {
+			// reads correct 2 bytes from  payload length in bytes + 6 bytes mavlink 1 msg header
 			var check = data.readUInt16LE(data[1] + 6);
 			} catch (e) {
 				console.log(e);
@@ -92,8 +97,9 @@ myMav.on("ready", function(){
 			var payl_size3 = 0;
 			payl_size3 = data[1];
 			console.log("who_async i[" + instance + "]");
-			var who = Buffer.alloc(payl_size3 + 8);
-			data.copy(who, 0, 0, 8+payl_size3);
+			// good --> copies whole buffer correctly
+			var whole_buffer = Buffer.alloc(payl_size3 + 8);
+			data.copy(whole_buffer, 0, 0, 8+payl_size3);
 			console.log(who);
 			return who;
 		}
