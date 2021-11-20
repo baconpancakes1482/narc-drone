@@ -1,8 +1,6 @@
 const dgram = require('dgram');
-const server = dgram.createSocket('udp4');
 const client = dgram.createSocket('udp4');
 const HOST = "10.0.2.100";
-server.bind(3003);
 
 const mavlink = require("mavlink");
 const SerialPort = require("serialport");
@@ -294,7 +292,6 @@ myMav.on("ready", function(){
 // I know there is heartbeat messages being sent but not sure if common.xml/ardupilotmega.xml has heartbeat message, therefore manual detection will be used
 	
 	myMav.on("ATTITUDE", (message, fields) => {
-		console.log(fields);
 		/* #30
 		fields.time_boot_ms uint32_t ms
 		fields.roll float rad
@@ -305,18 +302,32 @@ myMav.on("ready", function(){
 		fields.yawspeed float rad/s
  		*/
 		// to access use fields.roll since message is sending ATTITUDE field data
+		client.send(fields,3001,HOST, (err) =>{
+			if (err) {
+				console.log(err); 
+				client.close();
+			} else {
+				console.log("ATTITUDE sending: " + fields);
+			}
+		});
 	});
 
 	myMav.on("SYSTEM_TIME", (message, fields) => {
-		console.log(fields);
+		
 		/* #2
 		fields.time_unix_usec uint64_t us
-		fields.time_boot_ms uint32_t ms
+		fields. time_boot_ms uint32_t ms
 		*/
+		    if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("SYSTEM_TIME sending: " + fields);
+                        }
 	});
 
 	myMav.on("SYS_STATUS",  (message, fields)  => {
-		console.log(fields);
+		
 		/* #1
 		fields.onboard_control_sensors_present uint32_t
 		fields.onboard_control_sensors_enabled uint32_t
@@ -332,10 +343,16 @@ myMav.on("ready", function(){
 		fields.errors_count3 uint16_t
 		fields.errors_count4 uint16_t
 		*/
+		    if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("SYS_STATUS sending: " + fields);
+                        }
 	});
 
 	myMav.on("LINK_NODE_STATUS", (message, fields) => {
-		console.log(fields);
+		
 		/*
 		fields.timestamp uint64_t ms
 		fields.tx_buf uint8_t %
@@ -349,10 +366,17 @@ myMav.on("ready", function(){
 		fields.messages_received uint32_t
 		fields.messages_lost uint32_t
 		*/
+
+		    if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("LINK_NODE_STATUS sending: " + fields);
+                    	}
 	});
 
 	myMav.on("SCALED_IMU", (message, fields) => {
-		console.log(fields);
+		
 		/* #26
 		fields.time_boot_ms uint32_t ms
 		fields.xacc int16_t mG
@@ -366,10 +390,16 @@ myMav.on("ready", function(){
 		fields.zmag int16_t mgauss
 		fields.temperature int16_t cdegC  0 if no support
 		*/
+		    if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("SCALED_IMU sending: " + fields);
+                        }
 	});
 
 	myMav.on("GLOBAL_POSITION_INT", (message, fields) => {
-		console.log(fields);
+		
 		/* #33
 		fields.time_boot_ms uint32_t ms.
 		fields.lat int32_t degE7
@@ -381,6 +411,13 @@ myMav.on("ready", function(){
 		fields.vz int16_t cm/s
 		fields.hdg uint16_t cdeg
 		*/
+
+		    if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("GLOBAL_POSITION_INT sending: " + fields);
+                        }
 	});
 
 	/* #147 not needed syst_status reports battery
@@ -391,16 +428,22 @@ myMav.on("ready", function(){
 	*/
 
 	myMav.on("EXTENDED_SYS_STATE", (message, fields) => {
-		console.log(fields);
+		
 
 		/* #245
 		fields.vtol_state uint8_t MAV_VTOL_STATE
 		fields.landed_state uint8_t MAV_LANDED_STATE
 		*/
+		    if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("EXTENDING_SYS_STATE sending: " + fields);
+                        }
 	});
 
 	myMav.on("RC_CHANNELS", (message, fields) => {
-		console.log(fields);
+		
 		/* #65 
 		fields.time_boot_ms uint32_t ms
 		fields.chancount uint8_t
@@ -424,10 +467,15 @@ myMav.on("ready", function(){
 		fields.chan18_raw uint16_t us
 		fields.rssi uint8_t
 		*/
+		    if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("RC_CHANNELS sending: " + fields);
+                        }
 	});
 
 	myMav.on("SCALED_PRESSURE", (message, fields) => {
-		console.log(fields);
 
 		/*#29
 		fields.time_boot_ms uint32_t ms	
@@ -436,11 +484,16 @@ myMav.on("ready", function(){
 		fields.temperature  int16_t cdegC
 		fields.temperature_press_diff ** int16_t cdegC
 		*/
+    			if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("SCALED_PRESSURE sending: " + fields);
+                        }
 	});
 
 	myMav.on("SERVO_OUTPUT_RAW", (message, fields) => {
-		console.log(fields);
-
+	
 		/* #36
 		fields.time_usec	uint32_t	us	Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 		fields.port	uint8_t
@@ -461,67 +514,14 @@ myMav.on("ready", function(){
 		fields.servo15_raw **	uint16_t	us	Servo output 15 value
 		fields.servo16_raw **	uint16_t	us	Servo output 16 value
 		*/
+		    if (err) {
+                                console.log(err);
+                                client.close();
+                        } else {
+                                console.log("SERVO_OUTPUT_RAW sending: " + fields);
+                        }
 	});
 
-/*	
-
-	});
-
-
-	server.on("message", (message) => {
-	const  char_start = message[0];
-	console.log("char_start: " + char_start);
-	const payload_length = message[1];
-	console.log("payload_length: " + payload_length);
-
-	const sequence_number = message[2];
-	console.log("sequency_number: " + sequence_number);
-
-	const system_id = message[3];
-	console.log("system_id: " + system_id);
-
-	const component_id = message[4];
-	console.log("component_id: " + component_id);
-
-	const id = message[5];
-	console.log("id: " + id);
-	
-	// now we have buffer size for payload 
-	const payload = new Buffer.alloc(6 + payload_length);
-
-	// then copy message payload buffer to our payload buffer
-	message.copy(payload,0,6,6+payload_length);
-	console.log("payload");
-	//console.log(payload.toJSON());
-	console.log(payload);
-	const checksum = message.readUInt16LE(payload_length + 6);
-	console.log("checksum: " + checksum);
-
-	const whole_buffer = new Buffer.alloc(payload_length + 8);
-	message.copy(whole_buffer, 0, 0, 8 + payload_length);
-	console.log("Complete buffer:");
-	//console.log(whole_buffer.toJSON());
-	console.log(whole_buffer);
-	console.log("\n");
-
-		//client.send(data, 3001, HOST, (err) =>{
-		//	if (err){
-		//		console.log(err);
-		//		client.close();
-		//	} else {
-		//		console.log("UDP SENT: " + data);
-		//	}
-
-	//	});
-
-	});
-      */
 });
 
-server.on("listening", (req, res) =>{
 
-    var address = server.address();
-
-    console.log("UDP Socket Server started and listening on " + address.address + ":" + address.port);
-
-});
