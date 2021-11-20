@@ -253,18 +253,25 @@ myMav.on("ready", function(){
 				// test out
 				var type = data.type;
 				// var type = fields.type;
+				console.log("type:" + type);
 				var autopilot = data.autopilot
 				// var autopilot = fields.autopilot;
+				console.log("autopilot:" + autopilot);
 				var base_mode = data.base_mode;
 				// var base_mode = fields.base_mode;
+				console.log("base_mode:" + base_mode);
 				var custom_mode = Buffer.alloc(4);
 				data.copy(custom_mode, 0, 3, 4);
 				// fields.custom_mode(custom_mode, 0, 3, 4);
+				console.log("custom_mode:" + custom_mode);
 				var system_status = data.system_status;
 				// var system_status = fields.system_status;
-
+				console.log("system_status:" + system_status);
+		
 				var mavlink_version = data.mavlink_version;
 				// var mavlink_version = fields.mavlink_version;
+				console.log("mavlink_version"+ mavlink_version);
+
 
 				} catch(e) { console.log(e); } 
 			}
@@ -302,7 +309,7 @@ myMav.on("ready", function(){
 		fields.yawspeed float rad/s
  		*/
 		// to access use fields.roll since message is sending ATTITUDE field data
-		client.send(fields,3001,HOST, (err) =>{
+		client.send(fields,3001,HOST, (err) => {
 			if (err) {
 				console.log(err); 
 				client.close();
@@ -318,12 +325,14 @@ myMav.on("ready", function(){
 		fields.time_unix_usec uint64_t us
 		fields. time_boot_ms uint32_t ms
 		*/
+		client.send(fields, 3001, HOST, (err) => {
 		    if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("SYSTEM_TIME sending: " + fields);
                         }
+		}
 	});
 
 	myMav.on("SYS_STATUS",  (message, fields)  => {
@@ -343,12 +352,14 @@ myMav.on("ready", function(){
 		fields.errors_count3 uint16_t
 		fields.errors_count4 uint16_t
 		*/
+		client.send(fields, 3001, HOST, (err) => {
 		    if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("SYS_STATUS sending: " + fields);
                         }
+		}
 	});
 
 	myMav.on("LINK_NODE_STATUS", (message, fields) => {
@@ -366,13 +377,14 @@ myMav.on("ready", function(){
 		fields.messages_received uint32_t
 		fields.messages_lost uint32_t
 		*/
-
+		client.send(fields, 3001, HOST, (err) => {
 		    if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("LINK_NODE_STATUS sending: " + fields);
                     	}
+		}
 	});
 
 	myMav.on("SCALED_IMU", (message, fields) => {
@@ -390,12 +402,14 @@ myMav.on("ready", function(){
 		fields.zmag int16_t mgauss
 		fields.temperature int16_t cdegC  0 if no support
 		*/
+		client.send(fields, 3001, HOST, (err) => {
 		    if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("SCALED_IMU sending: " + fields);
                         }
+		}
 	});
 
 	myMav.on("GLOBAL_POSITION_INT", (message, fields) => {
@@ -411,13 +425,14 @@ myMav.on("ready", function(){
 		fields.vz int16_t cm/s
 		fields.hdg uint16_t cdeg
 		*/
-
+		client.send(fields, 3001, HOST, (err) => {
 		    if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("GLOBAL_POSITION_INT sending: " + fields);
                         }
+		}
 	});
 
 	/* #147 not needed syst_status reports battery
@@ -434,12 +449,14 @@ myMav.on("ready", function(){
 		fields.vtol_state uint8_t MAV_VTOL_STATE
 		fields.landed_state uint8_t MAV_LANDED_STATE
 		*/
+		client.send(fields, 3001, HOST, (err) => {
 		    if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("EXTENDING_SYS_STATE sending: " + fields);
                         }
+		} 
 	});
 
 	myMav.on("RC_CHANNELS", (message, fields) => {
@@ -467,12 +484,14 @@ myMav.on("ready", function(){
 		fields.chan18_raw uint16_t us
 		fields.rssi uint8_t
 		*/
+		client.send(fields, 3001, HOST, (err) => {
 		    if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("RC_CHANNELS sending: " + fields);
                         }
+		}
 	});
 
 	myMav.on("SCALED_PRESSURE", (message, fields) => {
@@ -484,12 +503,14 @@ myMav.on("ready", function(){
 		fields.temperature  int16_t cdegC
 		fields.temperature_press_diff ** int16_t cdegC
 		*/
+		client.send(fields, 3001, HOST, (err) => {
     			if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("SCALED_PRESSURE sending: " + fields);
                         }
+		}
 	});
 
 	myMav.on("SERVO_OUTPUT_RAW", (message, fields) => {
@@ -514,12 +535,14 @@ myMav.on("ready", function(){
 		fields.servo15_raw **	uint16_t	us	Servo output 15 value
 		fields.servo16_raw **	uint16_t	us	Servo output 16 value
 		*/
+		client.send(fields, 3001, HOST, (err) => {
 		    if (err) {
                                 console.log(err);
                                 client.close();
                         } else {
                                 console.log("SERVO_OUTPUT_RAW sending: " + fields);
                         }
+		}
 	});
 
 });
