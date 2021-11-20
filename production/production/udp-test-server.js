@@ -12,15 +12,135 @@ const serialport = new SerialPort('/dev/serial0', {baudRate: 500000});
 
 myMav.on("ready", function(){
 	console.log("ready");
+<<<<<<< HEAD
+	var instance = 0;
+=======
 
 //	var instance = 0;
 
 	// if we are listening to serial port data 
   
+>>>>>>> c47ef385cad6948c8374a4bc81ee436a5830551c
 	serialport.on("data", function(data){
-		// will parse data to respective message. AKA does hard work of decoding.		
-		myMav.parse(data);
+		// lets do a check if its a heart beat message or a mav1 or mav 2 message AKA Manual check
+		const char_async  = async (data, instance) => {
+                        var c = 0;
+                        c = data[0];
+                        console.log("char:" + c + "i:" + instance);
+                        return c;
+                }
 
+                const payload_async = async (data, instance) => {
+                        var p = 0;
+                        p = data[1];
+                        console.log("payload size:" + p + "i:" + instance);
+
+                        return p;
+                }
+
+                const seq_async = async (data, instance) => {
+                        var seq = 0;
+                        seq = data[2];
+			console.log("seq: " + seq + "i:" + instance);
+                        return seq;
+                }
+
+                const sys_async = async (data, instance) => {
+                        var sys = 0;
+                        sys = data[3];
+                        console.log("sys:" + sys + "i:" + instance);
+                        return sys;
+                }
+
+                const comp_async = async (data, instance) => {
+                        var comp = 0;
+                        comp = data[4];
+
+                        console.log("comp: " + comp + "i:" + instance);
+                        return comp;
+                }
+
+                const id_async = async (data, instance) => {
+                        var id = 0;
+                        id = data[5];
+                        console.log("id:" + id + "i:" + instance);
+                        return id;
+                }
+
+                const buf_async = async (data, instance) => {
+                        var payl_size = 0;
+                        payl_size = data[1];
+
+                        console.log("buf_async i[" + instance + "]");
+                        //  we dont want this because it allocates additional 6 bytes when we just want the payload
+                        // var paylo = Buffer.alloc(payl_size + 6);
+			var paylo = Buffer.alloc(payl_size);
+                        // we dont want this because it's source start stops at 6 additional bytes after payload length
+                        //data.copy(paylo, 0, 6, 6+payl_size);
+                        data.copy(paylo,0,6,payl_size);
+                        console.log(paylo);
+                        return paylo;
+                }
+
+                const check_async = async (data, instance) => {
+                        var payl_size2 = 0;
+                        payl_size2 = data[1];
+                        console.log("check_async i[" + instance + "]");
+                        var format = payl_size2 + 6;
+                        console.log("check_async format = " +format);
+                        try {
+                        // reads correct 2 bytes from  payload length in bytes + 6 bytes mavlink 1 msg header
+                        var check = data.readUInt16LE(data[1] + 6);
+                        } catch (e) {
+                                console.log(e);
+                        }
+                        console.log(check);
+                        return check;
+                }
+
+                const who_async = async (data, instance) => {
+                        var payl_size3 = 0;
+                        payl_size3 = data[1];
+                        console.log("who_async i[" + instance + "]");
+                        // good --> copies whole buffer correctly
+                        var whole_buffer = Buffer.alloc(payl_size3 + 8);
+                        data.copy(whole_buffer, 0, 0, 8+payl_size3);
+                        console.log(who);
+	               return who;
+                }
+
+                const decode = async function(){
+                        try {
+
+                // 10.46 micro seconds ~ 0.011 ms
+                        var char_start = await char_async(data, instance);
+                        console.log("char_start: " + char_start + "i:" + instance);
+                        var payload_length = await payload_async(data, instance);
+                        console.log("payload_length: " + payload_length + "i:" + instance);
+                        var sequence_number = await seq_async(data, instance);
+                        console.log("sequence_number: " + sequence_number + "i:" + instance);
+                        var system_id = await sys_async(data, instance);
+                        console.log("system_id: " + system_id + "i:" + instance);
+                        var component_id = await comp_async(data, instance);
+                        console.log("component_id: " + component_id + "i:" + instance);
+                        var id = await id_async(data, instance);
+                        console.log("id: " + id);
+                // we need asynchronous function here 'await'
+                        var payload = await buf_async(data, instance);
+                        console.log("payload: " + payload + "i:" + instance);
+                        var checksum = await check_async(data, instance);
+                        console.log("checksum: " + checksum + "i:" + instance);
+                        var whole_buffer = await who_async(data, instance);
+                        console.log("whole_buffer: " + whole_buffer + "i:" + instance);
+                        //console.log(whole_buffer);
+                        } catch ( err) {
+                                console.log(err);
+                        }
+                        instance++;
+         	   }();
+
+		// will parse data to respective message. AKA does hard work of decoding.
+		myMav.parse(data);
 	});
 
 	myMav.on("message", (message) => {
@@ -206,15 +326,9 @@ myMav.on("ready", function(){
 		*/
 	});
 
-		// THIS SECTION MAY BE USEFUL FOR OTHER SIDE DECODING OF MESSAGE
-		/*
-		const char_async  = async (data, instance) => {
-      	        	var c = 0;
-			c = data[0];
-			console.log("char:" + c + "i:" + instance);
-			return c;
-                }
 
+<<<<<<< HEAD
+=======
 		const payload_async = async (data, instance) => {
 			var p = 0;
 			p = data[1];
@@ -328,6 +442,7 @@ myMav.on("ready", function(){
 		
 
 	//});
+>>>>>>> c47ef385cad6948c8374a4bc81ee436a5830551c
 /*	
 
 	});
