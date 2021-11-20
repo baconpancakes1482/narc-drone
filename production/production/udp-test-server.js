@@ -11,63 +11,89 @@ const serialport = new SerialPort('/dev/serial0', {baudRate: 500000});
 
 myMav.on("ready", function(){
 	console.log("ready");
-
+	var instance = 0;
 	serialport.on("data", function(data){
 		//myMav.parse(data);
 		//console.log(data);
 		//console.log(data.toJSON());
-		const char_async  = async (data) => {
-      	        	const c = data[0];
-			console.log(c);
+		
+		const char_async  = async (data, instance) => {
+      	        	var c = 0;
+			c = data[0];
+			console.log("char:" + c + "i:" + instance);
 			return c;
                 }
 
-		const payload_async = async (data) => {
-			const p =  data[1];
-			console.log(p);
+		const payload_async = async (data, instance) => {
+			var p = 0;
+			p = data[1];
+			console.log("payload size:" + p + "i:" + instance);
+			
 			return p;
 		}
 
-		const seq_async = async (data) => {
-			const seq = data[2];
-			console.log(seq);
+		const seq_async = async (data, instance) => {
+			var seq = 0;
+			seq = data[2];
+			
+			console.log("seq: " + seq + "i:" + instance);
 			return seq;
 		}
 	
-		const sys_async = async (data) => {
-			const sys = data[3];
-			console.log(sys);
+		const sys_async = async (data, instance) => {
+			var sys = 0;	
+			sys = data[3];
+			console.log("sys:" + sys + "i:" + instance);
 			return sys;
 		}
 	
-		const comp_async = async (data) => {
-			const comp = data[4];
-			console.log(comp);
+		const comp_async = async (data, instance) => {
+			var comp = 0;
+			comp = data[4];
+				
+			console.log("comp: " + comp + "i:" + instance);
 			return comp;
 		}
 	
-		const id_async = async (data) => {
-			const id = data[5];
-			console.log(id);
+		const id_async = async (data, instance) => {
+			var id = 0;
+			id = data[5];
+			console.log("id:" + id + "i:" + instance);
 			return id;
 		}
 	
-		const buf_async = async (data) => {
-			const paylo = new Buffer.alloc(6+payload_async(data));
-			data.copy(paylo, 0, 6, 6+payload_async(data));
+		const buf_async = async (data, instance) => {
+			var payl_size = 0;
+			payl_size = data[1];
+			
+			console.log("buf_async i[" + instance + "]");
+			var paylo = Buffer.alloc(payl_size + 6);
+			data.copy(paylo, 0, 6, 6+payl_size);
 			console.log(paylo);
 			return paylo;
 		}
 	
-		const check_async = async (data) => {
-			const check = data.readUInt16LE(payload_async(data) + 6);
+		const check_async = async (data, instance) => {
+			var payl_size2 = 0;
+			payl_size2 = data[1];
+			console.log("check_async i[" + instance + "]");
+			var format = payl_size2 + 6;
+			console.log("check_async format = " +format);
+			try {
+			var check = data.readUInt16LE(data[1] + 6);
+			} catch (e) {
+				console.log(e);
+			}
 			console.log(check);
 			return check;
 		}
 	
-		const who_async = async (data) => {
-			const who =  new Buffer.alloc(payload_async(data) + 8);
-			data.copy(who, 0, 0, 8+payload_async(data));
+		const who_async = async (data, instance) => {
+			var payl_size3 = 0;
+			payl_size3 = data[1];
+			console.log("who_async i[" + instance + "]");
+			var who = Buffer.alloc(payl_size3 + 8);
+			data.copy(who, 0, 0, 8+payl_size3);
 			console.log(who);
 			return who;
 		}
@@ -78,28 +104,34 @@ myMav.on("ready", function(){
 			try {
 		
 		// 10.46 micro seconds ~ 0.011 ms 
-			const char_start = await char_async(data);
-			const payload_length = await payload_async(data);
-			const sequence_number = await seq_async(data);
-			const system_id = await sys_async(data);
-			const component_id = await comp_async(data);
-			const id = await id_async(data);
-		
+			var char_start = await char_async(data, instance);
+			console.log("char_start: " + char_start + "i:" + instance);
+			var payload_length = await payload_async(data, instance);
+			console.log("payload_length: " + payload_length + "i:" + instance); 
+			var sequence_number = await seq_async(data, instance);
+			console.log("sequence_number: " + sequence_number + "i:" + instance);
+			var system_id = await sys_async(data, instance);
+			console.log("system_id: " + system_id + "i:" + instance);
+			var component_id = await comp_async(data, instance);
+			console.log("component_id: " + component_id + "i:" + instance);
+			var id = await id_async(data, instance);
+			console.log("id: " + id);
 		// we need asynchronous function here 'await'
-			const payload = await buf_async(data);
-		
-			const checksum = await check_async(data);
-		
-			const whole_buffer = await who_async(data);
-		
+			var payload = await buf_async(data, instance);
+			console.log("payload: " + payload + "i:" + instance);
+			var checksum = await check_async(data, instance);
+			console.log("checksum: " + checksum + "i:" + instance);
+			var whole_buffer = await who_async(data, instance);
+			console.log("whole_buffer: " + whole_buffer + "i:" + instance);
 			//console.log(whole_buffer);
 			} catch ( err) {
 				console.log(err);
 			}
+			instance++;
 		}();
 		
 	});
-	
+/*	
 	server.on("message", (message) => {
 	const  char_start = message[0];
 	console.log("char_start: " + char_start);
@@ -147,7 +179,7 @@ myMav.on("ready", function(){
 	//	});
 
 	});
-
+      */
 });
 
 server.on("listening", (req, res) =>{
