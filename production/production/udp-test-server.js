@@ -34,102 +34,242 @@ myMav.on("ready", function(){
 
                         return p;
                 }
+			
+		const inc_sync = async (data, instancec) => {
+			var i = 0;
+			i = data[2];
+			return i;
+		}
 
-                const seq_async = async (data, instance) => {
+		const cmp_async = async (data, instance) => {
+			var  cmp = 0;
+			cmp = data[3];
+			return cmp;
+		}
+
+                const seq_async = async (data, instance, flag) => {
                         var seq = 0;
+			if ( flag ){
                         seq = data[2];
+			} else {
+			seq = data[4];
+			}
 			console.log("seq: " + seq + "i:" + instance);
                         return seq;
                 }
 
-                const sys_async = async (data, instance) => {
+                const sys_async = async (data, instance, flag) => {
                         var sys = 0;
+			if (flag ) {
                         sys = data[3];
+			} else {
+			sys = data[5];
+			}
                         console.log("sys:" + sys + "i:" + instance);
                         return sys;
                 }
 
-                const comp_async = async (data, instance) => {
+                const comp_async = async (data, instance, flag) => {
                         var comp = 0;
+			if (flag) {
                         comp = data[4];
-
+			} else {
+			comp = data[6];
+			}
                         console.log("comp: " + comp + "i:" + instance);
                         return comp;
                 }
 
-                const id_async = async (data, instance) => {
+                const id_async = async (data, instance, flag) => {
                         var id = 0;
+			if ( flag ) {
                         id = data[5];
+			} else {
+			id = Buffer.alloc(3);
+			try {
+			data.copy(id, 0, 7, 3);
+			} catch (e) {
+				console.log(e);
+			}
+			}
                         console.log("id:" + id + "i:" + instance);
                         return id;
                 }
 
-                const buf_async = async (data, instance) => {
+                const buf_async = async (data, instance, flag) => {
                         var payl_size = 0;
                         payl_size = data[1];
-
+			
                         console.log("buf_async i[" + instance + "]");
                         //  we dont want this because it allocates additional 6 bytes when we just want the payload
                         // var paylo = Buffer.alloc(payl_size + 6);
 			var paylo = Buffer.alloc(payl_size);
-                        // we dont want this because it's source start stops at 6 additional bytes after payload length
-                        //data.copy(paylo, 0, 6, 6+payl_size);
-                        data.copy(paylo,0,6,payl_size);
+			try {
+				if ( flag ) {
+                        		// we dont want this because it's source start stops at 6 additional bytes after payload length
+                        		//data.copy(paylo, 0, 6, 6+payl_size);
+                       			data.copy(paylo,0,6,payl_size);
+				} else {
+					data.copy(paylo,0,10,payl_size);
+				
+				} 
+			} catch (e) { console.log(e);}
                         console.log(paylo);
                         return paylo;
                 }
 
-                const check_async = async (data, instance) => {
-                        var payl_size2 = 0;
-                        payl_size2 = data[1];
-                        console.log("check_async i[" + instance + "]");
-                        var format = payl_size2 + 6;
-                        console.log("check_async format = " +format);
+                const check_async = async (data, instance, flag) => {
+          
+                   	console.log("check_async i[" + instance + "]");
                         try {
-                        // reads correct 2 bytes from  payload length in bytes + 6 bytes mavlink 1 msg header
-                        var check = data.readUInt16LE(data[1] + 6);
-                        } catch (e) {
-                                console.log(e);
-                        }
+				if ( flag) {
+					var check = data.readUInt16LE(data[1] + 6);
+				} else {
+					var check = data.readUInt16LE(data[1] + 10); 
+				}
+			} catch (e) { console.log(e); }
+
                         console.log(check);
                         return check;
                 }
 
-                const who_async = async (data, instance) => {
+		const sig_async = async (data, instance) => {
+			var sig = 0;
+			
+			try {
+				sig = Buffer.alloc(13);
+				data.copy(sig, 0, 12+data[0],13);
+			} catch (e) { console.log(e); }
+			console.log("sig_async i[" + insance + "]");
+			return sig;
+		}
+
+                const who_async = async (data, instance, flag) => {
                         var payl_size3 = 0;
                         payl_size3 = data[1];
+			try {
                         console.log("who_async i[" + instance + "]");
-                        // good --> copies whole buffer correctly
-                        var whole_buffer = Buffer.alloc(payl_size3 + 8);
-                        data.copy(whole_buffer, 0, 0, 8+payl_size3);
+				if (flag) {
+                        	// good --> copies whole buffer correctly
+                        	var whole_buffer = Buffer.alloc(payl_size3 + 8);
+                        	data.copy(whole_buffer, 0, 0, 8+payl_size3);
+				} else {
+				var whole_buffer = Buffer.alloc(payl_size3 + 25);
+				data.copy(whole_buffer, 0, 0, payl_size3+25);
+				// if  payl_size + 25 gives problems, then just remove parameter so it copies all of data
+				} 
+			} catch(e) { console.log(e); }
                         console.log(who);
-	               return who;
+	               return whole_buffer;
                 }
 
                 const decode = async function(){
                         try {
-
-                // 10.46 micro seconds ~ 0.011 ms
+			// lets check when we get mav1 or mav2 or heartbeat messages
+			const flag_mav1 = 254;		// hex 0xFE
+			const flag_mav2 = 253;		// hex 0xFD
+			const heartbeat = 0;		// hex 0x00
+				
+                	// 10.46 micro seconds ~ 0.011 ms baudrate
+			if ( data[0] == flag_mav1){ 
+			var flag = true;
                         var char_start = await char_async(data, instance);
                         console.log("char_start: " + char_start + "i:" + instance);
-                        var payload_length = await payload_async(data, instance);
+                        
+			var payload_length = await payload_async(data, instance);
                         console.log("payload_length: " + payload_length + "i:" + instance);
-                        var sequence_number = await seq_async(data, instance);
+                        
+			var sequence_number = await seq_async(data, instance, flag);
                         console.log("sequence_number: " + sequence_number + "i:" + instance);
-                        var system_id = await sys_async(data, instance);
+                        
+			var system_id = await sys_async(data, instance, flag);
                         console.log("system_id: " + system_id + "i:" + instance);
-                        var component_id = await comp_async(data, instance);
+                      
+			var component_id = await comp_async(data, instance, flag);
                         console.log("component_id: " + component_id + "i:" + instance);
-                        var id = await id_async(data, instance);
+                        
+			var id = await id_async(data, instance, flag);
                         console.log("id: " + id);
-                // we need asynchronous function here 'await'
-                        var payload = await buf_async(data, instance);
+                
+                        var payload = await buf_async(data, instance, flag);
                         console.log("payload: " + payload + "i:" + instance);
-                        var checksum = await check_async(data, instance);
+                      
+			var checksum = await check_async(data, instance, flag);
                         console.log("checksum: " + checksum + "i:" + instance);
-                        var whole_buffer = await who_async(data, instance);
+                        
+			var whole_buffer = await who_async(data, instance, flag);
                         console.log("whole_buffer: " + whole_buffer + "i:" + instance);
-                        //console.log(whole_buffer);
+			
+                        } //else ignore
+			if ( data[0] == flag_mav2){
+			var flag = false;
+			var char_start = await char_async(data, instance);
+                        console.log("char_start: " + char_start + "i:" + instance);
+			
+			var payload_length = await payload_async(data, instance);
+                        console.log("payload_length: " + payload_length + "i:" + instance);
+
+			var inc = await inc_async(data, instance);
+			console.log("inc: " + inc + "i:" + instance);
+	
+			var cmp = await cmp_async(data, instance);
+			console.log("cmp: " + cmp + "i:" + instance);
+
+			var seq = await seq_async(data, instance, flag);
+			console.log("sequence_number: " + sequence_number + "i:" + instance);
+			
+			var system_id = await sys_async(data, instance, flag);
+			console.log("system_id: " + system_id + "i:" + instance);
+
+			var component_id = await comp_async(data, instance, flag);
+			console.log("component id: " + component_id + "i:" + instance);
+
+			var id = await id_async(data, instance, flag);
+			console.log("id: " + id);
+			
+			var payload = await buf_async(data, instance, flag);
+			console.log("payload: " + payload + "i:" + instance);
+
+			var check_async = await check_async(data, instance, flag);
+			console.log("checksum: " + check_async + "i:" + instance);
+
+			var signature = await sig_async(data, instance);
+			console.log("signature: " + signature + "i:" + instance);
+			
+			var whole_buffer = await who_async(data, instance, flag);
+			console.log( "whole buffer: " + whole_buffer + "i:" + instance);
+
+			}
+			if ( data[0] == heartbeat){
+				// heartbeat message
+				console.log("HEARTBEAT");
+				/* #0 
+				 fields.type uint8_t
+				 fields.autopilot  uint8_t
+				 fields.base_mode uint8_t
+				 fields.custom_mode uint32_t
+				 fields.system_status uint8_t
+				 fields.mavlink_version uintu_t_mavlink_version
+				*/
+				try {
+				// test out
+				var type = data.type;
+				// var type = fields.type;
+				var autopilot = data.autopilot
+				// var autopilot = fields.autopilot;
+				var base_mode = data.base_mode;
+				// var base_mode = fields.base_mode;
+				var custom_mode = Buffer.alloc(4);
+				data.copy(custom_mode, 0, 3, 4);
+				// fields.custom_mode(custom_mode, 0, 3, 4);
+				var system_status = data.system_status;
+				// var system_status = fields.system_status;
+
+				var mavlink_version = data.mavlink_version;
+				// var mavlink_version = fields.mavlink_version;
+
+				} catch(e) { console.log(e); } 
+			}
                         } catch ( err) {
                                 console.log(err);
                         }
