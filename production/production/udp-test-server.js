@@ -222,7 +222,7 @@ myMav.on("ready", function(){
 				// test out
 				var type = data[1];
 				// var type = fields.type;
-<<<<<<< HEAD
+
 				console.log("i[" + instance + "] type:" + type);
 				var autopilot = data[2];
 				// var autopilot = fields.autopilot;
@@ -241,7 +241,7 @@ myMav.on("ready", function(){
 				var mavlink_version = data.mavlink_version;
 				// var mavlink_version = fields.mavlink_version;
 				console.log("i[" + instance + "] mavlink_version:"+ mavlink_version);
-=======
+
 				console.log("type:" + type);
 				var autopilot = data.autopilot
 				// var autopilot = fields.autopilot;
@@ -261,7 +261,6 @@ myMav.on("ready", function(){
 				// var mavlink_version = fields.mavlink_version;
 				console.log("mavlink_version"+ mavlink_version);
 
->>>>>>> origin/app1
 
 				} catch(e) { console.log(e); } 
 			}
@@ -301,19 +300,9 @@ myMav.on("ready", function(){
 		fields.yawspeed float rad/s
  		*/
 		// to access use fields.roll since message is sending ATTITUDE field data
-<<<<<<< HEAD
 		try {
 		client.send(fields.roll,3001,HOST, () => {
-			console.log("ATTITUDE sending: " + fields.roll);
-=======
-		client.send(fields,3001,HOST, (err) => {
-			if (err) {
-				console.log(err); 
-				client.close();
-			} else {
-				console.log("ATTITUDE sending: " + fields);
-			}
->>>>>>> origin/app1
+			console.log("ATTITUDE sending: " + fields.roll);		
 		});
 		} catch (e) {
 			console.log(e);
@@ -327,7 +316,7 @@ myMav.on("ready", function(){
 		fields.time_unix_usec uint64_t us
 		fields.time_boot_ms uint32_t ms
 		*/
-<<<<<<< HEAD
+
 		try {
 		client.send(fields.time_boot_ms, 3001, HOST, () => {
                 	console.log("SYSTEM_TIME sending: " + fields.time_boot_ms);
@@ -335,15 +324,6 @@ myMav.on("ready", function(){
 		} catch (e) { 
 			console.log(e); 
 			//client.close();
-=======
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SYSTEM_TIME sending: " + fields);
-                        }
->>>>>>> origin/app1
 		}
 	});
 
@@ -364,7 +344,6 @@ myMav.on("ready", function(){
 		fields.errors_count3 uint16_t
 		fields.errors_count4 uint16_t
 		*/
-<<<<<<< HEAD
 		try {
 		client.send(fields.battery_remaining, 3001, HOST, () => {   
                       console.log("SYS_STATUS sending: " + fields.battery_remaining);
@@ -373,17 +352,7 @@ myMav.on("ready", function(){
 		} catch (e) { 
 			console.log(e); 
 			//client.close();
-		}	
-=======
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SYS_STATUS sending: " + fields);
-                        }
 		}
->>>>>>> origin/app1
 	});
 
 	myMav.on("LINK_NODE_STATUS", (message, fields) => {
@@ -401,7 +370,7 @@ myMav.on("ready", function(){
 		fields.messages_received uint32_t
 		fields.messages_lost uint32_t
 		*/
-<<<<<<< HEAD
+
 		try { 
 		client.send(fields.timestamp, 3001, HOST, () => {
                                 console.log("LINK_NODE_STATUS sending: " + fields.timestamp);
@@ -411,16 +380,6 @@ myMav.on("ready", function(){
 			//client.close();
 		}
 
-=======
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("LINK_NODE_STATUS sending: " + fields);
-                    	}
-		}
->>>>>>> origin/app1
 	});
 
 	myMav.on("SCALED_IMU", (message, fields) => {
@@ -438,7 +397,7 @@ myMav.on("ready", function(){
 		fields.zmag int16_t mgauss
 		fields.temperature int16_t cdegC  0 if no support
 		*/
-<<<<<<< HEAD
+
 		try {
 		client.send(fields.xacc, 3001, HOST, () => {
                         console.log("SCALED_IMU sending: " + fields.acc);
@@ -446,15 +405,6 @@ myMav.on("ready", function(){
 		} catch (e) {
 			console.log(e);
 			//client.close();
-=======
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SCALED_IMU sending: " + fields);
-                        }
->>>>>>> origin/app1
 		}
 	});
 
@@ -471,26 +421,17 @@ myMav.on("ready", function(){
 		fields.vz int16_t cm/s
 		fields.hdg uint16_t cdeg
 		*/
-<<<<<<< HEAD
-	//	try {
+
+		try {
 		
-		//client.send(fields.lat, 3001, HOST, () => {
+		client.send(fields.lat, 3001, HOST, () => {
                                 console.log("GLOBAL_POSITION_INT sending: " + fields);
-		//}); 
-		//} catch (e) {
-		//	console.log(e);
+		}); 
+		} catch (e) {
+			console.log(e);
 			//client.close();
-		//}
-=======
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("GLOBAL_POSITION_INT sending: " + fields);
-                        }
 		}
->>>>>>> origin/app1
+
 	});
 
 	/* #147 not needed syst_status reports battery
@@ -507,7 +448,7 @@ myMav.on("ready", function(){
 		fields.vtol_state uint8_t MAV_VTOL_STATE
 		fields.landed_state uint8_t MAV_LANDED_STATE
 		*/
-<<<<<<< HEAD
+
 		try {
 		client.send(fields.vtol_state, 3001, HOST, () => {
                                 console.log("EXTENDING_SYS_STATE sending: " + fields.vtol_state);
@@ -517,16 +458,7 @@ myMav.on("ready", function(){
 			console.log(e);
 			//client.close();
 		}
-=======
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("EXTENDING_SYS_STATE sending: " + fields);
-                        }
-		} 
->>>>>>> origin/app1
+
 	});
 
 	myMav.on("RC_CHANNELS", (message, fields) => {
@@ -554,7 +486,7 @@ myMav.on("ready", function(){
 		fields.chan18_raw uint16_t us
 		fields.rssi uint8_t
 		*/
-<<<<<<< HEAD
+
 		try {
 		client.send(fields.chancount, 3001, HOST, () => {
                                 console.log("RC_CHANNELS sending: " + fields.chancount);
@@ -565,16 +497,6 @@ myMav.on("ready", function(){
 			//client.close();
 		}
 
-=======
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("RC_CHANNELS sending: " + fields);
-                        }
-		}
->>>>>>> origin/app1
 	});
 
 	myMav.on("SCALED_PRESSURE", (message, fields) => {
@@ -586,7 +508,7 @@ myMav.on("ready", function(){
 		fields.temperature  int16_t cdegC
 		fields.temperature_press_diff ** int16_t cdegC
 		*/
-<<<<<<< HEAD
+
 		try {
 		client.send(fields.press_abs, 3001, HOST, () => {
    
@@ -595,15 +517,6 @@ myMav.on("ready", function(){
 		} catch (e) {
 			console.log(e);
 			//client.close();
-=======
-		client.send(fields, 3001, HOST, (err) => {
-    			if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SCALED_PRESSURE sending: " + fields);
-                        }
->>>>>>> origin/app1
 		}
 	});
 
@@ -629,7 +542,7 @@ myMav.on("ready", function(){
 		fields.servo15_raw **	uint16_t	us	Servo output 15 value
 		fields.servo16_raw **	uint16_t	us	Servo output 16 value
 		*/
-<<<<<<< HEAD
+
 		try {
 		client.send(fields.port, 3001, HOST, () => {
                                 console.log("SERVO_OUTPUT_RAW sending: " + fields.port);
@@ -638,15 +551,6 @@ myMav.on("ready", function(){
 		} catch (e) {
 			console.log(e);
 			//client.close();
-=======
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SERVO_OUTPUT_RAW sending: " + fields);
-                        }
->>>>>>> origin/app1
 		}
 	});
 
