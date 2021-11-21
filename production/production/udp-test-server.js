@@ -12,141 +12,104 @@ myMav.on("ready", function(){
 	console.log("ready");
 
 	var instance = 0;
-
+	var missed_instance = 0;
 
 	// if we are listening to serial port data 
 
 	serialport.on("data", function(data){
 		// lets do a check if its a heart beat message or a mav1 or mav 2 message AKA Manual check
-		const char_async  = async (data, instance) => {
-                        var c = 0;
-                        c = data[0];
-                        console.log("char:" + c + "i:" + instance);
-                        return c;
+	/*	const char_async  = async (data) => {
+                        return data[0];
                 }
 
-                const payload_async = async (data, instance) => {
-                        var p = 0;
-                        p = data[1];
-                        console.log("payload size:" + p + "i:" + instance);
-
-                        return p;
+                const payload_async = async (data) => {
+                        return data[1];
                 }
 			
-		const inc_sync = async (data, instancec) => {
-			var i = 0;
-			i = data[2];
-			return i;
+		const inc_async = async (data) => {
+			return data[2];
 		}
 
-		const cmp_async = async (data, instance) => {
-			var  cmp = 0;
-			cmp = data[3];
-			return cmp;
+		const cmp_async = async (data) => {
+			return data[3];
 		}
 
-                const seq_async = async (data, instance, flag) => {
-                        var seq = 0;
-			if ( flag ){
-                        seq = data[2];
-			} else {
-			seq = data[4];
-			}
-			console.log("seq: " + seq + "i:" + instance);
-                        return seq;
+                const seq_async = async (data, flag) => {
+			return (flag ? data[2] : data[4]);
                 }
 
-                const sys_async = async (data, instance, flag) => {
-                        var sys = 0;
-			if (flag ) {
-                        sys = data[3];
-			} else {
-			sys = data[5];
-			}
-                        console.log("sys:" + sys + "i:" + instance);
-                        return sys;
+                const sys_async = async (data, flag) => {
+                        return (flag ? data[3] : data[5]);
                 }
 
-                const comp_async = async (data, instance, flag) => {
-                        var comp = 0;
-			if (flag) {
-                        comp = data[4];
-			} else {
-			comp = data[6];
-			}
-                        console.log("comp: " + comp + "i:" + instance);
-                        return comp;
+                const comp_async = async (data, flag) => {
+                        return (flag ? data[4] : data[6]);
                 }
 
-                const id_async = async (data, instance, flag) => {
+                const id_async = async (data, flag) => {
                         var id = 0;
 			if ( flag ) {
-                        id = data[5];
+                        	id = data[5];
 			} else {
-			id = Buffer.alloc(3);
-			try {
-			data.copy(id, 0, 7, 3);
-			} catch (e) {
-				console.log(e);
+
+				id = Buffer.alloc(3);
+				try {
+					data.copy(id, 0, 7, 3);
+				} catch (e) { console.log(e);}
 			}
-			}
-                        console.log("id:" + id + "i:" + instance);
                         return id;
                 }
 
-                const buf_async = async (data, instance, flag) => {
-                        var payl_size = 0;
-                        payl_size = data[1];
-			
-                        console.log("buf_async i[" + instance + "]");
+                const buf_async = async (data, flag) => {
                         //  we dont want this because it allocates additional 6 bytes when we just want the payload
                         // var paylo = Buffer.alloc(payl_size + 6);
-			var paylo = Buffer.alloc(payl_size);
+			var paylo = Buffer.alloc(data[1]);
 			try {
 				if ( flag ) {
                         		// we dont want this because it's source start stops at 6 additional bytes after payload length
                         		//data.copy(paylo, 0, 6, 6+payl_size);
-                       			data.copy(paylo,0,6,payl_size);
+                       			data.copy(paylo,0,6,data[0]);
 				} else {
-					data.copy(paylo,0,10,payl_size);
-				
-				} 
+					data.copy(paylo,0,10,data[0]);
+				}
 			} catch (e) { console.log(e);}
                         console.log(paylo);
                         return paylo;
                 }
 
-                const check_async = async (data, instance, flag) => {
-          
-                   	console.log("check_async i[" + instance + "]");
+                const check_async = async (data, flag) => {
+          		
+			var payload_size = Buffer.byteLength(data);
                         try {
 				if ( flag) {
-					var check = data.readUInt16LE(data[1] + 6);
+					//var check = data.readUInt16LE(data[1] + 6);
+					var check = data.readUInt16LE(payload_size - 2);
 				} else {
-					var check = data.readUInt16LE(data[1] + 10); 
+					//var check = data.readUInt16LE(data[1] + 10);
+					var check = data.readUInt16LE(payload_size -2); 
 				}
 			} catch (e) { console.log(e); }
-
+		
                         console.log(check);
                         return check;
                 }
 
-		const sig_async = async (data, instance) => {
+		const sig_async = async (data) => {
 			var sig = 0;
 			
 			try {
 				sig = Buffer.alloc(13);
 				data.copy(sig, 0, 12+data[0],13);
 			} catch (e) { console.log(e); }
-			console.log("sig_async i[" + insance + "]");
+
 			return sig;
 		}
 
-                const who_async = async (data, instance, flag) => {
+                const who_async = async (data, flag) => {
                         var payl_size3 = 0;
                         payl_size3 = data[1];
 			try {
-                        console.log("who_async i[" + instance + "]");
+            
 				if (flag) {
                         	// good --> copies whole buffer correctly
                         	var whole_buffer = Buffer.alloc(payl_size3 + 8);
@@ -157,7 +120,7 @@ myMav.on("ready", function(){
 				// if  payl_size + 25 gives problems, then just remove parameter so it copies all of data
 				} 
 			} catch(e) { console.log(e); }
-                        console.log(who);
+                        console.log(whole_buffer);
 	               return whole_buffer;
                 }
 
@@ -171,76 +134,82 @@ myMav.on("ready", function(){
                 	// 10.46 micro seconds ~ 0.011 ms baudrate
 			if ( data[0] == flag_mav1){ 
 			var flag = true;
-                        var char_start = await char_async(data, instance);
-                        console.log("char_start: " + char_start + "i:" + instance);
+                        	if (Buffer.byteLength(data) >= 8 && Buffer.byteLength(data) <= 263){
+				console.log("====================MAVLINK1====================");
+				var char_start = await char_async(data);
+                        	console.log("i[" + instance +"] char_start: " + char_start);
                         
-			var payload_length = await payload_async(data, instance);
-                        console.log("payload_length: " + payload_length + "i:" + instance);
+				var payload_length = await payload_async(data);
+                       		console.log("i[" + instance + "] payload_length: " + payload_length);
                         
-			var sequence_number = await seq_async(data, instance, flag);
-                        console.log("sequence_number: " + sequence_number + "i:" + instance);
+				var sequence_number = await seq_async(data, flag);
+                        	console.log("i[" + instance + "] sequence_number: " + sequence_number);
                         
-			var system_id = await sys_async(data, instance, flag);
-                        console.log("system_id: " + system_id + "i:" + instance);
+				var system_id = await sys_async(data, flag);
+                        	console.log("i[" + instance + "] system_id: " + system_id);
                       
-			var component_id = await comp_async(data, instance, flag);
-                        console.log("component_id: " + component_id + "i:" + instance);
+				var component_id = await comp_async(data, flag);
+                        	console.log("i[" + instance + "] component_id: " + component_id);
                         
-			var id = await id_async(data, instance, flag);
-                        console.log("id: " + id);
+				var id = await id_async(data, flag);
+                        	console.log("i[" + instance + "] id: " + id);
                 
-                        var payload = await buf_async(data, instance, flag);
-                        console.log("payload: " + payload + "i:" + instance);
+                        	var payload = await buf_async(data, flag);
+                        	console.log("i[" + instance + "] payload: " + payload);
                       
-			var checksum = await check_async(data, instance, flag);
-                        console.log("checksum: " + checksum + "i:" + instance);
+				var checksum = await check_async(data, flag);
+                        	console.log("i[" + instance + "] checksum: " + checksum);
                         
-			var whole_buffer = await who_async(data, instance, flag);
-                        console.log("whole_buffer: " + whole_buffer + "i:" + instance);
-			
+				var whole_buffer = await who_async(data, flag);
+                        	console.log("i[" + instance + "] whole_buffer: " + whole_buffer);
+				}
+				missed_instance++;
                         } //else ignore
 			if ( data[0] == flag_mav2){
 			var flag = false;
-			var char_start = await char_async(data, instance);
-                        console.log("char_start: " + char_start + "i:" + instance);
+				if (Buffer.byteLength(data) >= 12 && Buffer.byteLength(data) <= 280) {
+				console.log("====================MAVLINK2====================");
+				var char_start = await char_async(data);
+                        	console.log("i[" + instance + "] char_start: " + char_start);
 			
-			var payload_length = await payload_async(data, instance);
-                        console.log("payload_length: " + payload_length + "i:" + instance);
+				var payload_length = await payload_async(data);
+                        	console.log("i[" + instance + "] payload_length: " + payload_length);
 
-			var inc = await inc_async(data, instance);
-			console.log("inc: " + inc + "i:" + instance);
+				var inc = await inc_async(data);
+				console.log("i[" + instance + "] inc: " + inc);
 	
-			var cmp = await cmp_async(data, instance);
-			console.log("cmp: " + cmp + "i:" + instance);
+				var cmp = await cmp_async(data);
+				console.log("i[" + instance + "] cmp: " + cmp);
 
-			var seq = await seq_async(data, instance, flag);
-			console.log("sequence_number: " + sequence_number + "i:" + instance);
+				var seq = await seq_async(data, flag);
+				console.log("i[" + instance + "] sequence_number: " + seq);
 			
-			var system_id = await sys_async(data, instance, flag);
-			console.log("system_id: " + system_id + "i:" + instance);
+				var system_id = await sys_async(data, flag);
+				console.log("i[" + instance + "] system_id: " + system_id);
 
-			var component_id = await comp_async(data, instance, flag);
-			console.log("component id: " + component_id + "i:" + instance);
+				var component_id = await comp_async(data, flag);
+				console.log("i[" + instance + "] component id: " + component_id);
 
-			var id = await id_async(data, instance, flag);
-			console.log("id: " + id);
+				var id = await id_async(data, flag);
+				console.log("i[" + instance + "] id: " + id);
 			
-			var payload = await buf_async(data, instance, flag);
-			console.log("payload: " + payload + "i:" + instance);
+				var payload = await buf_async(data, flag);
+				console.log("i[" + instance + "] payload: " + payload);
 
-			var check_async = await check_async(data, instance, flag);
-			console.log("checksum: " + check_async + "i:" + instance);
+				var checksum = await check_async(data, flag);
+				console.log("i[" + instance + "] checksum: " + checksum);
 
-			var signature = await sig_async(data, instance);
-			console.log("signature: " + signature + "i:" + instance);
+				var signature = await sig_async(data);
+				console.log("i[" + instance + "] signature: " + signature);
 			
-			var whole_buffer = await who_async(data, instance, flag);
-			console.log( "whole buffer: " + whole_buffer + "i:" + instance);
-
+				var whole_buffer = await who_async(data, flag);
+				console.log( "i[" + instance + "] whole buffer: " + whole_buffer);
+				}
+				missed_instance++;
 			}
 			if ( data[0] == heartbeat){
 				// heartbeat message
-				console.log("HEARTBEAT");
+				console.log("====================HEARTBEAT====================");
 				/* #0 
 				 fields.type uint8_t
 				 fields.autopilot  uint8_t
@@ -249,10 +218,30 @@ myMav.on("ready", function(){
 				 fields.system_status uint8_t
 				 fields.mavlink_version uintu_t_mavlink_version
 				*/
-				try {
+	/*			try {
 				// test out
-				var type = data.type;
+				var type = data[1];
 				// var type = fields.type;
+
+				console.log("i[" + instance + "] type:" + type);
+				var autopilot = data[2];
+				// var autopilot = fields.autopilot;
+				console.log("i[" + instance +"] autopilot:" + autopilot);
+				var base_mode = data.base_mode;
+				// var base_mode = fields.base_mode;
+				console.log("i[" + instance + "] base_mode:" + base_mode);
+				var custom_mode = Buffer.alloc(4);
+				data.copy(custom_mode, 0, 3, 4);
+				// fields.custom_mode(custom_mode, 0, 3, 4);
+				console.log("i[" + instance + "] custom_mode:" + custom_mode);
+				var system_status = data.system_status;
+				// var system_status = fields.system_status;
+				console.log("i[" + instance + "] system_status:" + system_status);
+
+				var mavlink_version = data.mavlink_version;
+				// var mavlink_version = fields.mavlink_version;
+				console.log("i[" + instance + "] mavlink_version:"+ mavlink_version);
+
 				console.log("type:" + type);
 				var autopilot = data.autopilot
 				// var autopilot = fields.autopilot;
@@ -279,14 +268,16 @@ myMav.on("ready", function(){
                                 console.log(err);
                         }
                         instance++;
+			console.log("instance: " + instance + "  missed_instance: " + missed_instance);
          	   }();
-
+*/
 		// will parse data to respective message. AKA does hard work of decoding.
 		myMav.parse(data);
 	});
 
 	myMav.on("message", (message) => {
 		// prints out all data
+		console.log("in myMav.on('message')");
 		console.log(message);
 	});
 
@@ -309,29 +300,30 @@ myMav.on("ready", function(){
 		fields.yawspeed float rad/s
  		*/
 		// to access use fields.roll since message is sending ATTITUDE field data
-		client.send(fields,3001,HOST, (err) => {
-			if (err) {
-				console.log(err); 
-				client.close();
-			} else {
-				console.log("ATTITUDE sending: " + fields);
-			}
+		try {
+		client.send(fields.roll,3001,HOST, () => {
+			console.log("ATTITUDE sending: " + fields.roll);		
 		});
+		} catch (e) {
+			console.log(e);
+			//client.close(); 
+		}
 	});
 
 	myMav.on("SYSTEM_TIME", (message, fields) => {
 		
 		/* #2
 		fields.time_unix_usec uint64_t us
-		fields. time_boot_ms uint32_t ms
+		fields.time_boot_ms uint32_t ms
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SYSTEM_TIME sending: " + fields);
-                        }
+
+		try {
+		client.send(fields.time_boot_ms, 3001, HOST, () => {
+                	console.log("SYSTEM_TIME sending: " + fields.time_boot_ms);
+		}); 
+		} catch (e) { 
+			console.log(e); 
+			//client.close();
 		}
 	});
 
@@ -352,13 +344,14 @@ myMav.on("ready", function(){
 		fields.errors_count3 uint16_t
 		fields.errors_count4 uint16_t
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SYS_STATUS sending: " + fields);
-                        }
+		try {
+		client.send(fields.battery_remaining, 3001, HOST, () => {   
+                      console.log("SYS_STATUS sending: " + fields.battery_remaining);
+           
+		});
+		} catch (e) { 
+			console.log(e); 
+			//client.close();
 		}
 	});
 
@@ -377,14 +370,16 @@ myMav.on("ready", function(){
 		fields.messages_received uint32_t
 		fields.messages_lost uint32_t
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("LINK_NODE_STATUS sending: " + fields);
-                    	}
+
+		try { 
+		client.send(fields.timestamp, 3001, HOST, () => {
+                                console.log("LINK_NODE_STATUS sending: " + fields.timestamp);
+                    });
+		} catch (e) {
+			console.log(e);
+			//client.close();
 		}
+
 	});
 
 	myMav.on("SCALED_IMU", (message, fields) => {
@@ -402,13 +397,14 @@ myMav.on("ready", function(){
 		fields.zmag int16_t mgauss
 		fields.temperature int16_t cdegC  0 if no support
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SCALED_IMU sending: " + fields);
-                        }
+
+		try {
+		client.send(fields.xacc, 3001, HOST, () => {
+                        console.log("SCALED_IMU sending: " + fields.acc);
+		});
+		} catch (e) {
+			console.log(e);
+			//client.close();
 		}
 	});
 
@@ -425,14 +421,17 @@ myMav.on("ready", function(){
 		fields.vz int16_t cm/s
 		fields.hdg uint16_t cdeg
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
+
+		try {
+		
+		client.send(fields.lat, 3001, HOST, () => {
                                 console.log("GLOBAL_POSITION_INT sending: " + fields);
-                        }
+		}); 
+		} catch (e) {
+			console.log(e);
+			//client.close();
 		}
+
 	});
 
 	/* #147 not needed syst_status reports battery
@@ -449,14 +448,17 @@ myMav.on("ready", function(){
 		fields.vtol_state uint8_t MAV_VTOL_STATE
 		fields.landed_state uint8_t MAV_LANDED_STATE
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("EXTENDING_SYS_STATE sending: " + fields);
-                        }
-		} 
+
+		try {
+		client.send(fields.vtol_state, 3001, HOST, () => {
+                                console.log("EXTENDING_SYS_STATE sending: " + fields.vtol_state);
+         
+		});
+		} catch (e) {
+			console.log(e);
+			//client.close();
+		}
+
 	});
 
 	myMav.on("RC_CHANNELS", (message, fields) => {
@@ -484,14 +486,17 @@ myMav.on("ready", function(){
 		fields.chan18_raw uint16_t us
 		fields.rssi uint8_t
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("RC_CHANNELS sending: " + fields);
-                        }
+
+		try {
+		client.send(fields.chancount, 3001, HOST, () => {
+                                console.log("RC_CHANNELS sending: " + fields.chancount);
+                
+		});
+		} catch (e) {
+			console.log(e);
+			//client.close();
 		}
+
 	});
 
 	myMav.on("SCALED_PRESSURE", (message, fields) => {
@@ -503,13 +508,15 @@ myMav.on("ready", function(){
 		fields.temperature  int16_t cdegC
 		fields.temperature_press_diff ** int16_t cdegC
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-    			if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SCALED_PRESSURE sending: " + fields);
-                        }
+
+		try {
+		client.send(fields.press_abs, 3001, HOST, () => {
+   
+                                console.log("SCALED_PRESSURE sending: " + fields.press_abs);
+                 }); 
+		} catch (e) {
+			console.log(e);
+			//client.close();
 		}
 	});
 
@@ -535,13 +542,15 @@ myMav.on("ready", function(){
 		fields.servo15_raw **	uint16_t	us	Servo output 15 value
 		fields.servo16_raw **	uint16_t	us	Servo output 16 value
 		*/
-		client.send(fields, 3001, HOST, (err) => {
-		    if (err) {
-                                console.log(err);
-                                client.close();
-                        } else {
-                                console.log("SERVO_OUTPUT_RAW sending: " + fields);
-                        }
+
+		try {
+		client.send(fields.port, 3001, HOST, () => {
+                                console.log("SERVO_OUTPUT_RAW sending: " + fields.port);
+                        
+		});
+		} catch (e) {
+			console.log(e);
+			//client.close();
 		}
 	});
 
