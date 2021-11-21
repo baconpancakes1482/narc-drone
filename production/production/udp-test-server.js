@@ -411,7 +411,23 @@ myMav.on("ready", function(){
 			//client.close();
 		}
 	});
-
+	myMav.on("LOCAL_POSITION_NED", (message, fields) => {
+		/* #32
+		time_boot_ms uint32_t ms
+		x	float	m
+		y	float	m
+		z	float	m
+		vx	float	m/s
+		vy	float	m/s
+		vz	float	m/s
+		*/
+		const local_buf = Buffer.from(JSON.stringify(fields));
+		try{
+			client.send(local_buf, 3001, HOST, () => {
+				console.log("LOCAL_POSITION_NED sending: " + local_buf);
+			});
+		} catch(e) {console.log(e); }
+	});
 	myMav.on("GLOBAL_POSITION_INT", (message, fields) => {
 		
 		/* #33
