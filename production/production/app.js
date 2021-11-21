@@ -5,7 +5,6 @@ const dgram = require('dgram');
 const port = process.env.PORT || 8001;
 const path = require('path');
 const socket = dgram.createSocket('udp4');
-const Stream = require('node-rtsp-stream');
 
 // bind socket to port 3001
 socket.bind(3001);
@@ -24,20 +23,8 @@ function getter_data (){
  function setter_data(x){
      data.data_packet = x;
  }
-/*
-stream = new Stream({
-	name: 'name',
-	streamUrl: 'rtsp://10.0.2.100:8554/video',
-	wsPort: 8555,
-	ffmpegOptions: {
-	'-stats': '',
-	'-r': 30
-	}
 
-});
-*/
-
-// ?
+// search for libraries, css in public dir
 app.use(express.static('public'));
 
 // ejs
@@ -106,6 +93,7 @@ app.listen( port, () => {
     console.log(`Listening on port: ${port}`);
 });
 
+//figure out way to parse different fields from different specific messages
 socket.on('message', (req, res) => {
     console.log(`UDP message received: ${req} from ${res.address}:${res.port}`);
     temp = req.toString();
