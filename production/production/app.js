@@ -12,7 +12,46 @@ socket.bind(3001);
 
 // global var
 var temp = "Initiating";
+var t_roll = 0;
+var t_pitch = 0;
+var t_yaw = 0;
+var t_rollspeed = 0;
+var t_pitchspeed = 0;
+var t_yawspeed = 0;
+var t_load = 0;
+var t_vol_bat = 0;
+var t_bat_re = 0;
+var t_drop_rate = 0;
+var t_timestamp = 0;
+var t_tx_buf = 0;
+var t_rx_buf = 0;
+var t_tx_rate = 0;
+var t_rx_rate = 0;
+var t_message_sent = 0;
+var t_message_received = 0;
+var t_message_lost = 0;
+var t_xacc = 0;
+var t_yacc = 0;
+var t_zacc = 0;
+var t_lat = 0;
+var t_long = 0;
+var t_alt = 0;
+var t_rel_alt = 0;
+var t_vx = 0;
+var t_vy = 0;
+var t_vz = 0;
+var t_vtol_state = 0;
+var t_landed_state = 0;
+var t_chancount = 0;
+var t_rssi = 0;
+var t_servo1 = 0;
+var t_servo2 = 0;
+var t_servo3 = 0;
+var t_x = 0;
+var t_y = 0;
+var t_z = 0;
 
+// add all the glorious functions getter/setters and update data structure
 var data = {
     "data_packet": this.data_packet
 }
@@ -317,7 +356,7 @@ if (fields.hasOwnProperty('z')){
 const z = message.z;
 t_z = z;
 set_z(z);
-} 
+}
 } catch (e) { console.log(e); }
     //temp = req.toString();
    // setter_data(req.toString());
