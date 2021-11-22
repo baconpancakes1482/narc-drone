@@ -26,7 +26,7 @@
         </div>
         <div class="battery-status">
             <!-- Make some visual graphic for battery level with percentage-->
-            <div id="battery-percentage"></div>
+            <div id="battery-percentage"><%- data.bat_re %></div>
             <div id="battery-meter"></div>
         </div>
 	<div class="t-container">
@@ -38,67 +38,82 @@
 		</div>
             </div>
             <div class="gps">
-		  <div id="lat-prompt">lat:</div>
-		  <div id="lat-container">
-                        <div id="lat"></div> 
-                  </div>
-                 <div id="long-prompt">long:</div>
-                 <div id="long-container">
-		        <div id="long"></div>  
-                 </div>
+		        <div id="lat-prompt">lat:</div>
+		        <div id="lat-container">
+                    <div id="lat"><%- data.lat %></div> 
+                </div>
+                <div id="long-prompt">long:</div>
+                <div id="long-container">
+                     <div id="long"><%- data.long %></div>  
+                </div>
             </div>
             <div class="position">
 		<div id="x-prompt">x:</div>
 		<div id="x-container">
-	                <div id="x"></div>
+            <div id="x"><% data.x %></div>
 		</div>               
 		<div id="y-prompt">y:</div>
 		<div id="y-container">
-			<div id="y"></div>
+            <div id="y"><%- data.y %></div>
 		</div>
 
 		<div id="z-prompt">z:</div>                
 		<div id="z-container"
-			<div id="z"></div>
+            <div id="z"><%- data.z %></div>
 		</div>
             </div>
             <div class="height">
 		<div id="altitude-prompt">altitude:</div>
 		<div id="altitude-container">
-			<div id="altitude"></div>
+            <div id="altitude"><%- data.alt %></div>
 		</div>
             </div>
             <div class="orientation">
-
-		<div id="heading-prompt">heading:</div>
-		<div id="heading-container">
-			<div id="heading"></div>
-		</div>
-		<div id="pitch-prompt">pitch:</div>
-		<div id="pitch-container">
-			<div id="pitch"></div>
-		</div>
+		        <div id="heading-prompt">heading:</div>
+		        <div id="heading-container">
+                    <div id="heading"><%- data.heading %></div>
+		        </div>
+                <div id="roll-prompt">roll:</div>
+                <div id="roll-container">
+                    <div id="roll"><%- data.roll %></div>
+                </div>
+		        <div id="pitch-prompt">pitch:</div>
+		        <div id="pitch-container">
+                    <div id="pitch"><%- data.pitch %></div>
+		        </div>
+                <div id="yaw-prompt">yaw:</div>
+                <div id="yaw-container">
+                    <div id="yaw"><%- data.yaw %></div>
+                </div>
             </div>
             <div class="drone-speed">
-		<div id="speed-prompt">speed:</div>
-		<div id="speed-container">
-	                <div id="speed"></div>
-		</div>
+		        <div id="vx-prompt">vx:</div>
+		        <div id="vx-container">
+                    <div id="vx"><%- data.vx %></div>
+		        </div>
+                <div id="vy-prompt">vy:</div>
+                <div id="vy-container">
+                    <div id="vy"><%- data.vy %></div>
+                </div>
+                <div id="vz-prompt">vz:</div>
+                <div id="vz-container">
+                    <div id="vz"><%- data.vz %></div>
+                </div>
            </div>
 	
 	<div class="vehicle-health"> 
                <div class="vehicle-signals-intel">
 			<div id="uplink-prompt">uplink:</div>
 			<div id="uplink-container">
-                        <div id="uplink"></div>
+                <div id="uplink"><%- data.tx_rate %></div>
 			</div>
 			<div id="downlink-prompt">downlink:</div>
 			<div id="downlink-container">
-                        <div id="downlink"></div>
+                <div id="downlink"><%- data.rx_rate %></div>
 			</div>
 			<div id="signal-strength-prompt">signal strength:</div>
 			<div id="signal-strength-container">
-                        <div id="signal-strength"></div>
+                        <div id="signal-strength"><%- data.rssi %></div>
 			</div>
 			<div id="packet-loss-prompt">packet loss:</div>
 			<div id="packet-loss-container">
@@ -111,20 +126,20 @@
                 </div>
                 <div class="vehicle-status">
                         <div id="vehicle-initialization">
-				<div id="message">'<%-messages %>'</div>
+				<div id="time_boot">'<%-data.time_boot %>'</div>
 			</div>
 			<div id="flight-mode-prompt">flight mode:</div>
-                        <div id="flight-mode"></div>
+            <div id="flight-mode"><%- data.vtol_state %></div>
 			<div id="lever-deploy-prompt">lever deployed:</div>
                         <div id="lever-deploy"></div>
                 </div>
                 <div class="vehicle-thrust">
 			<div id="motor-1-prompt">motor-1:</div>
-                        <div id="motor-1"></div>
+            <div id="motor-1"><%- data.servo1 %></div>
 			<div id="motor-2-prompt">motor-2:</div>
-                        <div id="motor-2"></div>
+            <div id="motor-2"><%- data.servo2 %></div>
 			<div id="motor-3-prompt">motor-3:</div>
-                        <div id="motor-3"></div>
+            <div id="motor-3"><%- data.servo3 %></div>
                 </div>
 	   </div>
 	</div>
@@ -167,8 +182,29 @@
                   console.log(json);
                   return json;
                }).then( data => {
-                      console.log(data);
-                      document.getElementById("message").innerHTML = data.data_packet;
+                    console.log(data);
+                    document.getElementById("time_boot").innerHTML = data.time_boot;
+                    document.getElementById("battery-percentage").innerHTML = data.bat_re;
+                    document.getElementById("lat").innerHTML = data.lat;
+                    document.getElementById("long").innerHTML = data.long;
+                    document.getElementById("x").innerHTML = data.x;
+                    document.getElementById("y").innerHTML = data.y;
+                    document.getElementById("z").innerHTML = data.z;
+                    document.getElementById("altitude").innerHTML = data.alt;
+                    document.getElementById("heading").innerHTML = data.heading;
+                    document.getElementById("roll").innerHTML = data.roll;
+                    document.getElementById("pitch").innerHTML = data.pitch;
+                    document.getElementById("yaw").innerHTML = data.yaw;
+                    document.getElementById("vx").innerHTML = data.vx;
+                    document.getElementById("vy").innerHTML = data.vy;
+                    document.getElementById("vz").innerHTML = data.vz;
+                    document.getElementById("uplink").innerHTML = data.tx_rate;
+                    document.getElementById("downlink").innerHTML = data.rx_rate;
+                    document.getElementById("signal-strength").innerHTML = data.rssi;
+                    document.getElementById("flight-mode").innerHTML = data.vtol_state;
+                    document.getElementById("motor-1").innerHTML = data.servo1;
+                    document.getElementById("motor-2").innerHTML = data.servo2;
+                    document.getElementById("motor-3").innerHTML = data.servo3;
                       document.getElementById("elasped_seconds").innerHTML = "Time Elasped: " + time_elasped + "s";
                       document.getElementById("hours").innerHTML = hours + "hr";
                       document.getElementById("seconds").innerHTML = seconds + "s";
