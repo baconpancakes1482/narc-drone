@@ -41,6 +41,7 @@ var t_rel_alt = 0;
 var t_vx = 0;
 var t_vy = 0;
 var t_vz = 0;
+var t_heading = 0;
 var t_vtol_state = 0;
 var t_landed_state = 0;
 var t_chancount = 0;
@@ -84,6 +85,7 @@ var data = {
      "vx": this.vx,
      "vy": this.vy,
      "vz": this.vz,
+     "heading": this.heading,
      "vtol_state": this.vtol_state,
      "landed_state": this.landed_state,
      "chancount": this.chancount,
@@ -139,7 +141,7 @@ function set_servo3(x){ data.servo3 = x; }
 function set_x(x){ data.x = x; }
 function set_y(x){ data.y = x; }
 function set_z(x){ data.z = x; }
-
+function set_heading(x){ data.heading = x; }
 // getters
 function get_time_boot(){ return data.time_boot; }
 function get_roll(){ return data.roll; }
@@ -180,7 +182,7 @@ function get_servo3(){ return data.servo3; }
 function get_x(){ return data.x; }
 function get_y(){ return data.y; }
 function get_z(){ return data.z; }
-
+function get_heading(){ return data.heading; }
 // search for libraries, css in public dir
 app.use(express.static('public'));
 
@@ -254,6 +256,7 @@ function responseBody (req, res, next){
 	set_vx(t_vx);
 	set_vy(t_vy);
 	set_vz(t_vz);
+    set_heading(t_heading);
 	set_vtol_state(t_vtol_state);
 	set_landed_state(t_landed_state);
 	set_chancount(t_chancount);
@@ -452,6 +455,11 @@ if (fields.hasOwnProperty('vz')){
                 t_vz = vz;
                 set_vz(vz);
         }  //else we ignore dont want the other val
+}
+if (fields.hasOwnProperty('hdg')){
+const heading = new Uint16Array(message.hdg);
+t_heading = heading;
+set_heading(heading);
 }
 if (fields.hasOwnProperty('vtol_state')){
 const vtol_state = new Uint8Array(message.vtol_state);

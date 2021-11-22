@@ -214,18 +214,56 @@ position: absolute;
 #pitch {
 position: absolute;
 }
+#roll-prompt{
+position: absolute;
+}
+#roll-container{
+position: absolute;
+}
+#roll{
+position: absolute;
+}
+#yaw-prompt{
+position: absolute;
+}
+#yaw-container{
+position: absolute;
+}
+#yaw{
+position: absolute;
+}
 .drone-speed {
 width: 100%;
 height: 100%;
 position: absolute;
 }
-#speed-prompt{
+#vx-prompt{
 position: absolute;
 }
-#speed-container{
+#vx-container{
 position: absolute;
 }
-#speed {
+#vx {
+position: absolute;
+}
+
+#vy-prompt{
+position: absolute;
+}
+#vy-container{
+position: absolute;
+}
+#vy {
+position: absolute;
+}
+
+#vz-prompt{
+position: absolute;
+}
+#vz-container{
+position: absolute;
+}
+#vz {
 position: absolute;
 }
 .vehicle-health {
