@@ -12,18 +12,174 @@ socket.bind(3001);
 
 // global var
 var temp = "Initiating";
+var t_time_boot = 0;
+var t_roll = 0;
+var t_pitch = 0;
+var t_yaw = 0;
+var t_rollspeed = 0;
+var t_pitchspeed = 0;
+var t_yawspeed = 0;
+var t_load = 0;
+var t_vol_bat = 0;
+var t_bat_re = 0;
+var t_drop_rate = 0;
+var t_timestamp = 0;
+var t_tx_buf = 0;
+var t_rx_buf = 0;
+var t_tx_rate = 0;
+var t_rx_rate = 0;
+var t_message_sent = 0;
+var t_message_received = 0;
+var t_message_lost = 0;
+var t_xacc = 0;
+var t_yacc = 0;
+var t_zacc = 0;
+var t_lat = 0;
+var t_long = 0;
+var t_alt = 0;
+var t_rel_alt = 0;
+var t_vx = 0;
+var t_vy = 0;
+var t_vz = 0;
+var t_vtol_state = 0;
+var t_landed_state = 0;
+var t_chancount = 0;
+var t_rssi = 0;
+var t_servo1 = 0;
+var t_servo2 = 0;
+var t_servo3 = 0;
+var t_x = 0;
+var t_y = 0;
+var t_z = 0;
 
+// add all the glorious functions getter/setters and update data structure
 var data = {
-    "data_packet": this.data_packet
+    "data_packet": this.data_packet,
+    "time_boot": this.time_boot,
+     "roll": this.roll,
+     "pitch": this.pitch,
+     "yaw": this.yaw,
+     "rollspeed": this.rollspeed,
+     "pitchspeed": this.pitchspeed,
+     "yawspeed": this.yawspeed,
+     "load": this.load,
+     "vol_bat": this.vol_bat,
+     "bat_re": this.bat_re,
+     "drop_rate": this.drop_rate,
+     "time_stamp": this.time_stamp,
+     "tx_buf": this.tx_buf,
+     "rx_buf": this.rx_buf,
+     "tx_rate": this.tx_rate,
+     "rx_rate": this.rx_rate,
+     "message_sent": this.message_sent,
+     "message_received": this.message_received,
+     "message_lost": this.message_lost,
+     "xacc": this.xacc,
+     "yacc": this.yacc,
+     "zacc": this.zacc,
+     "lat": this.lat,
+     "long": this.long,
+     "alt": this.alt,
+     "rel_alt": this.rel_alt,
+     "vx": this.vx,
+     "vy": this.vy,
+     "vz": this.vz,
+     "vtol_state": this.vtol_state,
+     "landed_state": this.landed_state,
+     "chancount": this.chancount,
+     "rssi": this.rssi,
+     "servo1": this.servo1, 
+     "servo2": this.servo2,
+     "servo3": this.servo3,
+     "x": this.x,
+     "y": this.y,
+     "z": this.z       
 }
 
-function getter_data (){
-    return data.data_packet;
- }
+function getter_data (){ return data.data_packet; }
+function setter_data(x){ data.data_packet = x; }
 
- function setter_data(x){
-     data.data_packet = x;
- }
+//setters
+function set_time_boot(x){ data.time_boot = x; }
+function set_roll(x){ data.roll = x; }
+function set_pitch(x){ data.pitch = x; }
+function set_yaw(x){ data.yaw = x; }
+function set_rollspeed(x){ data.rollspeed = x; }
+function set_pitchspeed(x){ data.pitchspeed = x; }
+function set_yawspeed(x){ data.yawspeed = x; }
+function set_load(x){ data.load = x; }
+function set_vol_bat(x){ data.vol_bat = x; }
+function set_bat_re(x){ data.bat_re = x; }
+function set_drop_rate(x){ data.drop_rate = x; }
+function set_time_stamp(x){ data.time_stamp = x; }
+function set_tx_buf(x){ data.tx_buf = x; }
+function set_rx_buf(x){ data.rx_buf = x; }
+function set_tx_rate(x){ data.tx_rate = x; }
+function set_rx_rate(x){ data.rx_rate = x; }
+function set_message_sent(x){ data.message_sent = x; }
+function set_message_lost(x){ data.message_lost = x; }
+function set_message_received(x){ data.message_received = x; }
+function set_xacc(x){ data.xacc = x; }
+function set_yacc(x){ data.yacc = x; }
+function set_zacc(x){ data.zacc = x; }
+function set_lat(x){ data.lat = x; }
+function set_long(x){ data.long = x; }
+function set_alt(x){ data.alt = x; }
+function set_rel_alt(x){ data.rel_alt = x; }
+function set_vx(x){ data.vx = x; }
+function set_vy(x){ data.vy = x; }
+function set_vz(x){ data.vz = x; }
+function set_vtol_state(x){ data.vtol_state = x; }
+function set_landed_state(x){ data.landed_state = x; }
+function set_chancount(x){ data.chancount = x; }
+function set_rssi(x){ data.rssi = x; }
+function set_servo1(x){ data.servo1 = x; }
+function set_servo2(x){ data.servo2 = x; }
+function set_servo3(x){ data.servo3 = x; }
+function set_x(x){ data.x = x; }
+function set_y(x){ data.y = x; }
+function set_z(x){ data.z = x; }
+
+// getters
+function get_time_boot(){ return data.time_boot; }
+function get_roll(){ return data.roll; }
+function get_pitch(){ return data.pitch; }
+function get_yaw(){ return data.yaw; }
+function get_rollspeed(){ return data.rollspeed; }
+function get_pitchspeed(){ return data.pitchspeed; }
+function get_yawspeed(){ return data.yawspeed; }
+function get_load(){ return data.load; }
+function get_vol_bat(){ return data.vol_bat; }
+function get_bat_re(){ return data.bat_re; }
+function get_drop_rate(){ return data.drop_rate; }
+function get_time_stamp(){ return data.time_stamp; }
+function get_tx_buf(){ return data.tx_buf; }
+function get_rx_buf(){ return data.rx_buf; }
+function get_tx_rate(){ return data.tx_rate; }
+function get_rx_rate(){ return data.rx_rate; }
+function get_message_sent(){ return data.message_sent; }
+function get_message_lost(){ return data.message_lost; }
+function get_message_received(){ return data.message_received; }
+function get_xacc(){ return data.xacc; }
+function get_yacc(){ return data.yacc; }
+function get_zacc(){ return data.zacc; }
+function get_lat(){ return data.lat; }
+function get_long(){ return data.long; }
+function get_alt(){ return data.alt; }
+function get_rel_alt(){ return data.rel_alt; }
+function get_vx(){ return data.vx; }
+function get_vy(){ return data.vy; }
+function get_vz(){ return data.vz; }
+function get_vtol_state(){ return data.vtol_state; }
+function get_landed_state(){ return data.landed_state; }
+function get_chancount(){ return data.chancount; }
+function get_rssi(){ return data.rssi; }
+function get_servo1(){ return data.servo1; }
+function get_servo2(){ return data.servo2; }
+function get_servo3(){ return data.servo3; }
+function get_x(){ return data.x; }
+function get_y(){ return data.y; }
+function get_z(){ return data.z; }
 
 // search for libraries, css in public dir
 app.use(express.static('public'));
@@ -48,8 +204,6 @@ app.get('/', (req, res, next) => {
 app.get('/api/events/', (req, res)=> {
         console.log("API EVENT FIRE");
         console.log("The data in api route is: %s", data);
-        var sample = getter_data();
-        console.log(sample);
         res.json(data);
 });
 
@@ -71,17 +225,47 @@ function errorHandler (err, req, res, next){
 
 // response after get request
 function responseBody (req, res, next){
-
-    // null & undefined check
-    if (!(temp !== null && temp !== undefined)){
-        temp="";
-   }
-     data.data_packet = temp;
-     console.log("The data packet is: %s", data.data_packet);
-
-    res.render('pages/index', {
-        messages: temp
-    });
+// set var  
+    	set_time_boot(t_time_boot);
+     	set_roll(t_roll); 
+     	set_pitch(t_pitch);
+     	set_yaw(t_yaw);
+	set_rollspeed(t_rollspeed);
+	set_pitchspeed(t_pitchspeed);
+	set_yawspeed(t_yawspeed);
+	set_load(t_load);
+	set_vol_bat(t_vol_bat);
+	set_bat_re(t_bat_re);
+	set_drop_rate(t_drop_rate);
+	set_tx_buf(t_tx_buf);
+	set_rx_buf(t_rx_buf);
+	set_tx_rate(t_tx_rate);
+	set_rx_rate(t_rx_rate);
+	set_message_sent(t_message_sent);
+	set_message_received(t_message_received);
+	set_message_lost(t_message_lost);
+	set_xacc(t_xacc);
+	set_yacc(t_yacc);
+	set_zacc(t_zacc);
+	set_lat(t_lat);
+	set_long(t_long);
+	set_alt(t_alt);
+	set_rel_alt(t_rel_alt);
+	set_vx(t_vx);
+	set_vy(t_vy);
+	set_vz(t_vz);
+	set_vtol_state(t_vtol_state);
+	set_landed_state(t_landed_state);
+	set_chancount(t_chancount);
+	set_rssi(t_rssi);
+	set_servo1(t_servo1);
+	set_servo2(t_servo2);
+	set_servo3(t_servo3);
+	set_x(t_x);
+	set_y(t_y);
+	set_z(t_z);
+    	
+	res.render('pages/index', {data});
 
     // ends response with no data
     res.end();
@@ -98,6 +282,7 @@ app.listen( port, () => {
 socket.on('message', (message, req, res) => {
     console.log(`UDP message received: ${req} from ${res.address}:${res.port}`);
 	// expecting message to be a buffer that had stringify done to it
+
 	const fields = JSON.parse( message ); // unwrap so we have our original fields object
 try {	// fun part of parsing below
 if (fields.hasOwnProperty('time_boot_ms')){
@@ -317,10 +502,11 @@ if (fields.hasOwnProperty('z')){
 const z = message.z;
 t_z = z;
 set_z(z);
-} 
+}
 } catch (e) { console.log(e); }
-    //temp = req.toString();
-   // setter_data(req.toString());
+
+  //  temp = req.toString();
+//    setter_data(req.toString());
 });
 
 //*TODO on terminate close sockets safely
