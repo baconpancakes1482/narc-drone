@@ -102,14 +102,44 @@ height: 100%;
 position: absolute;
 z-index: 6;
 }
-#battery-percentage {
-position: absolute;
-background-color: yellow;
+#battery-prompt{
+
+position: fixed;
+font-size: 15px;
+color: white;
+left: 8%;
+bottom: 25%;
 z-index: 101;
-width:1%;
-bottom: 12.5%;
-height: 40px;
-right: 36%;
+height: 15px;
+}
+#battery-unit{
+
+position: fixed;
+font-size: 15px;
+color: white;
+left: 22%;
+bottom: 25%;
+z-index: 101;
+height: 15px;
+}
+#battery-container{
+
+position: fixed;
+z-index: 100;
+background-color: black;
+bottom:25%;
+width:5%;
+left: 16%;
+height: 15px;
+}
+#battery-percentage {
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+left: 19%;
+bottom: 25%;
+height: 15px;
 }
 #battery-meter {
 position: absolute;
@@ -1401,7 +1431,7 @@ z-index: 100;
 background-color: black;
 bottom:40%;
 width:5%;
-left: 15%;
+left: 16%;
 height: 15px;
 }
 #motor-1 {
@@ -1409,7 +1439,7 @@ position: fixed;
 font-size: 15px;
 color: #C0FFFF;
 z-index: 101;
-left: 18%;
+left: 19%;
 bottom: 40%;
 height: 15px;
 }
@@ -1440,7 +1470,7 @@ z-index: 100;
 background-color: black;
 bottom:35%;
 width:5%;
-left: 15%;
+left: 16%;
 height: 15px;
 }
 #motor-2 {
@@ -1449,7 +1479,7 @@ position: fixed;
 font-size: 15px;
 color: #C0FFFF;
 z-index: 101;
-left: 18%;
+left: 19%;
 bottom: 35%;
 height: 15px;
 }
@@ -1480,7 +1510,7 @@ z-index: 100;
 background-color: black;
 bottom:30%;
 width:5%;
-left: 15%;
+left: 16%;
 height: 15px;
 }
 #motor-3 {
@@ -1489,7 +1519,7 @@ position: fixed;
 font-size: 15px;
 color: #C0FFFF;
 z-index: 101;
-left: 18%;
+left: 19%;
 bottom: 30%;
 height: 15px;
 }

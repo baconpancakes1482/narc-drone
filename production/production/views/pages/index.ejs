@@ -30,7 +30,11 @@
         </div>
         <div class="battery-status">
             <!-- Make some visual graphic for battery level with percentage-->
+            <div id="battery-prompt">battery percentage:</div>
+            <div id="battery-unit">%</div>
+            <div id="battery-container">
             <div id="battery-percentage"><%- data.bat_re %></div>
+            </div>
             <div id="battery-meter"></div>
         </div>
 	    <div class="t-container">
@@ -235,6 +239,10 @@
            let hours = 0;
            let seconds = 0;
            let time_elasped = 0;
+           let old_x = 0;
+           let old_y = 0;
+           let old_z = 0;
+           let distance = 0;
            console.log("Operation Start Timestamp:[ 0:0:0 %s/%s/%s ]", current_month, current_day, current_year);
     
         updateContent = setInterval(async function(){ 
@@ -262,6 +270,8 @@
                   return json;
                }).then( data => {
                     console.log(data);
+                    distance += Math.sqrt( ((data.x-old_x)**2) + ((data.y-old_y)**2) + ((data.z-old_z)**2));
+                    document.getElementById("distance").innerHTML = (distance).toFixed(2);
                     document.getElementById("time_boot").innerHTML = (data.time_boot).toFixed(2);
                     document.getElementById("battery-percentage").innerHTML = (data.bat_re).toFixed(2);
                     document.getElementById("lat").innerHTML = (data.lat).toFixed(2);
@@ -297,7 +307,9 @@
                       document.getElementById("hours").innerHTML = hours + "hr";
                       document.getElementById("seconds").innerHTML = seconds + "s";
                       document.getElementById("minutes").innerHTML = minutes + "min";
-      
+                    old_x = data.x;
+                    old_y = data.y;
+                    old_z = data.z;
                   }).catch(error => {
                       console.log(error);
                   });
