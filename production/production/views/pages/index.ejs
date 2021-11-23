@@ -46,6 +46,30 @@
                 <div id="long-container">
                      <div id="long"><%- data.long %></div>  
                 </div>
+                <div id="xgyro-prompt">xgyro:</div>
+                <div id="xgyro-container">
+                    <div id="xgyro"><%- data.xgyro %></div>
+                </div>
+                <div id="ygyro-prompt">ygyro:</div>
+                <div id="ygyro-container">
+                    <div id="ygyro"><%- data.ygyro %></div>
+                </div>
+                <div id="zgyro-prompt">zgyro:</div>
+                <div id="zgyro-container">
+                    <div id="zgyro"><%- data.zgyro %></div>
+                </div>
+                <div id="xmag-prompt">xmag:</div>
+                <div id="xmag-container">
+                    <div id="xmag"><%- data.xmag %></div>
+                </div>
+                <div id="ymag-prompt">ymag:</div>
+                <div id="ymag-container">
+                    <div id="ymag"><%- data.ymag %></div>
+                </div>
+                <div id="zmag-prompt">zmag:</div>
+                <div id="zmag-container">
+                    <div id="zmag"><%- data.zmag %></div>
+                </div>
             </div>
             <div class="position">
 		<div id="x-prompt">x:</div>
@@ -187,6 +211,12 @@
                     document.getElementById("battery-percentage").innerHTML = data.bat_re;
                     document.getElementById("lat").innerHTML = data.lat;
                     document.getElementById("long").innerHTML = data.long;
+                    document.getElementById("xgyro").innerHTML = data.xgyro;
+                    document.getElementById("ygyro").innerHTML = data.ygyro;
+                    document.getElementById("zgyro").innerHTML = data.zgyro;
+                    document.getElementById("xmag").innerHTML = data.xmag;
+                    document.getElementById("ymag").innerHTML = data.ymag;
+                    document.getElementById("zmag").innerHTML = data.zmag;
                     document.getElementById("x").innerHTML = data.x;
                     document.getElementById("y").innerHTML = data.y;
                     document.getElementById("z").innerHTML = data.z;
