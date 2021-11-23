@@ -76,9 +76,9 @@ z-index: 3;
 width:320px;
 height:240px;
 right: 9%;
-top: 15.8%;
-/*	
-	border-top-width: 5px;
+top: 15.8%;	
+/*
+border-top-width: 5px;
 	border-top-style: solid;
 	border-right-width: 5px;
         border-right-style: solid;
@@ -100,12 +100,12 @@ top: 15.8%;
 width: 100%;
 height: 100%;
 position: absolute;
-z-index: 4;
+z-index: 6;
 }
 #battery-percentage {
 position: absolute;
 background-color: yellow;
-z-index: 99;
+z-index: 101;
 width:1%;
 bottom: 12.5%;
 height: 40px;
@@ -113,7 +113,7 @@ right: 36%;
 }
 #battery-meter {
 position: absolute;
-z-index: 99;
+z-index: 101;
 width: 6%;
 height:35px;
 bottom:12%;
@@ -129,27 +129,50 @@ height: 100%;
 position: absolute;
 }
 #distance-prompt{
-position: absolute;
-color: white;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: white;
+top: 18%;
+right: 57%;
+z-index: 101;
+height: 15px;
+}
+#distance-unit{
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 18%;
+right: 50.8%;
+z-index: 101;
+height: 15px;
 }
 #distance-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top: 18%;
+width:5%;
+right: 52%;
+height: 15px;
 }
 #distance {
-position: absolute;
-color: #C0FFFF;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 18%;
+height: 15px;
 }
 
 .safe-abort{
 width: 100%;
 height: 100%;
-z-index: 4;
+z-index: 105;
 position: absolute;
 }
 #abort-div {
@@ -170,142 +193,309 @@ height: 100%;
 position: absolute;
 }
 #lat-prompt {
-position: absolute;
+position: fixed;
+font-size: 15px;
+color: white;
+top: 22%;
+right: 62.5%;
+z-index: 101;
+height: 15px;
+}
+#lat-unit{
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 22%;
+right: 49%;
+z-index: 101;
+height: 15px;
+}
+#lat-container {
+position: fixed;
+z-index: 100;
+background-color: black;
+top:22%;
+width:5%;
+right: 52%;
+height: 15px;
+}
+#lat {
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 22%;
+height: 15px;
+}
+#long-prompt {
+position: fixed;
+font-size: 15px;
+color: white;
+top: 26%;
+right: 61.8%;
+z-index: 101;
+height: 15px;
+}
+#long-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 26%;
+right: 49%;
+z-index: 101;
+height: 15px;
+}
+#long-container{
+position: fixed;
+z-index: 100;
+background-color: black;
+top:26%;
+width:5%;
+right: 52%;
+height: 15px;
+}
+#long {
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 26%;
+height: 15px;
+}
+#xgyro-prompt{
+position: fixed;
+font-size: 15px;
+color: white;
+top: 30%;
+right: 61.3%;
+z-index: 101;
+height: 15px;
+}
+#xgyro-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 30%;
+right: 49%;
+z-index: 101;
+height: 15px;
+}
+#xgyro-container{
+position: fixed;
+z-index: 100;
+background-color: black;
+top:30%;
+width:5%;
+right: 52%;
+height: 15px;
+}
+#xgyro{
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 30%;
+height: 15px;
+}
+#ygyro-prompt{ 
+position: fixed;
+font-size: 15px;
+color: white;
+top: 34%;
+right: 61.3%;
+z-index: 101;
+height: 15px;
+}
+#ygyro-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 34%;
+right: 49%;
+z-index: 101;
+height: 15px;
+}
+#ygyro-container{ 
+position: fixed;
+z-index: 100;
+background-color: black;
+top:34%;
+width:5%;
+right: 52%;
+height: 15px;
+}
+#ygyro{
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 34%;
+height: 15px;
+}
+#zgyro-prompt{
+position: fixed;
+font-size: 15px;
+color: white;
+top: 38%;
+right: 61.3%;
+z-index: 101;
+height: 15px;
+}
+#zgyro-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 38%;
+right: 49%;
+z-index: 101;
+height: 15px;
+}
+#zgyro-container{ 
+position: fixed;
+z-index: 100;
+background-color: black;
+top: 38%;
+width:5%;
+right: 52%;
+height: 15px;
+}
+#zgyro{ 
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 38%;
+height: 15px;
+}
+#xmag-prompt{
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 42%;
+right: 61.3%;
+z-index: 101;
+height: 15px;
+}
+#xmag-unit{
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 42%;
+right: 48.8%;
+z-index: 101;
+height: 15px;
+}
+#xmag-container{
+
+position: fixed;
+z-index: 100;
+background-color: black;
+top:42%;
+width:5%;
+right: 52%;
+height: 15px;
+}
+#xmag{
+
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 42%;
+height: 15px;
+}
+#ymag-prompt{
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 46%;
+right: 61.3%;
+z-index: 101;
+height: 15px;
+}
+#ymag-unit{
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 46%;
+right: 48.8%;
+z-index: 101;
+height: 15px;
+}
+#ymag-container{
+
+position: fixed;
+z-index: 100;
+background-color: black;
+top:46%;
+width:5%;
+right: 52%;
+height: 15px;
+}
+#ymag{
+
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 46%;
+height: 15px;
+}
+#zmag-prompt{
+
+position: fixed;
 font-size: 15px;
 color: white;
 top: 50%;
-z-index: 100;
+right: 61.3%;
+z-index: 101;
+height: 15px;
 }
-#lat-container {
-position: absolute;
-z-index: 100;
-background-color: black;
-}
-#lat {
-position: absolute;
-font-size: 15px;
-color: #C0FFFF;
-z-index: 100;
-}
-#long-prompt {
-position: absolute;
-font-size: 15px;
-color: white;
-z-index: 100;
-}
-#long-container{
-position: absolute;
-background-color: black;
-z-index: 100;
-}
-#long {
-position: absolute;
-font-size: 15px;
-color: #C0FFFF;
-z-index: 100;
-}
-#xgyro-prompt{
-position: absolute;
-font-size: 15px;
-color: white;
-z-index: 100;
-}
-#xgyro-container{
-position: absolute;
-background-color: black;
-z-index: 100;
+#zmag-unit {
 
-}
-#xgyro{
-position: absolute;
-font-size: 15px;
-color: #C0FFFF;
-z-index: 100;
-}
-#ygyro-prompt{ 
-position: absolute;
+position: fixed;
 font-size: 15px;
 color: white;
-z-index: 100;
-}
-#ygyro-container{ 
-position: absolute;
-background-color: black;
-z-index: 100;
-}
-#ygyro{
-position: absolute;
-font-size: 15px;
-color: #C0FFFF;
-z-index: 100;
-}
-#zgyro-prompt{
-position: absolute;
-color: white;
-font-size: 15px;
-z-index: 100;
-}
-#zgyro-container{ 
-position: absolute;
-background-color: black;
-z-index: 100;
-}
-#zgyro{ 
-position: absolute;
-font-size: 15px;
-color: #C0FFFF;
-z-index: 100;
-}
-#xmag-prompt{
-position: absolute;
-color: white;
-z-index: 100;
-font-size: 15px;
-}
-#xmag-container{
-position: absolute;
-background-color: black;
-z-index: 100;
-}
-#xmag{
-position: absolute;
-color: #C0FFFF;
-font-size: 15px;
-z-index: 100;
-}
-#ymag-prompt{
-position: absolute;
-font-size: 15px;
-color: white;
-z-index: 100;
-}
-#ymag-container{
-position: absolute;
-background-color: black;
-z-index: 100;
-}
-#ymag{
-position: absolute;
-color: #C0FFFF;
-font-size: 15px;
-z-index: 100;
-}
-#zmag-prompt{
-position: absolute;
-color: white; 
-z-index: 100;
-font-size: 15px;
+top: 50%;
+right: 48.8%;
+z-index: 101;
+height: 15px;
 }
 #zmag-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:50%;
+width:5%;
+right: 52%;
+height: 15px;
 }
 #zmag{
-position: absolute;
+
+position: fixed;
 font-size: 15px;
 color: #C0FFFF;
-z-index: 100;
+z-index: 101;
+right: 52%;
+top: 50%;
+height: 15px;
 }
 .position {
 width: 100%;
@@ -313,55 +503,124 @@ height: 100%;
 position: absolute;
 }
 #x-prompt{
-position: absolute;
-z-index: 100;
-color: white;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 54%;
+right: 63%;
+z-index: 101;
+height: 15px;
+}
+#x-unit{
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 54%;
+right: 50.8%;
+z-index: 101;
+height: 15px;
 }
 #x-container {
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:54%;
+width:5%;
+right: 52%;
+height: 15px;
 }
 #x {
-position: absolute;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
 color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 54%;
+height: 15px;
 }
 #y-prompt {
-position: absolute;
-color: white;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: white;
+top: 58%;
+right: 63%;
+z-index: 101;
+height: 15px;
+}
+#y-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 58%;
+right: 50.8%;
+z-index: 101;
+height: 15px;
 }
 #y-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:58%;
+width:5%;
+right: 52%;
+height: 15px;
 }
 #y {
-position: absolute;
-color: #C0FFFF;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 58%;
+height: 15px;
 }
 #z-prompt {
-position: absolute;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
 color: white;
+top: 62%;
+right: 63%;
+z-index: 101;
+height: 15px;
+}
+#z-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 62%;
+right: 50.8%;
+z-index: 101;
+height: 15px;
 }
 #z-container {
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:62%;
+width:5%;
+right: 52%;
+height: 15px;
 }
 #z {
-position: absolute;
-z-index: 100;
-color: #C0FFFF;
+
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 62%;
+height: 15px;
 }
 
 .height {
@@ -371,21 +630,44 @@ position: absolute;
 }
 
 #altitude-prompt{
-position: absolute;
-color:white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 66%;
+right: 60.5%;
+z-index: 101;
+height: 15px;
+}
+#altitude-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 66%;
+right: 50%;
+z-index: 101;
+height: 15px;
 }
 #altitude-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:66%;
+width:5%;
+right: 52%;
+height: 15px;
 }
 #altitude {
-position: absolute;
+
+position: fixed;
 font-size: 15px;
 color: #C0FFFF;
-z-index: 100;
+z-index: 101;
+right: 52%;
+top: 66%;
+height: 15px;
 }
 
 .orientation {
@@ -394,72 +676,260 @@ height: 100%;
 position: absolute;
 }
 #heading-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 70%;
+right: 60.3%;
+z-index: 101;
+height: 15px;
+}
+#heading-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 70%;
+right: 49.8%;
+z-index: 101;
+height: 15px;
 }
 #heading-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:70%;
+width:5%;
+right: 52%;
+height: 15px;
 }
 #heading {
-position: absolute;
-color: #C0FFFF;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: #C0FFFF;
+z-index: 101;
+right: 52%;
+top: 70%;
+height: 15px;
 }
 #pitch-prompt{
-position: absolute;
+position: fixed;
 font-size: 15px;
 color: white;
-z-index: 100;
+top: 46%;
+right: 45.4%;
+z-index: 101;
+height: 15px;
+}
+#pitch-unit {
+position: fixed;
+font-size: 15px;
+color: white;
+top: 46%;
+right: 36%;
+z-index: 101;
+height: 15px;
 }
 #pitch-container{
-position: absolute;
-background-color: black;
+position: fixed;
 z-index: 100;
+background-color: black;
+top:46%;
+width:5%;
+right: 38.5%;
+height: 15px;
 }
 #pitch {
-position: absolute;
-z-index: 100;
-color: #C0FFFF;
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 38.5%;
+top: 46%;
+height: 15px;
+}
+#pitchspeed-prompt{
+position: fixed;
+font-size: 15px;
+color: white;
+top: 34%;
+right: 43.5%;
+z-index: 101;
+height: 15px;
+}
+#pitchspeed-unit {
+position: fixed;
+font-size: 15px;
+color: white;
+top: 34%;
+right: 36%;
+z-index: 101;
+height: 15px;
+}
+#pitchspeed-container{
+position: fixed;
+z-index: 100;
+background-color: black;
+top:34%;
+width:5%;
+right: 38.5%;
+height: 15px;
+}
+#pitchspeed {
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 38.5%;
+top: 34%;
+height: 15px;
 }
 #roll-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+position: fixed;
 font-size: 15px;
+color: white;
+top: 42%;
+right: 46%;
+z-index: 101;
+height: 15px;
+}
+#roll-unit {
+position: fixed;
+font-size: 15px;
+color: white;
+top: 42%;
+right: 36%;
+z-index: 101;
+height: 15px;
 }
 #roll-container{
-position: absolute;
-background-color: black;
+position: fixed;
 z-index: 100;
+background-color: black;
+top:42%;
+width:5%;
+right: 38.5%;
+height: 15px;
 }
 #roll{
-position: absolute;
-color: #C0FFFF;
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 38.5%;
+top: 42%;
+height: 15px;
+}
+#rollspeed-prompt{
+position: fixed;
+font-size: 15px;
+color: white;
+top: 30%;
+right: 44%;
+z-index: 101;
+height: 15px;
+}
+#rollspeed-unit {
+position: fixed;
+font-size: 15px;
+color: white;
+top: 30%;
+right: 36%;
+z-index: 101;
+height: 15px;
+}
+#rollspeed-container{
+position: fixed;
 z-index: 100;
+background-color: black;
+top:30%;
+width:5%;
+right: 38.5%;
+height: 15px;
+}
+#rollspeed{
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 38.5%;
+top: 30%;
+height: 15px;
 }
 #yaw-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+position: fixed;
 font-size: 15px;
+color: white;
+top: 50%;
+right: 45.8%;
+z-index: 101;
+height: 15px;
+}
+#yaw-unit {
+position: fixed;
+font-size: 15px;
+color: white;
+top: 50%;
+right: 36%;
+z-index: 101;
+height: 15px;
 }
 #yaw-container{
-position: absolute;
-background-color: black;
+position: fixed;
 z-index: 100;
+background-color: black;
+top:50%;
+width:5%;
+right: 38.5%;
+height: 15px;
 }
 #yaw{
-position: absolute;
-color: #C0FFFF;
-z-index: 100;
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 38.5%;
+top: 50%;
+height: 15px;
+}
+#yawspeed-prompt{
+position: fixed;
+font-size: 15px;
+color: white;
+top: 38%;
+right: 44%;
+z-index: 101;
+height: 15px;
+}
+#yawspeed-unit {
+position: fixed;
+font-size: 15px;
+color: white;
+top: 38%;
+right: 36%;
+z-index: 101;
+height: 15px;
+}
+#yawspeed-container{
+position: fixed;
+z-index: 100;
+background-color: black;
+top:38%;
+width:5%;
+right: 38.5%;
+height: 15px;
+}
+#yawspeed{
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 38.5%;
+top: 38%;
+height: 15px;
 }
 .drone-speed {
 width: 100%;
@@ -467,57 +937,124 @@ height: 100%;
 position: absolute;
 }
 #vx-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 54%;
+right: 46.5%;
+z-index: 101;
+height: 15px;
+}
+#vx-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 54%;
+right: 36%;
+z-index: 101;
+height: 15px;
 }
 #vx-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:54%;
+width:5%;
+right: 38.5%;
+height: 15px;
 }
 #vx {
-position: absolute;
+
+position: fixed;
 font-size: 15px;
 color: #C0FFFF;
-z-index: 100;
+z-index: 101;
+right: 38.5%;
+top: 54%;
+height: 15px;
 }
-
 #vy-prompt{
-position: absolute;
-color: white;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: white;
+top: 58%;
+right: 46.5%;
+z-index: 101;
+height: 15px;
+}
+#vy-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 58%;
+right: 36%;
+z-index: 101;
+height: 15px;
 }
 #vy-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:58%;
+width:5%;
+right: 38.5%;
+height: 15px;
 }
 #vy {
-position: absolute;
+
+position: fixed;
 font-size: 15px;
 color: #C0FFFF;
-z-index: 100;
+z-index: 101;
+right: 38.5%;
+top: 58%;
+height: 15px;
 }
-
 #vz-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 62%;
+right: 46.5%;
+z-index: 101;
+height: 15px;
+}
+#vz-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 62%;
+right: 36%;
+z-index: 101;
+height: 15px;
 }
 #vz-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:62%;
+width:5%;
+right: 38.5%;
+height: 15px;
 }
 #vz {
-position: absolute;
+
+position: fixed;
 font-size: 15px;
 color: #C0FFFF;
-z-index: 100;
+z-index: 101;
+right: 38.5%;
+top: 62%;
+height: 15px;
 }
 .vehicle-health {
 width: 100%;
@@ -536,89 +1073,184 @@ margin-left: 7%;
 margin-top: 7%;
 }
 #uplink-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 18%;
+left: 8%;
+z-index: 101;
+height: 15px;
+}
+#uplink-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 18%;
+left: 22%;
+z-index: 101;
+height: 15px;
 }
 #uplink-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:18%;
+width:5%;
+left: 15%;
+height: 15px;
 }
 #uplink {
-position: absolute;
-color: #C0FFFF;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+left: 18%;
+top: 18%;
+height: 15px;
 }
 #downlink-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 22%;
+left: 8%;
+z-index: 101;
+height: 15px;
+}
+#downlink-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 22%;
+left: 22%;
+z-index: 101;
+height: 15px;
 }
 #downlink-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:22%;
+width:5%;
+left: 15%;
+height: 15px;
 }
 #downlink {
-position: absolute;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
 color: #C0FFFF;
+z-index: 101;
+left: 18%;
+top: 22%;
+height: 15px;
 }
 #signal-strength-prompt{
-position: absolute;
-z-index: 100;
-color: white;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 26%;
+left: 8%;
+z-index: 101;
+height: 15px;
+}
+#signal-strength-unit{
+
+position: fixed;
+font-size: 15px;
+color: white;
+top: 26%;
+left: 22%;
+z-index: 101;
+height: 15px;
 }
 #signal-strength-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:26%;
+width:5%;
+left: 15%;
+height: 15px;
 }
 #signal-strength {
-position: absolute;
-color: #C0FFFF;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: #C0FFFF;
+z-index: 101;
+left: 18%;
+top: 26%;
+height: 15px;
 }
 #packet-loss-prompt{
-position: absolute;
-color: white;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: white;
+top: 30%;
+left: 8%;
+z-index: 101;
+height: 15px;
 }
 #packet-loss-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:30%;
+width:5%;
+left: 15%;
+height: 15px;
 }
 #packet-loss {
-position: absolute;
-color: #C0FFFF;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: #C0FFFF;
+z-index: 101;
+left: 18%;
+top: 30%;
+height: 15px;
 }
 #latency-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+top: 34%;
+left: 8%;
+z-index: 101;
+height: 15px;
 }
 #latency-container{
-position: absolute;
-background-color: black;
+
+position: fixed;
 z-index: 100;
+background-color: black;
+top:34%;
+width:5%;
+left: 15%;
+height: 15px;
 }
 #latency {
-position: absolute;
-color: #C0FFFF;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+left: 18%;
+top: 34%;
+height: 15px;
 }
 .vehicle-status {
 width: 25%;
@@ -631,34 +1263,105 @@ right: 0%;
 bottom: 10%;
 }
 #vehicle-initialization {
-position: absolute;
-color: #C0FFFF;
+
+position: fixed;
+z-index: 101;
+background-color: black;
+bottom: 40%;
+width:5%;
+right: 15%;
+height: 15px;
+}
+#time-boot-prompt{
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: white;
+bottom: 40%;
+right: 25%;
+z-index: 101;
+height: 15px;
+}
+#time-boot-unit {
+position: fixed;
+font-size: 15px;
+color: white;
+bottom: 40%;
+right: 12%;
+z-index: 101;
+height: 15px;
+
+}
+#time_boot{
+
+position: fixed;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+right: 15%;
+bottom: 40%;
+height: 15px;
 }
 #flight-mode-prompt{
-position: absolute;
+
+position: fixed;
+font-size: 15px;
 color: white;
-font-size: 15px;
-z-index: 100;
+bottom: 35%;
+right: 26.3%;
+z-index: 101;
+height: 15px;
 }
+#flight-mode-container {
+
+position: fixed;
+z-index: 101;
+background-color: black;
+bottom: 35%;
+width:5%;
+right: 15%;
+height: 15px;
+}
+
 #flight-mode {
-position: absolute;
-color: #C0FFFF;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: #C0FFFF;
+z-index: 101;
+right: 15%;
+bottom: 35%;
+height: 15px;
 }
 #lever-deploy-prompt{
-position: absolute;
-color: white;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
+color: white;
+right: 25%;
+bottom: 30%;
+z-index: 101;
+height: 15px;
+}
+#lever-deploy-container{
+
+position: fixed;
+z-index: 101;
+background-color: black;
+bottom: 30%;
+width:5%;
+right: 15%;
+height: 15px;
 }
 #lever-deploy {
-color: #C0FFFF;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
-position: absolute;
+color: #C0FFFF;
+z-index: 101;
+right: 15%;
+bottom: 30%;
+height: 15px;
 }
 
 .vehicle-thrust {
@@ -672,40 +1375,123 @@ margin-left: 7%;
 
 }
 #motor-1-prompt{
-position: absolute;
+
+position: fixed;
 font-size: 15px;
-z-index: 100;
 color: white;
+left: 8%;
+bottom: 40%;
+z-index: 101;
+height: 15px;
+}
+#motor-1-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+left: 22%;
+bottom: 40%;
+z-index: 101;
+height: 15px;
+}
+#motor-1-container {
+
+position: fixed;
+z-index: 100;
+background-color: black;
+bottom:40%;
+width:5%;
+left: 15%;
+height: 15px;
 }
 #motor-1 {
-position: absolute;
-color: #C0FFFF;
-z-index: 100;
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+left: 18%;
+bottom: 40%;
+height: 15px;
 }
 #motor-2-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+left: 8%;
+bottom: 35%;
+z-index: 101;
+height: 15px;
+}
+#motor-2-unit{
+
+position: fixed;
+font-size: 15px;
+color: white;
+left: 22%;
+bottom: 35%;
+z-index: 101;
+height: 15px;
+}
+#motor-2-container {
+
+position: fixed;
+z-index: 100;
+background-color: black;
+bottom:35%;
+width:5%;
+left: 15%;
+height: 15px;
 }
 #motor-2 {
-position: absolute;
-color: #C0FFFF;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+left: 18%;
+bottom: 35%;
+height: 15px;
 }
 #motor-3-prompt{
-position: absolute;
-color: white;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: white;
+left: 8%;
+bottom:30%;
+z-index: 101;
+height: 15px;
+}
+#motor-3-unit {
+
+position: fixed;
+font-size: 15px;
+color: white;
+left: 22%;
+bottom:30%;
+z-index: 101;
+height: 15px;
+}
+#motor-3-container {
+
+position: fixed;
+z-index: 100;
+background-color: black;
+bottom:30%;
+width:5%;
+left: 15%;
+height: 15px;
 }
 #motor-3 {
-position: absolute;
-color: #C0FFFF;
-z-index: 100;
+
+position: fixed;
 font-size: 15px;
+color: #C0FFFF;
+z-index: 101;
+left: 18%;
+bottom: 30%;
+height: 15px;
 }
 
 #operation-time {
