@@ -52,6 +52,12 @@ var t_servo3 = 0;
 var t_x = 0;
 var t_y = 0;
 var t_z = 0;
+var t_xgyro = 0;
+var t_ygyro = 0;
+var t_zgyro = 0;
+var t_xmag = 0;
+var t_ymag = 0;
+var t_zmag = 0;
 
 // add all the glorious functions getter/setters and update data structure
 var data = {
@@ -95,7 +101,13 @@ var data = {
      "servo3": this.servo3,
      "x": this.x,
      "y": this.y,
-     "z": this.z       
+     "z": this.z,
+     "xgyro" : this.xgyro,
+     "ygyro" : this.ygyro,
+     "zgyro" : this.zgyro,
+     "xmag" : this.xmag,
+     "ymag" : this.ymag, 
+     "zmag" : this.zmag
 }
 
 function getter_data (){ return data.data_packet; }
@@ -142,6 +154,14 @@ function set_x(x){ data.x = x; }
 function set_y(x){ data.y = x; }
 function set_z(x){ data.z = x; }
 function set_heading(x){ data.heading = x; }
+function set_xgyro(x){ data.xgyro = x; }
+function set_ygyro(x){ data.ygyro = x; }
+function set_zgyro(x){ data.zgyro = x; }
+function set_xmag(x){ data.xmag = x; }
+function set_ymag(x){ data.ymag = x; }
+function set_zmag(x){ data.zmag = x; }
+
+
 // getters
 function get_time_boot(){ return data.time_boot; }
 function get_roll(){ return data.roll; }
@@ -183,6 +203,12 @@ function get_x(){ return data.x; }
 function get_y(){ return data.y; }
 function get_z(){ return data.z; }
 function get_heading(){ return data.heading; }
+function get_xgyro(){ return data.xgyro; }
+function get_ygyro(){ return data.ygyro; }
+function get_zgyro(){ return data.zgyro; }
+function get_xmag(){ return data.xmag; }
+function get_ymag(){ return data.ymag; }
+function get_zmag(){ return data.zmag; }
 // search for libraries, css in public dir
 app.use(express.static('public'));
 
@@ -267,7 +293,12 @@ function responseBody (req, res, next){
 	set_x(t_x);
 	set_y(t_y);
 	set_z(t_z);
-    	
+    set_xgyro(t_xgyro);	
+    set_ygyro(t_ygyro);	
+    set_zgyro(t_zgyro);	
+    set_xmag(t_xmag);	
+    set_ymag(t_ymag);	
+    set_zmag(t_zmag);	
 	res.render('pages/index', {data});
 
     // ends response with no data
@@ -323,6 +354,36 @@ if (fields.hasOwnProperty('yawspeed')){
 const yawspeed = message.yawspeed;
 t_yawspeed = yawspeed;
 set_yawspeed(yawspeed);
+}
+if (fields.hasOwnProperty('xgyro')){
+    const xgyro = new Int16Array(message.xgyro);
+    t_xgyro = xgyro;
+    set_xgyro(xgyro);
+}
+if (fields.hasOwnProperty('ygyro')){
+    const ygyro = new Int16Array(message.ygyro);
+    t_ygyro = ygyro;
+    set_ygyro(ygyro);
+}
+if (fields.hasOwnProperty('zgyro')){
+    const zgyro = new Int16Array(message.zgyro);
+    t_zgyro = zgyro;
+    set_zgyro(zgyro);
+}
+if (fields.hasOwnProperty('xmag')){
+const xmag = new Int16Array(message.xmag);
+    t_xmag = xmag;
+    set_xmag(xmag);
+}
+if (fields.hasOwnProperty('ymag')){
+const ymag = new Int16Array(message.ymag);
+    t_ymag = ymag;
+    set_ymag(ymag);
+}
+if (fields.hasOwnProperty('zmag')){
+const zmag = new Int16Array(message.zmag);
+    t_zmag = zmag;
+    set_zmag(zmag);
 }
 if (fields.hasOwnProperty('load')){
 //uint16

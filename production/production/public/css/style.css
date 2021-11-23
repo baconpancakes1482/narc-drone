@@ -141,6 +141,24 @@ position: absolute;
 #long {
 position: absolute;
 }
+#xgyro-prompt{ position: absolute; }
+#xgyro-container{ position: absolute; }
+#xgyro{ position: absolute; }
+#ygyro-prompt{ position: absolute; }
+#ygyro-container{ position: absolute; }
+#ygyro{ position: absolute; }
+#zgyro-prompt{ position: absolute; }
+#zgyro-container{ position: absolute; }
+#zgyro{ position: absolute; }
+#xmag-prompt{ position: absolute; }
+#xmag-container{ position: absolute; }
+#xmag{ position: absolute; }
+#ymag-prompt{ position: absolute; }
+#ymag-container{ position: absolute; }
+#ymag{ position: absolute; }
+#zmag-prompt{ position: absolute; }
+#zmag-container{ position: absolute; }
+#zmag{ position: absolute; }
 
 .position {
 width: 100%;
