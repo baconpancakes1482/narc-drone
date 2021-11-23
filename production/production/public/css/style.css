@@ -13,35 +13,70 @@ margin-bottom: 0px;
 h1 {
 position: absolute;
 }
+.banner {
+width: 100%;
+height: 10%;
+position: fixed;
+background-color: black;
+z-index: 1;
+}
+.footer{
+width: 100%;
+height: 3%;
+position: fixed;
+bottom: 0%;
+background-color: #121212;
+z-index: 1;
+}
+.left{
+height: 100%;
+width:3%;
+left: 0%;
+z-index: 1;
+position: fixed;
+background-color: #121212;
+}
+.right{
+height: 100%;
+width: 3%;
+position: fixed;
+right: 0%;
+background-color: #121212;
+z-index: 1;
+}
 .container-app {
 width: 100%;
 height: 100%;
 z-index: 0;
 position: relative;
-background-color: gold;
+background-color: #202020;
 }
 .t-container {
 margin-top:7%;
 width: 30%;
-height: 75%;
+height: 78%;
 right: 35%;
-position: absolute;
-background-color: teal;
+position: fixed;
+background-color: #555555;
+z-index: 5;
 }
 .video-feed {
 z-index: 4;
-width: 320px;
-height: 240px;
+width: 25%;
+height: 35%;
 margin-right: 7%;
 margin-top: 7%;
 right: 0%;
-position: absolute;
+background-color: #555555;
+position: fixed;
 }
 #camera-feed {
-position: absolute;
+position: fixed;
 z-index: 3;
 width:320px;
 height:240px;
+right: 9%;
+top: 15.8%;
 /*	
 	border-top-width: 5px;
 	border-top-style: solid;
@@ -55,7 +90,10 @@ height:240px;
 }
 #video-canvas {
 	z-index: 100;
-	position: absolute;
+	position: fixed;
+    width: 320px;
+    height: 240px;
+
 }
 
 .battery-status {
@@ -92,12 +130,20 @@ position: absolute;
 }
 #distance-prompt{
 position: absolute;
+color: white;
+font-size: 15px;
+z-index: 100;
 }
 #distance-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #distance {
 position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 }
 
 .safe-abort{
@@ -125,41 +171,142 @@ position: absolute;
 }
 #lat-prompt {
 position: absolute;
+font-size: 15px;
+color: white;
+top: 50%;
+z-index: 100;
 }
 #lat-container {
 position: absolute;
+z-index: 100;
+background-color: black;
 }
 #lat {
 position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
 }
 #long-prompt {
 position: absolute;
+font-size: 15px;
+color: white;
+z-index: 100;
 }
 #long-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #long {
 position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
 }
-#xgyro-prompt{ position: absolute; }
-#xgyro-container{ position: absolute; }
-#xgyro{ position: absolute; }
-#ygyro-prompt{ position: absolute; }
-#ygyro-container{ position: absolute; }
-#ygyro{ position: absolute; }
-#zgyro-prompt{ position: absolute; }
-#zgyro-container{ position: absolute; }
-#zgyro{ position: absolute; }
-#xmag-prompt{ position: absolute; }
-#xmag-container{ position: absolute; }
-#xmag{ position: absolute; }
-#ymag-prompt{ position: absolute; }
-#ymag-container{ position: absolute; }
-#ymag{ position: absolute; }
-#zmag-prompt{ position: absolute; }
-#zmag-container{ position: absolute; }
-#zmag{ position: absolute; }
+#xgyro-prompt{
+position: absolute;
+font-size: 15px;
+color: white;
+z-index: 100;
+}
+#xgyro-container{
+position: absolute;
+background-color: black;
+z-index: 100;
 
+}
+#xgyro{
+position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
+}
+#ygyro-prompt{ 
+position: absolute;
+font-size: 15px;
+color: white;
+z-index: 100;
+}
+#ygyro-container{ 
+position: absolute;
+background-color: black;
+z-index: 100;
+}
+#ygyro{
+position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
+}
+#zgyro-prompt{
+position: absolute;
+color: white;
+font-size: 15px;
+z-index: 100;
+}
+#zgyro-container{ 
+position: absolute;
+background-color: black;
+z-index: 100;
+}
+#zgyro{ 
+position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
+}
+#xmag-prompt{
+position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
+}
+#xmag-container{
+position: absolute;
+background-color: black;
+z-index: 100;
+}
+#xmag{
+position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
+}
+#ymag-prompt{
+position: absolute;
+font-size: 15px;
+color: white;
+z-index: 100;
+}
+#ymag-container{
+position: absolute;
+background-color: black;
+z-index: 100;
+}
+#ymag{
+position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
+}
+#zmag-prompt{
+position: absolute;
+color: white; 
+z-index: 100;
+font-size: 15px;
+}
+#zmag-container{
+position: absolute;
+background-color: black;
+z-index: 100;
+}
+#zmag{
+position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
+}
 .position {
 width: 100%;
 height: 100%;
@@ -167,30 +314,54 @@ position: absolute;
 }
 #x-prompt{
 position: absolute;
+z-index: 100;
+color: white;
+font-size: 15px;
 }
 #x-container {
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #x {
 position: absolute;
+z-index: 100;
+font-size: 15px;
+color: #C0FFFF;
 }
 #y-prompt {
 position: absolute;
+color: white;
+font-size: 15px;
+z-index: 100;
 }
 #y-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #y {
 position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 }
 #z-prompt {
 position: absolute;
+z-index: 100;
+font-size: 15px;
+color: white;
 }
 #z-container {
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #z {
 position: absolute;
+z-index: 100;
+color: #C0FFFF;
+font-size: 15px;
 }
 
 .height {
@@ -201,12 +372,20 @@ position: absolute;
 
 #altitude-prompt{
 position: absolute;
+color:white;
+z-index: 100;
+font-size: 15px;
 }
 #altitude-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #altitude {
 position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
 }
 
 .orientation {
@@ -216,39 +395,71 @@ position: absolute;
 }
 #heading-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #heading-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #heading {
 position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 }
 #pitch-prompt{
 position: absolute;
+font-size: 15px;
+color: white;
+z-index: 100;
 }
 #pitch-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #pitch {
 position: absolute;
+z-index: 100;
+color: #C0FFFF;
+font-size: 15px;
 }
 #roll-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #roll-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #roll{
 position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 }
 #yaw-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #yaw-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #yaw{
 position: absolute;
+color: #C0FFFF;
+z-index: 100;
+font-size: 15px;
 }
 .drone-speed {
 width: 100%;
@@ -257,146 +468,244 @@ position: absolute;
 }
 #vx-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #vx-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #vx {
 position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
 }
 
 #vy-prompt{
 position: absolute;
+color: white;
+font-size: 15px;
+z-index: 100;
 }
 #vy-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #vy {
 position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
 }
 
 #vz-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #vz-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #vz {
 position: absolute;
+font-size: 15px;
+color: #C0FFFF;
+z-index: 100;
 }
 .vehicle-health {
 width: 100%;
 height: 100%;
 position: absolute;
+z-index: 4;
 }
 .vehicle-signals-intel {
-width: 320px;
-height: 240px;
-background-color: blue;
-position: absolute;
-z-index: 4;
+width: 25%;
+height: 35%;
+background-color: #555555;
+position: fixed;
+z-index: 5;
 left: 0%;
 margin-left: 7%;
-bottom: 10%;
+margin-top: 7%;
 }
 #uplink-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #uplink-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #uplink {
 position: absolute;
+color: #C0FFFF;
+z-index: 100;
+font-size: 15px;
 }
 #downlink-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #downlink-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #downlink {
 position: absolute;
+font-size: 15px;
+z-index: 100;
+color: #C0FFFF;
 }
 #signal-strength-prompt{
 position: absolute;
+z-index: 100;
+color: white;
+font-size: 15px;
 }
 #signal-strength-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #signal-strength {
 position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 }
 #packet-loss-prompt{
 position: absolute;
+color: white;
+font-size: 15px;
+z-index: 100;
 }
 #packet-loss-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #packet-loss {
 position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 }
 #latency-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #latency-container{
 position: absolute;
+background-color: black;
+z-index: 100;
 }
 #latency {
 position: absolute;
+color: #C0FFFF;
+z-index: 100;
+font-size: 15px;
 }
 .vehicle-status {
-width: 320px;
-height: 240px;
+width: 25%;
+height: 35%;
 z-index: 4;
-background-color: black;
-position: absolute;
+background-color: #555555;
+position: fixed;
 margin-right: 7%;
 right: 0%;
 bottom: 10%;
 }
 #vehicle-initialization {
 position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 }
 #flight-mode-prompt{
 position: absolute;
+color: white;
+font-size: 15px;
+z-index: 100;
 }
 #flight-mode {
 position: absolute;
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 }
 #lever-deploy-prompt{
 position: absolute;
+color: white;
+font-size: 15px;
+z-index: 100;
 }
 #lever-deploy {
+color: #C0FFFF;
+font-size: 15px;
+z-index: 100;
 position: absolute;
 }
 
 .vehicle-thrust {
-width: 320px;
-height: 240px;
-background-color: green;
-position: absolute;
+width: 25%;
+height: 35%;
+background-color: #555555;
+position: fixed;
 z-index: 4;
-margin-top: 7%;
+bottom: 10%;
 margin-left: 7%;
-left: 0%;
+
 }
 #motor-1-prompt{
 position: absolute;
+font-size: 15px;
+z-index: 100;
+color: white;
 }
 #motor-1 {
 position: absolute;
+color: #C0FFFF;
+z-index: 100;
+font-size: 15px;
 }
 #motor-2-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #motor-2 {
 position: absolute;
+color: #C0FFFF;
+z-index: 100;
+font-size: 15px;
 }
 #motor-3-prompt{
 position: absolute;
+color: white;
+z-index: 100;
+font-size: 15px;
 }
 #motor-3 {
 position: absolute;
+color: #C0FFFF;
+z-index: 100;
+font-size: 15px;
 }
 
 #operation-time {
@@ -426,7 +735,7 @@ position: absolute;
 	height: 15px;
 	bottom: 0%;
 	right: 27%;
-	color: white;
+	color: #C0FFFF;
 }
 #timer {
 	position:absolute;
@@ -444,7 +753,7 @@ position: absolute;
 	font-size: 15px;	
 }
 #hours {
-	color: red;
+	color: #C00000;
 	z-index: 101;
 	position: absolute;
 	right: 19%;
@@ -452,7 +761,7 @@ position: absolute;
 	height: 15px;
 }
 #minutes {
-	color: green;
+	color:  green;
 	z-index: 101;
 	position: absolute;
 	right:7%;

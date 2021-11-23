@@ -7,19 +7,23 @@
 <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
+    <div class="banner"></div>
+    <div class="footer"></div>
+    <div class="left"></div>
+    <div class="right"></div>
     <div class="container-app">
         <div class="video-feed">
             <!-- Decide on resolution for camera feed and expect h264-->
             <div id="camera-feed"> 
-		<canvas id="video-canvas"></canvas>
-		 <div id="timer">
-                        <div id="time-prompt">Operation Time:</div>
-                        <div id="hours"></div>
-                        <div id="minutes"></div>
-                        <div id="seconds"></div>
-                </div>
+		        <canvas id="video-canvas"></canvas>
+		     <div id="timer">
+                    <div id="time-prompt">Operation Time:</div>
+                    <div id="hours"></div>
+                    <div id="minutes"></div>
+                    <div id="seconds"></div>
+             </div>
                 <div id="elasped_seconds"></div>
-	    </div>
+	        </div>
         </div>
         <div class="safe-abort">
             <div id="abort-div">ABORT</div>
@@ -29,13 +33,13 @@
             <div id="battery-percentage"><%- data.bat_re %></div>
             <div id="battery-meter"></div>
         </div>
-	<div class="t-container">
+	    <div class="t-container">
             <div class="distance-traveled">
                  <!-- Record distance traveled-->
-		 <div id="distance-prompt">distance traveled:</div>
-		 <div id="distance-container">
-                       <div id="distance"></div>
-		</div>
+		        <div id="distance-prompt">distance traveled:</div>
+		        <div id="distance-container">
+                    <div id="distance"></div>
+		        </div>
             </div>
             <div class="gps">
 		        <div id="lat-prompt">lat:</div>
@@ -44,7 +48,7 @@
                 </div>
                 <div id="long-prompt">long:</div>
                 <div id="long-container">
-                     <div id="long"><%- data.long %></div>  
+                    <div id="long"><%- data.long %></div>  
                 </div>
                 <div id="xgyro-prompt">xgyro:</div>
                 <div id="xgyro-container">
@@ -56,7 +60,7 @@
                 </div>
                 <div id="zgyro-prompt">zgyro:</div>
                 <div id="zgyro-container">
-                    <div id="zgyro"><%- data.zgyro %></div>
+                     <div id="zgyro"><%- data.zgyro %></div>
                 </div>
                 <div id="xmag-prompt">xmag:</div>
                 <div id="xmag-container">
@@ -72,25 +76,24 @@
                 </div>
             </div>
             <div class="position">
-		<div id="x-prompt">x:</div>
-		<div id="x-container">
-            <div id="x"><% data.x %></div>
-		</div>               
-		<div id="y-prompt">y:</div>
-		<div id="y-container">
-            <div id="y"><%- data.y %></div>
-		</div>
-
-		<div id="z-prompt">z:</div>                
-		<div id="z-container"
-            <div id="z"><%- data.z %></div>
-		</div>
+		        <div id="x-prompt">x:</div>
+		        <div id="x-container">
+                    <div id="x"><% data.x %></div>
+		        </div>               
+		        <div id="y-prompt">y:</div>
+		        <div id="y-container">
+                    <div id="y"><%- data.y %></div>
+		        </div>
+		        <div id="z-prompt">z:</div>                
+                <div id="z-container">
+                    <div id="z"><%- data.z %></div>
+		        </div>
             </div>
             <div class="height">
-		<div id="altitude-prompt">altitude:</div>
-		<div id="altitude-container">
-            <div id="altitude"><%- data.alt %></div>
-		</div>
+		        <div id="altitude-prompt">altitude:</div>
+		        <div id="altitude-container">
+                    <div id="altitude"><%- data.alt %></div>
+		        </div>
             </div>
             <div class="orientation">
 		        <div id="heading-prompt">heading:</div>
@@ -123,10 +126,10 @@
                 <div id="vz-container">
                     <div id="vz"><%- data.vz %></div>
                 </div>
-           </div>
-	
+            </div>
+    </div>	
 	<div class="vehicle-health"> 
-               <div class="vehicle-signals-intel">
+        <div class="vehicle-signals-intel">
 			<div id="uplink-prompt">uplink:</div>
 			<div id="uplink-container">
                 <div id="uplink"><%- data.tx_rate %></div>
@@ -137,38 +140,37 @@
 			</div>
 			<div id="signal-strength-prompt">signal strength:</div>
 			<div id="signal-strength-container">
-                        <div id="signal-strength"><%- data.rssi %></div>
+                <div id="signal-strength"><%- data.rssi %></div>
 			</div>
 			<div id="packet-loss-prompt">packet loss:</div>
 			<div id="packet-loss-container">
-                        <div id="packet-loss"></div>
+                <div id="packet-loss"></div>
 			</div>
 			<div id="latency-prompt">latency:</div>
 			<div id="latency-container">
-                        <div id="latency"></div>
+                <div id="latency"></div>
 			</div>
+        </div>
+        <div class="vehicle-status">
+                <div id="vehicle-initialization">
+			        <div id="time_boot">'<%-data.time_boot %>'</div>
                 </div>
-                <div class="vehicle-status">
-                        <div id="vehicle-initialization">
-				<div id="time_boot">'<%-data.time_boot %>'</div>
-			</div>
-			<div id="flight-mode-prompt">flight mode:</div>
-            <div id="flight-mode"><%- data.vtol_state %></div>
-			<div id="lever-deploy-prompt">lever deployed:</div>
-                        <div id="lever-deploy"></div>
-                </div>
-                <div class="vehicle-thrust">
+			    <div id="flight-mode-prompt">flight mode:</div>
+                    <div id="flight-mode"><%- data.vtol_state %></div>
+			    <div id="lever-deploy-prompt">lever deployed:</div>
+                <div id="lever-deploy"></div>
+        </div>
+        <div class="vehicle-thrust">
 			<div id="motor-1-prompt">motor-1:</div>
-            <div id="motor-1"><%- data.servo1 %></div>
+                <div id="motor-1"><%- data.servo1 %></div>
 			<div id="motor-2-prompt">motor-2:</div>
-            <div id="motor-2"><%- data.servo2 %></div>
+                <div id="motor-2"><%- data.servo2 %></div>
 			<div id="motor-3-prompt">motor-3:</div>
-            <div id="motor-3"><%- data.servo3 %></div>
-                </div>
-	   </div>
+                <div id="motor-3"><%- data.servo3 %></div>
+        </div>
 	</div>
-    </div>
-      
+</div>
+     
       <script>
           // operation start time in seconds
           // May have to reduce operations of time and also is this appropriate to be here?
@@ -198,7 +200,7 @@
               await fetch("http://10.0.2.100:8001/api/events/?", 
                 { headers: {
                     'Cache-Control': 'no-cache',
-		    'Access-Control-Allow-Origin': '*'
+		            'Access-Control-Allow-Origin': '*'
                 }
                     }).then(response => {
                   const json = response.json();
