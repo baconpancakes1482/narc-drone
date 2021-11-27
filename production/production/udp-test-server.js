@@ -18,7 +18,8 @@ myMav.on("ready", function(){
 
 	serialport.on("data", function(data){
 		// lets do a check if its a heart beat message or a mav1 or mav 2 message AKA Manual check
-		const char_async  = async (data) => {
+/*
+        const char_async  = async (data) => {
                         return data[0];
                 }
 
@@ -218,7 +219,7 @@ myMav.on("ready", function(){
 				 fields.system_status uint8_t
 				 fields.mavlink_version uintu_t_mavlink_version
 				*/
-				try {
+/*				try {
 				// test out
 				var type = data[1];
 				// var type = fields.type;
@@ -270,7 +271,7 @@ myMav.on("ready", function(){
                         instance++;
 			console.log("instance: " + instance + "  missed_instance: " + missed_instance);
          	   }();
-
+*/
 		// will parse data to respective message. AKA does hard work of decoding.
 		myMav.parse(data);
 	});

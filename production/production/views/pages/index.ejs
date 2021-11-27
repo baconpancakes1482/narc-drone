@@ -195,9 +195,9 @@
         </div>
         <div class="vehicle-status">
             <div id="time-boot-prompt">time since boot:</div>
-            <div id="time-boot-unit">ms</div>
+            <div id="time-boot-unit">s</div>
                 <div id="vehicle-initialization">
-			        <div id="time_boot">'<%-data.time_boot %>'</div>
+			        <div id="time_boot"><%-data.time_boot %></div>
                 </div>
 			    <div id="flight-mode-prompt">flight mode:</div>
                 <div id="flight-mode-container">
@@ -270,39 +270,41 @@
                   return json;
                }).then( data => {
                     console.log(data);
+                   if( data.hasOwnProperty('data.x') || data.hasOwnProperty(data.y) || data.hasOwnProperty(data.z)) {
                     distance += Math.sqrt( ((data.x-old_x)**2) + ((data.y-old_y)**2) + ((data.z-old_z)**2));
-                    document.getElementById("distance").innerHTML = (distance).toFixed(2);
-                    document.getElementById("time_boot").innerHTML = (data.time_boot).toFixed(2);
-                    document.getElementById("battery-percentage").innerHTML = (data.bat_re).toFixed(2);
-                    document.getElementById("lat").innerHTML = (data.lat).toFixed(2);
-                    document.getElementById("long").innerHTML = (data.long).toFixed(2);
-                    document.getElementById("xgyro").innerHTML = (data.xgyro).toFixed(2);
-                    document.getElementById("ygyro").innerHTML = (data.ygyro).toFixed(2);
-                    document.getElementById("zgyro").innerHTML = (data.zgyro).toFixed(2);
-                    document.getElementById("xmag").innerHTML = (data.xmag).toFixed(2);
-                    document.getElementById("ymag").innerHTML = (data.ymag).toFixed(2);
-                    document.getElementById("zmag").innerHTML = (data.zmag).toFixed(2);
-                    document.getElementById("x").innerHTML = (data.x).toFixed(2);
-                    document.getElementById("y").innerHTML = (data.y).toFixed(2);
-                    document.getElementById("z").innerHTML = (data.z).toFixed(2);
-                    document.getElementById("altitude").innerHTML = (data.alt).toFixed(2);
-                    document.getElementById("heading").innerHTML = (data.heading).toFixed(2);
-                    document.getElementById("roll").innerHTML = (data.roll).toFixed(2);
-                    document.getElementById("pitch").innerHTML = (data.pitch).toFixed(2);
-                    document.getElementById("yaw").innerHTML = (data.yaw).toFixed(2);
-                   document.getElementById("rollspeed").innerHTML = (data.rollspeed).toFixed(2);
-                   document.getElementById("pitchspeed").innerHTML = (data.pitchspeed).toFixed(2);
-                   document.getElementById("yawspeed").innerHTML = (data.yawspeed).toFixed(2);
-                    document.getElementById("vx").innerHTML = (data.vx).toFixed(2);
-                    document.getElementById("vy").innerHTML = (data.vy).toFixed(2);
-                    document.getElementById("vz").innerHTML = (data.vz).toFixed(2);
-                    document.getElementById("uplink").innerHTML = (data.tx_rate).toFixed(2);
-                    document.getElementById("downlink").innerHTML = (data.rx_rate).toFixed(2);
-                    document.getElementById("signal-strength").innerHTML = (data.rssi).toFixed(2);
+                   } 
+                    document.getElementById("distance").innerHTML = distance;
+                    document.getElementById("time_boot").innerHTML = data.time_boot;
+                    document.getElementById("battery-percentage").innerHTML = data.bat_re;
+                    document.getElementById("lat").innerHTML = data.lat;
+                    document.getElementById("long").innerHTML = data.long
+                    document.getElementById("xgyro").innerHTML = data.xgyro;
+                    document.getElementById("ygyro").innerHTML = data.ygyro;
+                    document.getElementById("zgyro").innerHTML = data.zgyro;
+                    document.getElementById("xmag").innerHTML = data.xmag;
+                    document.getElementById("ymag").innerHTML = data.ymag;
+                    document.getElementById("zmag").innerHTML = data.zmag;
+                    document.getElementById("x").innerHTML = data.x;
+                    document.getElementById("y").innerHTML = data.y;
+                    document.getElementById("z").innerHTML = data.z;
+                    document.getElementById("altitude").innerHTML = data.alt;
+                    document.getElementById("heading").innerHTML = data.heading;
+                    document.getElementById("roll").innerHTML = data.roll;
+                    document.getElementById("pitch").innerHTML = data.pitch;
+                    document.getElementById("yaw").innerHTML = data.yaw;
+                   document.getElementById("rollspeed").innerHTML = data.rollspeed;
+                   document.getElementById("pitchspeed").innerHTML = data.pitchspeed;
+                   document.getElementById("yawspeed").innerHTML = data.yawspeed;
+                    document.getElementById("vx").innerHTML = data.vy;
+                    document.getElementById("vy").innerHTML = data.vy;
+                    document.getElementById("vz").innerHTML = data.vz;
+                    document.getElementById("uplink").innerHTML = data.tx_rate;
+                    document.getElementById("downlink").innerHTML = data.rx_rate;
+                    document.getElementById("signal-strength").innerHTML = data.rssi;
                     document.getElementById("flight-mode").innerHTML = data.vtol_state;
-                    document.getElementById("motor-1").innerHTML = (data.servo1).toFixed(2);
-                    document.getElementById("motor-2").innerHTML = (data.servo2).toFixed(2);
-                    document.getElementById("motor-3").innerHTML = (data.servo3).toFixed(2);
+                    document.getElementById("motor-1").innerHTML = data.servo1;
+                    document.getElementById("motor-2").innerHTML = data.servo2;
+                    document.getElementById("motor-3").innerHTML = data.servo3;
                       document.getElementById("elasped_seconds").innerHTML = "Time Elasped: " + time_elasped + "s";
                       document.getElementById("hours").innerHTML = hours + "hr";
                       document.getElementById("seconds").innerHTML = seconds + "s";

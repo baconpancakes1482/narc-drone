@@ -230,8 +230,9 @@ app.get('/', (req, res, next) => {
 });
 
 app.get('/api/events/', (req, res)=> {
-        console.log("API EVENT FIRE");
-        console.log("The data in api route is: %s", data);
+        //console.log("API EVENT FIRE");
+        //console.log("The data in api route is: %s", data);
+        
         res.json(data);
 });
 
@@ -258,48 +259,48 @@ function responseBody (req, res, next){
      	set_roll(t_roll); 
      	set_pitch(t_pitch);
      	set_yaw(t_yaw);
-	set_rollspeed(t_rollspeed);
-	set_pitchspeed(t_pitchspeed);
-	set_yawspeed(t_yawspeed);
-	set_load(t_load);
-	set_vol_bat(t_vol_bat);
-	set_bat_re(t_bat_re);
-	set_drop_rate(t_drop_rate);
-	set_tx_buf(t_tx_buf);
-	set_rx_buf(t_rx_buf);
-	set_tx_rate(t_tx_rate);
-	set_rx_rate(t_rx_rate);
-	set_message_sent(t_message_sent);
-	set_message_received(t_message_received);
-	set_message_lost(t_message_lost);
-	set_xacc(t_xacc);
-	set_yacc(t_yacc);
-	set_zacc(t_zacc);
-	set_lat(t_lat);
-	set_long(t_long);
-	set_alt(t_alt);
-	set_rel_alt(t_rel_alt);
-	set_vx(t_vx);
-	set_vy(t_vy);
-	set_vz(t_vz);
-    set_heading(t_heading);
-	set_vtol_state(t_vtol_state);
-	set_landed_state(t_landed_state);
-	set_chancount(t_chancount);
-	set_rssi(t_rssi);
-	set_servo1(t_servo1);
-	set_servo2(t_servo2);
-	set_servo3(t_servo3);
-	set_x(t_x);
-	set_y(t_y);
-	set_z(t_z);
-    set_xgyro(t_xgyro);	
-    set_ygyro(t_ygyro);	
-    set_zgyro(t_zgyro);	
-    set_xmag(t_xmag);	
-    set_ymag(t_ymag);	
-    set_zmag(t_zmag);	
-	res.render('pages/index', {data});
+    	set_rollspeed(t_rollspeed);
+    	set_pitchspeed(t_pitchspeed);
+    	set_yawspeed(t_yawspeed);
+    	set_load(t_load);
+    	set_vol_bat(t_vol_bat);
+    	set_bat_re(t_bat_re);
+    	set_drop_rate(t_drop_rate);
+    	set_tx_buf(t_tx_buf);
+    	set_rx_buf(t_rx_buf);
+    	set_tx_rate(t_tx_rate);
+    	set_rx_rate(t_rx_rate);
+    	set_message_sent(t_message_sent);
+    	set_message_received(t_message_received);
+    	set_message_lost(t_message_lost);
+	    set_xacc(t_xacc);
+	    set_yacc(t_yacc);
+    	set_zacc(t_zacc);
+	    set_lat(t_lat);
+    	set_long(t_long);
+	    set_alt(t_alt);
+    	set_rel_alt(t_rel_alt);
+	    set_vx(t_vx);
+	    set_vy(t_vy);
+	    set_vz(t_vz);
+        set_heading(t_heading);
+	    set_vtol_state(t_vtol_state);
+	    set_landed_state(t_landed_state);
+	    set_chancount(t_chancount);
+	    set_rssi(t_rssi);
+	    set_servo1(t_servo1);
+	    set_servo2(t_servo2);
+	    set_servo3(t_servo3);
+	    set_x(t_x);
+    	set_y(t_y);
+    	set_z(t_z);
+        set_xgyro(t_xgyro);	
+        set_ygyro(t_ygyro);	
+        set_zgyro(t_zgyro);	
+        set_xmag(t_xmag);	
+        set_ymag(t_ymag);	
+        set_zmag(t_zmag);	
+    	res.render('pages/index', {data});
 
     // ends response with no data
     res.end();
@@ -314,265 +315,266 @@ app.listen( port, () => {
 
 //figure out way to parse different fields from different specific messages
 socket.on('message', (message, req, res) => {
-    console.log(`UDP message received: ${req} from ${res.address}:${res.port}`);
+   // console.log(`UDP message received:  from ${res.address}:${res.port}`);
 	// expecting message to be a buffer that had stringify done to it
-
-	const fields = JSON.parse( message ); // unwrap so we have our original fields object
-try {	// fun part of parsing below
+	var fields = JSON.parse(message.toString());
+	// fun part of parsing below
 if (fields.hasOwnProperty('time_boot_ms')){
 //uint32
-const time_boot = new Uint32Array(message.time_boot_ms);
+var time_boot = (fields.time_boot_ms/1000).toFixed(2);
 t_time_boot = time_boot;
 set_time_boot(time_boot);
 }
 if (fields.hasOwnProperty('roll')){
-const roll = message.roll;
+var roll = (fields.roll).toFixed(2);
 t_roll = roll;
 set_roll(roll);
 }
 if (fields.hasOwnProperty('pitch')){
-const pitch = message.pitch;
+var pitch = (fields.pitch).toFixed(2);
 t_pitch = pitch;
 set_pitch(pitch);
 }
 if (fields.hasOwnProperty('yaw')){
-const yaw = message.yaw;
+var yaw = (fields.yaw).toFixed(2);
 t_yaw = yaw;
 set_yaw(yaw);
 }
 if (fields.hasOwnProperty('rollspeed')){
-const rollspeed = message.rollspeed;
+var rollspeed = (fields.rollspeed).toFixed(2);
 t_rollspeed = rollspeed;
 set_rollspeed(rollspeed);
 }
 if (fields.hasOwnProperty('pitchspeed')){
-const pitchspeed = message.pitchspeed;
+var pitchspeed = (fields.pitchspeed).toFixed(2);
 t_pitchspeed = pitchspeed;
 set_pitchspeed(pitchspeed);
 }
 if (fields.hasOwnProperty('yawspeed')){
-const yawspeed = message.yawspeed;
+var yawspeed = (fields.yawspeed).toFixed(2);
 t_yawspeed = yawspeed;
 set_yawspeed(yawspeed);
 }
 if (fields.hasOwnProperty('xgyro')){
-    const xgyro = new Int16Array(message.xgyro);
+    var xgyro = (fields.xgyro).toFixed(2);
     t_xgyro = xgyro;
     set_xgyro(xgyro);
 }
 if (fields.hasOwnProperty('ygyro')){
-    const ygyro = new Int16Array(message.ygyro);
+    var ygyro = (fields.ygyro).toFixed(2);
     t_ygyro = ygyro;
     set_ygyro(ygyro);
 }
 if (fields.hasOwnProperty('zgyro')){
-    const zgyro = new Int16Array(message.zgyro);
+    var zgyro = (fields.zgyro).toFixed(2);
     t_zgyro = zgyro;
     set_zgyro(zgyro);
 }
 if (fields.hasOwnProperty('xmag')){
-const xmag = new Int16Array(message.xmag);
+var xmag = (fields.xmag).toFixed(2);
     t_xmag = xmag;
     set_xmag(xmag);
 }
 if (fields.hasOwnProperty('ymag')){
-const ymag = new Int16Array(message.ymag);
+var ymag = (fields.ymag).toFixed(2);
     t_ymag = ymag;
     set_ymag(ymag);
 }
 if (fields.hasOwnProperty('zmag')){
-const zmag = new Int16Array(message.zmag);
+var zmag = (fields.zmag).toFixed(2);
     t_zmag = zmag;
     set_zmag(zmag);
 }
 if (fields.hasOwnProperty('load')){
 //uint16
-const load = new Uint16Array(message.load);
+var load = (fields.load).toFixed(2);
 t_load = load;
 set_load(load);
 }
 if (fields.hasOwnProperty('voltage_battery')){
 //uint16t
-const vol_bat = new Uint16Array(message.voltage_battery);
+var vol_bat = (fields.voltage_battery).toFixed(2);
 t_vol_bat = vol_bat;
 set_vol_bat(vol_bat);
 }
 if (fields.hasOwnProperty('battery_remaining')){
 //int8_t
-const bat_re = new Int8Array(message.battery_remaining);
+var bat_re = (fields.battery_remaining).toFixed(2);
 t_bat_re = bat_re;
 set_bat_re(bat_re);
 }
 if (fields.hasOwnProperty('drop_rate_comm')){
 //unint16_t
-const drop_rate = new Uint16Array(message.drop_rate_comm);
+var drop_rate = (fields.drop_rate_comm).toFixed(2);
 t_drop_rate = drop_rate;
 set_drop_rate(drop_rate);
 }
 if (fields.hasOwnProperty('timestamp')){
-const timestamp = message.timestamp;
+var timestamp = (fields.timestamp).toFixed(2);
 t_timestamp = time_stamp;
 set_time_stamp(time_stamp);
 }
 if (fields.hasOwnProperty('tx_buf')){
-const tx_buf = new Uint8Array(message.tx_buf);
+var tx_buf = (fields.tx_buf).toFixed(2);
 t_tx_buf = tx_buf;
 set_tx_buf(tx_buf);
 }
 if (fields.hasOwnProperty('rx_buf')){
-const rx_buf = new Uint8Array(message.rx_buf);
+var rx_buf = (fields.rx_buf).toFixed(2);
 t_rx_buf = rx_buf;
 set_rx_buf(rx_buf);
 }
 if (fields.hasOwnProperty('tx_rate')){
-const tx_rate = new Uint32Array(message.tx_rate);
+var tx_rate = (fields.tx_rate).toFixed(2);
 t_tx_rate = tx_rate;
 set_tx_rate(tx_rate);
 }
 if (fields.hasOwnProperty('rx_rate')){
-const rx_rate = new Uint32Array(message.rx_rate);
+var rx_rate = (fields.rx_rate).toFixed(2);
 t_rx_rate = rx_rate;
 set_rx_rate(rx_rate);
 }
 if (fields.hasOwnProperty('messages_sent')){
-const message_sent = new Uint32Array(message.messages_sent);
+var message_sent = (fields.messages_sent).toFixed(2);
 t_message_sent = message_sent;
 set_message_sent(message_sent);
 }
 if (fields.hasOwnProperty('messages_received')){
-const message_received = new Uint32Array(message.messages_received);
+var message_received = (fields.messages_received).toFixed(2);
 t_message_received = message_received;
 set_message_received(message_received);
 }
 if (fields.hasOwnProperty('messages_lost')){
-const message_lost = new Uint32Array(message.messages_lost);
+var message_lost = (fields.messages_lost).toFixed(2);
 t_message_lost = message_lost;
 set_message_lost(message_lost);
 }
 if (fields.hasOwnProperty('xacc')){
-const xacc = new Int16Array(message.xacc);
+var xacc = (fields.xacc).toFixed(2);
 t_xacc = xacc;
 set_xacc(xacc);
 }
 if (fields.hasOwnProperty('yacc')){
-const yacc = new Int16Array(message.yacc);
+var yacc = (fields.yacc).toFixed(2);
 t_yacc = yacc;
 set_yacc(yacc);
 }
 if (fields.hasOwnProperty('zacc')){
-const zacc = new Int16Array(message.zacc);
+var zacc = (fields.zacc).toFixed(2);
 t_zacc = zacc;
 set_zacc(zacc);
 }
 if (fields.hasOwnProperty('lat')){
-const lat = new Int32Array(message.lat);
+var lat = (fields.lat).toFixed(2);
 t_lat = lat;
 set_lat(lat);
 }
 if (fields.hasOwnProperty('long')){
-const long = new Int32Array(message.long);
+var long = (fields.long).toFixed(2);
 t_long = long;
 set_long(long);
 }
 if (fields.hasOwnProperty('alt')){
-const alt = new Int32Array(message.alt);
+var alt = (fields.alt).toFixed(2);
 t_alt = alt;
 set_alt(alt);
 }
 if (fields.hasOwnProperty('relative_alt')){
-const rel_alt = new Int32Array(message.relative_alt);
+var rel_alt = (fields.relative_alt).toFixed(2);
 t_rel_alt = rel_alt;
 set_rel_alt(rel_alt);
 }
 if (fields.hasOwnProperty('vx')){
 	// distinguish between float and uint16_t via 
 	// check field bytelength, float > int16_t
-	const buf = buffer.alloc(message.vx);
+	var buf = Buffer.alloc(fields.vx);
 	if (Buffer.byteLength(buf) > 2) {
 	// float
-		const vx = message.vx;
+		var vx = (fields.vx).toFixed(2);
 		t_vx = vx;
 		set_vx(vx);
+        buf = Buffer.alloc(0);
 	}  //else we ignore dont want the other val
 }
 if (fields.hasOwnProperty('vy')){
 	   // distinguish between float and uint16_t via
         // check field bytelength, float > int16_t
-        const buf = buffer.alloc(message.vy);
+        var buf = Buffer.alloc(fields.vy);
         if (Buffer.byteLength(buf) > 2) {
         // float
-                const vy = message.vy;
+                var vy = (fields.vy).toFixed(2);
                 t_vy = vy;
                 set_vy(vy);
+            buf = Buffer.alloc(0);
         }  //else we ignore dont want the other val
 }
 if (fields.hasOwnProperty('vz')){
    // distinguish between float and uint16_t via
         // check field bytelength, float > int16_t
-        const buf = buffer.alloc(message.vz);
+        var buf = Buffer.alloc(fields.vz);
         if (Buffer.byteLength(buf) > 2) {
         // float
-                const vz = message.vz;
+                var vz = (fields.vz).toFixed(2);
                 t_vz = vz;
                 set_vz(vz);
         }  //else we ignore dont want the other val
 }
 if (fields.hasOwnProperty('hdg')){
-const heading = new Uint16Array(message.hdg);
+var heading = (fields.hdg).toFixed(2);
 t_heading = heading;
 set_heading(heading);
 }
 if (fields.hasOwnProperty('vtol_state')){
-const vtol_state = new Uint8Array(message.vtol_state);
+var vtol_state = (fields.vtol_state).toFixed(2);
 t_vtol_state = vtol_state;
 set_vtol_state(vtol_state);
 }
 if (fields.hasOwnProperty('landed_state')){
-const landed_state = new Uint8Array(message.landed_state);
+var landed_state = (fields.landed_state).toFixed(2);
 t_landed_state = landed_state;
 set_landed_state(landed_state);
 }
 if (fields.hasOwnProperty('chancount')){
-const chancount = new Uint8Array(message.chancount);
+var chancount = (fields.chancount).toFixed(2);
 t_chancount = chancount;
 set_chancount(chancount);
 }
 if (fields.hasOwnProperty('rssi')){
-const rssi = new Uint8Array(message.rssi);
+var rssi = (fields.rssi).toFixed(2);
 t_rssi = rssi;
 set_rssi(rssi);
 }
 if (fields.hasOwnProperty('servo1_raw')){
-const servo1 = new Uint16Array(message.servo1_raw);
+var servo1 = (fields.servo1_raw).toFixed(2);
 t_servo1 = servo1;
 set_servo1(servo1);
 }
 if (fields.hasOwnProperty('servo2_raw')){
-const servo2 = new Uint16Array(message.servo2_raw);
+var servo2 = (fields.servo2_raw).toFixed(2);
 t_servo2 = servo2;
 set_servo2(servo2);
 }
 if (fields.hasOwnProperty('servo3_raw')){
-const servo3 = new Uint16Array(message.servo3_raw);
+var servo3 = (fields.servo3_raw).toFixed(2);
 t_servo3 = servo3;
 set_servo3(servo3);
 }
 if (fields.hasOwnProperty('x')){
-const x = message.x;
+var x = (fields.x).toFixed(2);
 t_x = x;
 set_x(x);
 }
 if (fields.hasOwnProperty('y')){
-const y = message.y;
+var y = (fields.y).toFixed(2);
 t_y = y;
 set_y(y);
 }
 if (fields.hasOwnProperty('z')){
-const z = message.z;
+var z = (fields.z).toFixed(2);
 t_z = z;
 set_z(z);
 }
-} catch (e) { console.log(e); }
+
 
   //  temp = req.toString();
 //    setter_data(req.toString());
