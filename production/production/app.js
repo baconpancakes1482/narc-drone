@@ -319,263 +319,519 @@ socket.on('message', (message, req, res) => {
 	// expecting message to be a buffer that had stringify done to it
 	var fields = JSON.parse(message.toString());
 	// fun part of parsing below
-if (fields.hasOwnProperty('time_boot_ms')){
-//uint32
-var time_boot = (fields.time_boot_ms/1000).toFixed(2);
-t_time_boot = time_boot;
-set_time_boot(time_boot);
-}
-if (fields.hasOwnProperty('roll')){
-var roll = (fields.roll).toFixed(2);
-t_roll = roll;
-set_roll(roll);
-}
-if (fields.hasOwnProperty('pitch')){
-var pitch = (fields.pitch).toFixed(2);
-t_pitch = pitch;
-set_pitch(pitch);
-}
-if (fields.hasOwnProperty('yaw')){
-var yaw = (fields.yaw).toFixed(2);
-t_yaw = yaw;
-set_yaw(yaw);
-}
-if (fields.hasOwnProperty('rollspeed')){
-var rollspeed = (fields.rollspeed).toFixed(2);
-t_rollspeed = rollspeed;
-set_rollspeed(rollspeed);
-}
-if (fields.hasOwnProperty('pitchspeed')){
-var pitchspeed = (fields.pitchspeed).toFixed(2);
-t_pitchspeed = pitchspeed;
-set_pitchspeed(pitchspeed);
-}
-if (fields.hasOwnProperty('yawspeed')){
-var yawspeed = (fields.yawspeed).toFixed(2);
-t_yawspeed = yawspeed;
-set_yawspeed(yawspeed);
-}
-if (fields.hasOwnProperty('xgyro')){
-    var xgyro = (fields.xgyro).toFixed(2);
-    t_xgyro = xgyro;
-    set_xgyro(xgyro);
-}
-if (fields.hasOwnProperty('ygyro')){
-    var ygyro = (fields.ygyro).toFixed(2);
-    t_ygyro = ygyro;
-    set_ygyro(ygyro);
-}
-if (fields.hasOwnProperty('zgyro')){
-    var zgyro = (fields.zgyro).toFixed(2);
-    t_zgyro = zgyro;
-    set_zgyro(zgyro);
-}
-if (fields.hasOwnProperty('xmag')){
-var xmag = (fields.xmag).toFixed(2);
-    t_xmag = xmag;
-    set_xmag(xmag);
-}
-if (fields.hasOwnProperty('ymag')){
-var ymag = (fields.ymag).toFixed(2);
-    t_ymag = ymag;
-    set_ymag(ymag);
-}
-if (fields.hasOwnProperty('zmag')){
-var zmag = (fields.zmag).toFixed(2);
-    t_zmag = zmag;
-    set_zmag(zmag);
-}
-if (fields.hasOwnProperty('load')){
-//uint16
-var load = (fields.load).toFixed(2);
-t_load = load;
-set_load(load);
-}
-if (fields.hasOwnProperty('voltage_battery')){
-//uint16t
-var vol_bat = (fields.voltage_battery).toFixed(2);
-t_vol_bat = vol_bat;
-set_vol_bat(vol_bat);
-}
-if (fields.hasOwnProperty('battery_remaining')){
-//int8_t
-var bat_re = (fields.battery_remaining).toFixed(2);
-t_bat_re = bat_re;
-set_bat_re(bat_re);
-}
-if (fields.hasOwnProperty('drop_rate_comm')){
-//unint16_t
-var drop_rate = (fields.drop_rate_comm).toFixed(2);
-t_drop_rate = drop_rate;
-set_drop_rate(drop_rate);
-}
-if (fields.hasOwnProperty('timestamp')){
-var timestamp = (fields.timestamp).toFixed(2);
-t_timestamp = time_stamp;
-set_time_stamp(time_stamp);
-}
-if (fields.hasOwnProperty('tx_buf')){
-var tx_buf = (fields.tx_buf).toFixed(2);
-t_tx_buf = tx_buf;
-set_tx_buf(tx_buf);
-}
-if (fields.hasOwnProperty('rx_buf')){
-var rx_buf = (fields.rx_buf).toFixed(2);
-t_rx_buf = rx_buf;
-set_rx_buf(rx_buf);
-}
-if (fields.hasOwnProperty('tx_rate')){
-var tx_rate = (fields.tx_rate).toFixed(2);
-t_tx_rate = tx_rate;
-set_tx_rate(tx_rate);
-}
-if (fields.hasOwnProperty('rx_rate')){
-var rx_rate = (fields.rx_rate).toFixed(2);
-t_rx_rate = rx_rate;
-set_rx_rate(rx_rate);
-}
-if (fields.hasOwnProperty('messages_sent')){
-var message_sent = (fields.messages_sent).toFixed(2);
-t_message_sent = message_sent;
-set_message_sent(message_sent);
-}
-if (fields.hasOwnProperty('messages_received')){
-var message_received = (fields.messages_received).toFixed(2);
-t_message_received = message_received;
-set_message_received(message_received);
-}
-if (fields.hasOwnProperty('messages_lost')){
-var message_lost = (fields.messages_lost).toFixed(2);
-t_message_lost = message_lost;
-set_message_lost(message_lost);
-}
-if (fields.hasOwnProperty('xacc')){
-var xacc = (fields.xacc).toFixed(2);
-t_xacc = xacc;
-set_xacc(xacc);
-}
-if (fields.hasOwnProperty('yacc')){
-var yacc = (fields.yacc).toFixed(2);
-t_yacc = yacc;
-set_yacc(yacc);
-}
-if (fields.hasOwnProperty('zacc')){
-var zacc = (fields.zacc).toFixed(2);
-t_zacc = zacc;
-set_zacc(zacc);
-}
-if (fields.hasOwnProperty('lat')){
-var lat = (fields.lat).toFixed(2);
-t_lat = lat;
-set_lat(lat);
-}
-if (fields.hasOwnProperty('long')){
-var long = (fields.long).toFixed(2);
-t_long = long;
-set_long(long);
-}
-if (fields.hasOwnProperty('alt')){
-var alt = (fields.alt).toFixed(2);
-t_alt = alt;
-set_alt(alt);
-}
-if (fields.hasOwnProperty('relative_alt')){
-var rel_alt = (fields.relative_alt).toFixed(2);
-t_rel_alt = rel_alt;
-set_rel_alt(rel_alt);
-}
-if (fields.hasOwnProperty('vx')){
-	// distinguish between float and uint16_t via 
-	// check field bytelength, float > int16_t
-	var buf = Buffer.alloc(fields.vx);
-	if (Buffer.byteLength(buf) > 2) {
-	// float
-		var vx = (fields.vx).toFixed(2);
-		t_vx = vx;
-		set_vx(vx);
-        buf = Buffer.alloc(0);
-	}  //else we ignore dont want the other val
-}
-if (fields.hasOwnProperty('vy')){
-	   // distinguish between float and uint16_t via
-        // check field bytelength, float > int16_t
-        var buf = Buffer.alloc(fields.vy);
-        if (Buffer.byteLength(buf) > 2) {
-        // float
+
+    try {
+        if (fields.hasOwnProperty('time_boot_ms')){
+        //uint32
+            var time_boot = (fields.time_boot_ms/1000).toFixed(2);
+
+            t_time_boot = time_boot;
+
+            set_time_boot(time_boot);
+
+        }
+
+        if (fields.hasOwnProperty('roll')){
+
+            var roll = (fields.roll).toFixed(2);
+
+            t_roll = roll;
+
+            set_roll(roll);
+
+        }
+
+        if (fields.hasOwnProperty('pitch')){
+
+            var pitch = (fields.pitch).toFixed(2);
+
+            t_pitch = pitch;
+
+            set_pitch(pitch);
+
+        }
+
+        if (fields.hasOwnProperty('yaw')){
+
+            var yaw = (fields.yaw).toFixed(2);
+
+            t_yaw = yaw;
+
+            set_yaw(yaw);
+
+        }
+
+        if (fields.hasOwnProperty('rollspeed')){
+
+            var rollspeed = (fields.rollspeed).toFixed(2);
+
+            t_rollspeed = rollspeed;
+
+            set_rollspeed(rollspeed);
+
+        }
+
+        if (fields.hasOwnProperty('pitchspeed')){
+
+            var pitchspeed = (fields.pitchspeed).toFixed(2);
+
+            t_pitchspeed = pitchspeed;
+
+            set_pitchspeed(pitchspeed);
+
+        }
+
+        if (fields.hasOwnProperty('yawspeed')){
+
+            var yawspeed = (fields.yawspeed).toFixed(2);
+
+            t_yawspeed = yawspeed;
+
+            set_yawspeed(yawspeed);
+
+        }
+
+        if (fields.hasOwnProperty('xgyro')){
+    
+            var xgyro = (fields.xgyro).toFixed(2);
+    
+            t_xgyro = xgyro;
+
+            set_xgyro(xgyro);
+
+        }
+
+
+        if (fields.hasOwnProperty('ygyro')){
+   
+            var ygyro = (fields.ygyro).toFixed(2);
+   
+            t_ygyro = ygyro;
+    
+            set_ygyro(ygyro);
+
+        }
+
+        if (fields.hasOwnProperty('zgyro')){
+    
+            var zgyro = (fields.zgyro).toFixed(2);
+    
+            t_zgyro = zgyro;
+  
+            set_zgyro(zgyro);
+
+        }
+
+        if (fields.hasOwnProperty('xmag')){
+
+            var xmag = (fields.xmag).toFixed(2);
+   
+            t_xmag = xmag;
+    
+            set_xmag(xmag);
+
+        }
+
+        if (fields.hasOwnProperty('ymag')){
+
+            var ymag = (fields.ymag).toFixed(2);
+    
+            t_ymag = ymag;
+ 
+            set_ymag(ymag);
+
+        }
+
+        if (fields.hasOwnProperty('zmag')){
+
+            var zmag = (fields.zmag).toFixed(2);
+    
+            t_zmag = zmag;
+    
+            set_zmag(zmag);
+
+        }
+
+        if (fields.hasOwnProperty('load')){
+
+            //uint16
+
+            var load = (fields.load).toFixed(2);
+
+            t_load = load;
+
+            set_load(load);
+
+        }
+
+        if (fields.hasOwnProperty('voltage_battery')){
+
+            //uint16t
+
+            var vol_bat = (fields.voltage_battery).toFixed(2);
+
+            t_vol_bat = vol_bat;
+
+            set_vol_bat(vol_bat);
+
+        }
+
+        if (fields.hasOwnProperty('battery_remaining')){
+
+            //int8_t
+
+            var bat_re = (fields.battery_remaining).toFixed(2);
+
+            t_bat_re = bat_re;
+
+            set_bat_re(bat_re);
+
+        }
+
+        if (fields.hasOwnProperty('drop_rate_comm')){
+
+            //unint16_t
+
+            var drop_rate = (fields.drop_rate_comm).toFixed(2);
+
+            t_drop_rate = drop_rate;
+
+            set_drop_rate(drop_rate);
+
+        }
+
+        if (fields.hasOwnProperty('timestamp')){
+
+    
+            var timestamp = (fields.timestamp).toFixed(2);
+
+            t_timestamp = time_stamp;
+
+            set_time_stamp(time_stamp);
+
+        }
+
+        if (fields.hasOwnProperty('tx_buf')){
+
+            var tx_buf = (fields.tx_buf).toFixed(2);
+
+            t_tx_buf = tx_buf;
+
+            set_tx_buf(tx_buf);
+
+        }
+
+        if (fields.hasOwnProperty('rx_buf')){
+
+            var rx_buf = (fields.rx_buf).toFixed(2);
+
+            t_rx_buf = rx_buf;
+
+            set_rx_buf(rx_buf);
+
+        }
+
+        if (fields.hasOwnProperty('tx_rate')){
+
+            var tx_rate = (fields.tx_rate).toFixed(2);
+
+            t_tx_rate = tx_rate;
+
+            set_tx_rate(tx_rate);
+
+        }
+
+        if (fields.hasOwnProperty('rx_rate')){
+
+            var rx_rate = (fields.rx_rate).toFixed(2);
+
+            t_rx_rate = rx_rate;
+
+            set_rx_rate(rx_rate);
+
+        }
+
+        if (fields.hasOwnProperty('messages_sent')){
+
+            var message_sent = (fields.messages_sent).toFixed(2);
+
+            t_message_sent = message_sent;
+
+            set_message_sent(message_sent);
+
+        }
+
+        if (fields.hasOwnProperty('messages_received')){
+
+            var message_received = (fields.messages_received).toFixed(2);
+
+            t_message_received = message_received;
+
+            set_message_received(message_received);
+
+        }
+
+        if (fields.hasOwnProperty('messages_lost')){
+
+            var message_lost = (fields.messages_lost).toFixed(2);
+
+            t_message_lost = message_lost;
+
+            set_message_lost(message_lost);
+
+        }
+
+        if (fields.hasOwnProperty('xacc')){
+
+            var xacc = (fields.xacc).toFixed(2);
+
+            t_xacc = xacc;
+
+            set_xacc(xacc);
+
+        }
+
+        if (fields.hasOwnProperty('yacc')){
+
+            var yacc = (fields.yacc).toFixed(2);
+
+            t_yacc = yacc;
+
+            set_yacc(yacc);
+
+        }
+
+        if (fields.hasOwnProperty('zacc')){
+
+            var zacc = (fields.zacc).toFixed(2);
+
+            t_zacc = zacc;
+
+            set_zacc(zacc);
+
+        }
+
+        if (fields.hasOwnProperty('lat')){
+
+            var lat = (fields.lat).toFixed(2);
+
+            t_lat = lat;
+
+            set_lat(lat);
+
+        }
+
+        if (fields.hasOwnProperty('long')){
+
+            var long = (fields.long).toFixed(2);
+
+            t_long = long;
+
+            set_long(long);
+
+        }
+
+        if (fields.hasOwnProperty('alt')){
+
+            var alt = (fields.alt).toFixed(2);
+
+            t_alt = alt;
+
+            set_alt(alt);
+
+        }
+
+        if (fields.hasOwnProperty('relative_alt')){
+
+            var rel_alt = (fields.relative_alt).toFixed(2);
+
+            t_rel_alt = rel_alt;
+
+            set_rel_alt(rel_alt);
+
+        }
+
+        if (fields.hasOwnProperty('vx')){
+	
+            // distinguish between float and uint16_t via 
+	
+            // check field bytelength, float > int16_t
+	
+            var buf = Buffer.alloc(fields.vx);
+	
+            if (Buffer.byteLength(buf) > 2) {
+	
+                // float
+		
+                var vx = (fields.vx).toFixed(2);
+		
+                t_vx = vx;
+		
+                set_vx(vx);
+        
+                buf = Buffer.alloc(0);
+	
+            }  //else we ignore dont want the other val
+
+        }
+
+        if (fields.hasOwnProperty('vy')){
+	   
+            // distinguish between float and uint16_t via
+       
+            // check field bytelength, float > int16_t
+        
+            var buf = Buffer.alloc(fields.vy);
+        
+            if (Buffer.byteLength(buf) > 2) {
+        
+                // float
+              
                 var vy = (fields.vy).toFixed(2);
+               
                 t_vy = vy;
+                
                 set_vy(vy);
-            buf = Buffer.alloc(0);
-        }  //else we ignore dont want the other val
-}
-if (fields.hasOwnProperty('vz')){
-   // distinguish between float and uint16_t via
-        // check field bytelength, float > int16_t
-        var buf = Buffer.alloc(fields.vz);
-        if (Buffer.byteLength(buf) > 2) {
-        // float
+            
+                buf = Buffer.alloc(0);
+        
+            }  //else we ignore dont want the other val
+
+        }
+
+        if (fields.hasOwnProperty('vz')){
+   
+            // distinguish between float and uint16_t via
+        
+            // check field bytelength, float > int16_t
+        
+            var buf = Buffer.alloc(fields.vz);
+        
+            if (Buffer.byteLength(buf) > 2) {
+        
+                // float
+                
                 var vz = (fields.vz).toFixed(2);
+                
                 t_vz = vz;
+                
                 set_vz(vz);
-        }  //else we ignore dont want the other val
-}
-if (fields.hasOwnProperty('hdg')){
-var heading = (fields.hdg).toFixed(2);
-t_heading = heading;
-set_heading(heading);
-}
-if (fields.hasOwnProperty('vtol_state')){
-var vtol_state = (fields.vtol_state).toFixed(2);
-t_vtol_state = vtol_state;
-set_vtol_state(vtol_state);
-}
-if (fields.hasOwnProperty('landed_state')){
-var landed_state = (fields.landed_state).toFixed(2);
-t_landed_state = landed_state;
-set_landed_state(landed_state);
-}
-if (fields.hasOwnProperty('chancount')){
-var chancount = (fields.chancount).toFixed(2);
-t_chancount = chancount;
-set_chancount(chancount);
-}
-if (fields.hasOwnProperty('rssi')){
-var rssi = (fields.rssi).toFixed(2);
-t_rssi = rssi;
-set_rssi(rssi);
-}
-if (fields.hasOwnProperty('servo1_raw')){
-var servo1 = (fields.servo1_raw).toFixed(2);
-t_servo1 = servo1;
-set_servo1(servo1);
-}
-if (fields.hasOwnProperty('servo2_raw')){
-var servo2 = (fields.servo2_raw).toFixed(2);
-t_servo2 = servo2;
-set_servo2(servo2);
-}
-if (fields.hasOwnProperty('servo3_raw')){
-var servo3 = (fields.servo3_raw).toFixed(2);
-t_servo3 = servo3;
-set_servo3(servo3);
-}
-if (fields.hasOwnProperty('x')){
-var x = (fields.x).toFixed(2);
-t_x = x;
-set_x(x);
-}
-if (fields.hasOwnProperty('y')){
-var y = (fields.y).toFixed(2);
-t_y = y;
-set_y(y);
-}
-if (fields.hasOwnProperty('z')){
-var z = (fields.z).toFixed(2);
-t_z = z;
-set_z(z);
-}
+        
+            }  //else we ignore dont want the other val
 
+        }
 
+        if (fields.hasOwnProperty('hdg')){
+
+            var heading = (fields.hdg).toFixed(2);
+
+            t_heading = heading;
+
+            set_heading(heading);
+
+        }
+
+        if (fields.hasOwnProperty('vtol_state')){
+
+            var vtol_state = (fields.vtol_state).toFixed(2);
+
+            t_vtol_state = vtol_state;
+
+            set_vtol_state(vtol_state);
+
+        }
+
+        if (fields.hasOwnProperty('landed_state')){
+
+            var landed_state = (fields.landed_state).toFixed(2);
+
+            t_landed_state = landed_state;
+
+            set_landed_state(landed_state);
+
+        }
+
+        if (fields.hasOwnProperty('chancount')){
+
+            var chancount = (fields.chancount).toFixed(2);
+
+            t_chancount = chancount;
+
+            set_chancount(chancount);
+
+        }
+
+        if (fields.hasOwnProperty('rssi')){
+
+            var rssi = (fields.rssi).toFixed(2);
+
+            t_rssi = rssi;
+
+            set_rssi(rssi);
+
+        }
+
+        if (fields.hasOwnProperty('servo1_raw')){
+
+            var servo1 = (fields.servo1_raw).toFixed(2);
+
+            t_servo1 = servo1;
+
+            set_servo1(servo1);
+
+        }
+
+        if (fields.hasOwnProperty('servo2_raw')){
+
+            var servo2 = (fields.servo2_raw).toFixed(2);
+
+            t_servo2 = servo2;
+
+            set_servo2(servo2);
+
+        }
+
+        if (fields.hasOwnProperty('servo3_raw')){
+
+            var servo3 = (fields.servo3_raw).toFixed(2);
+
+            t_servo3 = servo3;
+
+            set_servo3(servo3);
+
+        }
+
+        if (fields.hasOwnProperty('x')){
+
+            var x = (fields.x).toFixed(2);
+
+            t_x = x;
+
+            set_x(x);
+
+        }
+
+        if (fields.hasOwnProperty('y')){
+
+            var y = (fields.y).toFixed(2);
+
+            t_y = y;
+
+            set_y(y);
+
+        }
+
+        if (fields.hasOwnProperty('z')){
+
+            var z = (fields.z).toFixed(2);
+
+            t_z = z;
+
+            set_z(z);
+
+        }
+
+    } catch(e) {console.log(e);}
   //  temp = req.toString();
 //    setter_data(req.toString());
 });
